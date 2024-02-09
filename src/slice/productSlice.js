@@ -7,7 +7,7 @@ const initialState = {
 };
 
 export const productSlice = createSlice({
-  name: 'productSlice',
+  name: 'product',
   initialState,
   reducers: {},
   extraReducers: builder => {

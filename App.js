@@ -5,12 +5,15 @@ import {Provider, useSelector} from 'react-redux';
 import HomeScreen from './src/screens/Home/Home';
 import Root from './src/containers/root';
 import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Detail from './src/screens/Detail';
+
+
 
 const App = () => {
   return (
     <NavigationContainer>
       <Provider store={store}>
-        {/* <HomeScreen /> */}
         <Root />
       </Provider>
     </NavigationContainer>

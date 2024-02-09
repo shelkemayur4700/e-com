@@ -12,86 +12,107 @@ import FontistoIcons from 'react-native-vector-icons/Fontisto';
 import EvilIconsIcons from 'react-native-vector-icons/AntDesign';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
 import {primarygrey, primaryred} from '../constant';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Root = () => {
+function MainRoute() {
   const Tab = createBottomTabNavigator();
 
   return (
+    <Tab.Navigator
+      style={styles.navBar}
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: primaryred,
+        tabBarInactiveTintColor: 'black',
+      }}>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <MaterialCommunityIcons
+              name="home"
+              color={focused ? primaryred : primarygrey}
+              size={30}
+            />
+          ),
+        }}></Tab.Screen>
+      <Tab.Screen
+        name="Shop"
+        component={Detail}
+        style={{backgroundColor: primaryred}}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <FontAwsome6Icons
+              name="cart-shopping"
+              color={focused ? primaryred : primarygrey}
+              size={22}
+            />
+          ),
+        }}></Tab.Screen>
+      <Tab.Screen
+        name="Bag"
+        component={Cart}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <FontistoIcons
+              name="shopping-bag"
+              color={focused ? primaryred : primarygrey}
+              size={18}
+            />
+          ),
+        }}></Tab.Screen>
+      <Tab.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <EvilIconsIcons
+              name={focused ? 'heart' : 'hearto'}
+              color={focused ? primaryred : primarygrey}
+              styles={styles.IconsStyles}
+              size={22}
+            />
+          ),
+        }}></Tab.Screen>
+      <Tab.Screen
+        style={{}}
+        name="User"
+        component={User}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <FontAwesomeIcons
+              name="user"
+              color={focused ? primaryred : primarygrey}
+              size={22}
+            />
+          ),
+          tabBarLabelStyle: ({focused}) => ({
+            color: focused ? primaryred : primarygrey,
+          }),
+        }}></Tab.Screen>
+    </Tab.Navigator>
+  );
+}
+
+const Root = () => {
+  const Stack = createNativeStackNavigator();
+
+  return (
     <>
-      <Tab.Navigator
-        style={styles.navBar}
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: primaryred,
-          tabBarInactiveTintColor: 'black',
-        }}>
-        <Tab.Screen
+      <Stack.Navigator>
+        <Stack.Screen
           name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({focused}) => (
-              <MaterialCommunityIcons
-                name="home"
-                color={focused ? primaryred : primarygrey}
-                size={30}
-              />
-            ),
-          }}></Tab.Screen>
-        <Tab.Screen
-          name="Shop"
+          component={MainRoute}
+          options={{headerShown: false}}
+        />
+        {/* ----Details Route  */}
+        <Stack.Screen
+          name="Detail"
           component={Detail}
-          style={{backgroundColor: primaryred}}
-          options={{
-            tabBarIcon: ({focused}) => (
-              <FontAwsome6Icons
-                name="cart-shopping"
-                color={focused ? primaryred : primarygrey}
-                size={22}
-              />
-            ),
-          }}></Tab.Screen>
-        <Tab.Screen
-          name="Bag"
-          component={Cart}
-          options={{
-            tabBarIcon: ({focused}) => (
-              <FontistoIcons
-                name="shopping-bag"
-                color={focused ? primaryred : primarygrey}
-                size={18}
-              />
-            ),
-          }}></Tab.Screen>
-        <Tab.Screen
-          name="Favorites"
-          component={Favorites}
-          options={{
-            tabBarIcon: ({focused}) => (
-              <EvilIconsIcons
-                name={focused ? 'heart' : 'hearto'}
-                color={focused ? primaryred : primarygrey}
-                styles={styles.IconsStyles}
-                size={22}
-              />
-            ),
-          }}></Tab.Screen>
-        <Tab.Screen
-          style={{}}
-          name="User"
-          component={User}
-          options={{
-            tabBarIcon: ({focused}) => (
-              <FontAwesomeIcons
-                name="user"
-                color={focused ? primaryred : primarygrey}
-                size={22}
-              />
-            ),
-            tabBarLabelStyle: ({focused}) => ({
-              color: focused ? primaryred : primarygrey,
-            }),
-          }}></Tab.Screen>
-      </Tab.Navigator>
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
     </>
   );
 };

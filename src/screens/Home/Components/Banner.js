@@ -13,17 +13,17 @@ const Banner = () => {
     <View style={styles.bannerContainer}>
       <ImageBackground
         style={styles.banner}
-        source={require('../../../Assets/Images/ProductsBanner.png')}
-      />
-      <View style={styles.bannerTextContainer}>
-        <Text style={styles.bannerText}>Fashion </Text>
-        <Text style={styles.bannerText}>Sale </Text>
-        <TouchableOpacity
-          style={styles.checkButtonParent}
-          onPress={() => console.log('hiiii')}>
-          <Text style={styles.checkButton}>Check</Text>
-        </TouchableOpacity>
-      </View>
+        source={require('../../../Assets/Images/ProductsBanner.png')}>
+        <View style={styles.bannerTextContainer}>
+          <Text style={styles.bannerText}>Fashion </Text>
+          <Text style={styles.bannerText}>Sale </Text>
+          <TouchableOpacity
+            style={styles.checkButtonParent}
+            onPress={console.log('hello')}>
+            <Text style={styles.checkButton}>Check</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -43,14 +43,14 @@ const styles = StyleSheet.create({
   },
 
   bannerContainer: {
-    position: 'relative',
     alignItems: 'flex-start',
     justifyContent: 'space-around',
   },
 
   bannerTextContainer: {
-    position: 'absolute',
-    bottom: 25,
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingBottom: 20,
   },
 
   productContainer: {

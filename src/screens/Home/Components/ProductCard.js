@@ -7,14 +7,24 @@ import {
   primarygrey,
   primaryred,
 } from '../../../constant';
-const Card_Width = Dimensions.get('window').width * 0.42;
-const ProductCard = () => {
+const Card_Width = Dimensions.get('window').width * 0.5;
+import EvilIconsIcons from 'react-native-vector-icons/AntDesign';
+
+const ProductCard = ({id, title, desc, price, Img_link}) => {
   return (
     <View style={styles.productCard}>
-      <Image
-        style={styles.cardImg}
-        source={require('../../../Assets/Images/ProdImg.png')}
-      />
+      <Image style={styles.cardImg} source={Img_link} />
+      <View style={styles.likebtnBackground}>
+        <View style={styles.likeBtn}>
+          <EvilIconsIcons
+            name={'heart'}
+            color={primaryred}
+            styles={styles.likeIcon}
+            size={22}
+          />
+        </View>
+      </View>
+
       <View style={styles.starsContainer}>
         <AntDesignIcons
           name="star"
@@ -46,10 +56,11 @@ const ProductCard = () => {
           size={18}
           style={styles.stars}
         />
+        <Text style={styles.starDigit}>(10)</Text>
       </View>
-      <Text style={styles.brand}>Tommy Hilfighter</Text>
-      <Text style={styles.prod_Desc}>Evening Dress</Text>
-      <Text style={styles.Price}>12$</Text>
+      <Text style={styles.brand}>{title}</Text>
+      <Text style={styles.prod_Desc}>{desc}</Text>
+      <Text style={styles.Price}>{price}</Text>
     </View>
   );
 };
@@ -58,36 +69,56 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
   productCard: {
-    // flex: 1,
+    marginRight: 5,
+    marginLeft: 5,
     flexDirection: 'column',
-    // borderColor: 'black',
-    borderWidth: 1,
     width: Card_Width,
-    borderRadius: 10,
+    borderRadius: 20,
+    overflow: 'hidden',
+    // backgroundColor: '#F2ECE9',
+    padding: 3,
   },
   cardImg: {
-    borderRadius: 15,
+    borderRadius: 20,
     width: Card_Width,
     objectFit: 'contain',
   },
   starsContainer: {
     flexDirection: 'row',
   },
-  stars: {},
+  stars: {
+    paddingLeft: 5,
+  },
   brand: {
     color: primarygrey,
-    fontSize: 14,
+    paddingLeft: 5,
+    fontSize: 18,
     fontFamily: 'Metropolis',
   },
   prod_Desc: {
     color: primaryBlack,
-    marginRight: 5,
-    fontSize: 18,
+    paddingLeft: 5,
+    fontSize: 14,
     fontFamily: 'Metropolis',
   },
   Price: {
     color: primaryred,
+    paddingLeft: 5,
     fontSize: 16,
     fontFamily: 'Metropolis',
+  },
+  starDigit: {
+    color: primaryBlack,
+    marginLeft: 2,
+  },
+  likebtnBackground: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    // backgroundColor: 'yellow',
+  },
+  likeBtn: {
+    paddingRight: 15,
+    marginTop: -25,
   },
 });
