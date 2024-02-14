@@ -8,120 +8,133 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {primaryBlack, primaryred} from '../constant';
-import {StackActions} from '@react-navigation/native';
-import IoniconsIcons from 'react-native-vector-icons/Ionicons';
-import EntypoIcons from 'react-native-vector-icons/Entypo';
-import {Avatar, Icon, ListItem} from '@rneui/base';
-import {List2} from '../Assets/data';
-
-const Detail = ({navigation}) => {
-  const [expanded, setExpanded] = useState(!expanded);
+import React, {useEffect, useState} from 'react';
+import {
+  Bold_Font,
+  primaryBlack,
+  primarySilver,
+  primarygrey,
+  primaryred,
+  primarywhite,
+} from '../constant';
+import {
+  getSingleProduct,
+  getSingleproduct,
+  getSingleroduct,
+} from '../thunk/productThunk';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart} from '../slice/cartSlice';
+import {useNavigation} from '@react-navigation/native';
+const Detail = ({navigation, route}) => {
+  // const navigate = useNavigation();
+  const [product, setProduct] = useState([]);
+  const dispatch = useDispatch();
+  const {productId} = route.params;
+  const getProductDetails = async id => {
+    try {
+      const response = await dispatch(getSingleProduct(id)).unwrap();
+      setProduct({...response, quantity: 1});
+      // setProduct(response);
+    } catch (error) {
+      console.error('Error fetching product details:', error);
+    }
+  };
+  // console.log('$$', product);
+  const HandleAddtoCart = product => {
+    dispatch(addToCart(product));
+    // navigation.navigate('cart-shopping');
+    navigation.navigate('RootScreens', {screen: 'Bag'});
+  };
+  useEffect(() => {
+    getProductDetails(productId);
+  }, [route]);
   return (
-    <View style={{flex: 1}}>
-      <StatusBar backgroundColor={primaryred} />
-      <ScrollView>
-        {/* -----------header  */}
-        <View style={styles.hearder}>
-          {/* ----------Back button  */}
-          <View>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack('MainRoute', {
-                  screen: 'Home',
-                });
-              }}>
-              <IoniconsIcons
-                name="chevron-back"
-                color={primaryBlack}
-                size={22}
-              />
-            </TouchableOpacity>
+    <>
+      <View style={styles.mainContainer}>
+        <StatusBar backgroundColor={primaryred} />
+        <ScrollView>
+          <View style={styles.Detail_Img}>
+            <Image
+              style={styles.Detail_Image}
+              source={{uri: product?.image}}
+              alt="Image"
+            />
           </View>
-          <Text style={styles.headingText}>Short Dress</Text>
-          {/* ------Share button  */}
-          <View>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack('MainRoute', {
-                  screen: 'Home',
-                });
-              }}>
-              <EntypoIcons name="share" color={primaryBlack} size={22} />
-            </TouchableOpacity>
+          {/* --------------  Footer  */}
+          <View style={styles.footer}>
+            <View style={styles.productDetailsContainer}>
+              <View style={styles.productDetails}>
+                <Text style={styles.BrandName}>{product?.title}</Text>
+                <Text style={styles.Price}>₹{product?.price}</Text>
+              </View>
+              <Text style={styles.ProductInfo}>{product?.category}</Text>
+              <Text style={styles.ProductDesc}>{product?.description}</Text>
+              <TouchableOpacity onPress={() => HandleAddtoCart(product)}>
+                <Text style={styles.addtoCart}>ADD TO CART</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        {/* -----------image  */}
-        <View style={styles.Detail_Img}>
-          <Image
-            style={styles.Detail_Img1}
-            source={require('../Assets/Images/DetailImg.png')}></Image>
-          <Image
-            style={styles.Detail_Img2}
-            source={require('../Assets/Images/DetailImg2.png')}></Image>
-        </View>
-        {/* --------------  Footer  */}
-        <View style={styles.footer}>
-          <View style={styles.SizeContainer}>
-            <ListItem.Accordion
-              content={
-                <>
-                  <ListItem.Content>
-                    <ListItem.Title>List Accordion</ListItem.Title>
-                  </ListItem.Content>
-                </>
-              }
-              isExpanded={expanded}
-              onPress={() => {
-                setExpanded(!expanded);
-              }}>
-              {List2.map((l, i) => (
-                <ListItem key={i} bottomDivider>
-                  <ListItem.Content>
-                    <ListItem.Title>{l.name}</ListItem.Title>
-                    <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
-                  </ListItem.Content>
-                  <ListItem.Chevron />
-                </ListItem>
-              ))}
-            </ListItem.Accordion>
-          </View>
-        </View>
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+    </>
   );
 };
 
 export default Detail;
 
 const styles = StyleSheet.create({
-  hearder: {
-    paddingTop: 10,
+  mainContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: 15,
-    paddingBottom: 15,
-    padding: 15,
-    shadowColor: primaryBlack,
-  },
-  headingText: {
-    color: primaryBlack,
-    fontFamily: 'Metropolis-SemiBold',
-    fontSize: 18,
   },
   Detail_Img: {
-    flex: 3,
-    flexDirection: 'row',
-    gap: 5,
+    paddingTop: 20,
+    alignItems: 'center',
+  },
+  Detail_Image: {
+    height: 300,
+    width: 200,
+    borderRadius: 20,
   },
   footer: {
     flex: 1,
+    padding: 10,
   },
-  SizeContainer: {
+  productDetailsContainer: {
     flex: 1,
-    width: 200,
-    borderRadius: 50,
+    padding: 10,
+  },
+  productDetails: {
+    flex: 1,
+  },
+  BrandName: {
+    fontFamily: Bold_Font,
+    color: primaryBlack,
+    fontSize: 25,
+  },
+  Price: {
+    color: primaryBlack,
+    paddingRight: 10,
+    fontSize: 25,
+  },
+  ProductInfo: {
+    color: primarygrey,
+    paddingTop: 5,
+  },
+  ProductDesc: {
+    color: primaryBlack,
+    justifyContent: 'center',
+    paddingTop: 5,
+    fontSize: 15,
+  },
+  addtoCart: {
+    flex: 1,
+    backgroundColor: primaryred,
+    color: primarywhite,
+    height: 44,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    borderRadius: 20,
+    marginTop: 10,
+    // fontFamily: Bold_Font,
   },
 });

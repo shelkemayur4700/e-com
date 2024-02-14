@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   ImageBackground,
   StyleSheet,
   Text,
@@ -7,6 +8,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import {primaryred, primarywhite} from '../../../constant';
+// const Width = Dimensions.get('window').width;
 
 const Banner = () => {
   return (
@@ -17,9 +19,7 @@ const Banner = () => {
         <View style={styles.bannerTextContainer}>
           <Text style={styles.bannerText}>Fashion </Text>
           <Text style={styles.bannerText}>Sale </Text>
-          <TouchableOpacity
-            style={styles.checkButtonParent}
-            onPress={console.log('hello')}>
+          <TouchableOpacity style={styles.checkButtonParent}>
             <Text style={styles.checkButton}>Check</Text>
           </TouchableOpacity>
         </View>
@@ -33,6 +33,7 @@ export default Banner;
 const styles = StyleSheet.create({
   banner: {
     height: 536,
+    // width: Width,
     width: 376,
   },
   bannerText: {

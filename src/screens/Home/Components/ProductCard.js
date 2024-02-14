@@ -7,61 +7,30 @@ import {
   primarygrey,
   primaryred,
 } from '../../../constant';
-const Card_Width = Dimensions.get('window').width * 0.5;
+const Card_Width = Dimensions.get('window').width * 0.35;
 import EvilIconsIcons from 'react-native-vector-icons/AntDesign';
 
-const ProductCard = ({id, title, desc, price, Img_link}) => {
+const ProductCard = ({products}) => {
   return (
-    <View style={styles.productCard}>
-      <Image style={styles.cardImg} source={Img_link} />
-      <View style={styles.likebtnBackground}>
-        <View style={styles.likeBtn}>
-          <EvilIconsIcons
-            name={'heart'}
-            color={primaryred}
-            styles={styles.likeIcon}
-            size={22}
+    <>
+      {products.map(item => (
+        <View style={styles.productCard} key={item?.id}>
+          <Image
+            style={styles.cardImg}
+            source={{uri: item?.image}}
+            alt={'Product'}
           />
-        </View>
-      </View>
 
-      <View style={styles.starsContainer}>
-        <AntDesignIcons
-          name="star"
-          color={primarySilver}
-          size={18}
-          style={styles.stars}
-        />
-        <AntDesignIcons
-          name="star"
-          color={primarySilver}
-          size={18}
-          style={styles.stars}
-        />
-        <AntDesignIcons
-          name="star"
-          color={primarySilver}
-          size={18}
-          style={styles.stars}
-        />
-        <AntDesignIcons
-          name="star"
-          color={primarySilver}
-          size={18}
-          style={styles.stars}
-        />
-        <AntDesignIcons
-          name="star"
-          color={primarySilver}
-          size={18}
-          style={styles.stars}
-        />
-        <Text style={styles.starDigit}>(10)</Text>
-      </View>
-      <Text style={styles.brand}>{title}</Text>
-      <Text style={styles.prod_Desc}>{desc}</Text>
-      <Text style={styles.Price}>{price}</Text>
-    </View>
+          <Text style={styles.brand} numberOfLines={2}>
+            {item?.title}
+          </Text>
+          <Text style={styles.prod_Desc} numberOfLines={3}>
+            {item?.description}
+          </Text>
+          <Text style={styles.Price}>{item?.price}</Text>
+        </View>
+      ))}
+    </>
   );
 };
 
@@ -80,7 +49,9 @@ const styles = StyleSheet.create({
   },
   cardImg: {
     borderRadius: 20,
-    width: Card_Width,
+    height: 200,
+    width: 100,
+    // width: Card_Width,
     objectFit: 'contain',
   },
   starsContainer: {
@@ -90,9 +61,10 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
   },
   brand: {
+    flex: 1,
     color: primarygrey,
     paddingLeft: 5,
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Metropolis',
   },
   prod_Desc: {

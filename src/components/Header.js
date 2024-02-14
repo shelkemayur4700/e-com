@@ -1,0 +1,62 @@
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {primaryBlack} from '../constant';
+import IoniconsIcons from 'react-native-vector-icons/Ionicons';
+import EntypoIcons from 'react-native-vector-icons/Entypo';
+import {useNavigation} from '@react-navigation/native';
+
+const Header = ({currentScreenName}) => {
+  const navigation = useNavigation();
+  return (
+    <>
+      <View style={styles.header}>
+        {/* ----------Back button  */}
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack('MainRoute', {
+                screen: 'Home',
+              });
+            }}>
+            <IoniconsIcons name="chevron-back" color={primaryBlack} size={22} />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.headingText}>
+          {' '}
+          {currentScreenName == 'Shop' ? 'Categories' : 'Short Dress'}
+        </Text>
+        {/* ------Share button  */}
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack('MainRoute', {
+                screen: 'Home',
+              });
+            }}>
+            <EntypoIcons name="share" color={primaryBlack} size={22} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </>
+  );
+};
+
+export default Header;
+
+const styles = StyleSheet.create({
+  header: {
+    paddingTop: 10,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 15,
+    paddingBottom: 15,
+    padding: 15,
+    shadowColor: primaryBlack,
+  },
+  headingText: {
+    color: primaryBlack,
+    fontFamily: 'Metropolis-SemiBold',
+    fontSize: 18,
+  },
+});
