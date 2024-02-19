@@ -8,9 +8,10 @@ import {
 } from 'react-native';
 import React from 'react';
 import {primaryred, primarywhite} from '../../../constant';
+import {useDispatch} from 'react-redux';
 // const Width = Dimensions.get('window').width;
 
-const Banner = () => {
+const Banner = ({navigation}) => {
   return (
     <View style={styles.bannerContainer}>
       <ImageBackground

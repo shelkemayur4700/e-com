@@ -52,7 +52,8 @@ const Root = () => {
                 size={22}
               />
             ),
-          }}></Tab.Screen>
+          }}
+          ></Tab.Screen>
         <Tab.Screen
           name="Bag"
           component={Cart}

@@ -12,6 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {
   Bold_Font,
   Card_Background,
+  Header_FONT_SIZE,
   primaryBlack,
   primarygrey,
   primaryred,
@@ -25,7 +26,7 @@ import {
   removeItem,
 } from '../slice/cartSlice';
 
-const Cart = () => {
+const Cart = ({navigation}) => {
   const dispatch = useDispatch();
   const {cart, totalQuantity, totalPrice} = useSelector(
     state => state.cartdata,
@@ -120,13 +121,13 @@ export default Cart;
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    // position: 'relative',
+    padding: 10,
   },
   Search: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    paddingTop: 30,
-    paddingRight: 18,
+    paddingTop: 20,
+    paddingRight: 12,
   },
   Heading: {
     flexDirection: 'row',
@@ -134,9 +135,9 @@ const styles = StyleSheet.create({
   },
   HeadingText: {
     color: primaryBlack,
-    fontSize: 30,
-    paddingLeft: 20,
-    paddingTop: 50,
+    fontSize: Header_FONT_SIZE,
+    paddingLeft: 10,
+    paddingTop: 20,
   },
   productCard: {
     padding: 20,

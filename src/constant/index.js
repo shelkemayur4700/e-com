@@ -6,5 +6,5 @@ export const primarySilver = '#FFBA49';
 export const Card_Background = '#e9ecef';
 
 export const Bold_Font = 'Metropolis-Bold';
-
+export const Header_FONT_SIZE = 30;
 export const BASE_URL = 'https://fakestoreapi.com';
