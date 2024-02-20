@@ -32,7 +32,7 @@ const Cart = ({navigation}) => {
     state => state.cartdata,
   );
   const Tprice = useSelector(state => state.cartdata.cart.quantity);
-  console.log('@@@', Tprice);
+
   const handleIncreaseItem = id => {
     dispatch(increaseItemQuantity(id));
   };
@@ -79,14 +79,16 @@ const Cart = ({navigation}) => {
                     <View style={[styles.btnBackground]}>
                       <TouchableOpacity
                         onPress={() => handleDcreaseItem(item?.id)}>
-                        <Text>-</Text>
+                        <Text style={{color: primaryBlack}}>-</Text>
                       </TouchableOpacity>
                     </View>
-                    <Text>{Number(item?.quantity)}</Text>
+                    <Text style={{color: primaryBlack}}>
+                      {Number(item?.quantity)}
+                    </Text>
                     <View style={styles.btnBackground}>
                       <TouchableOpacity
                         onPress={() => handleIncreaseItem(Number(item?.id))}>
-                        <Text>+</Text>
+                        <Text style={{color: primaryBlack}}>+</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -107,7 +109,7 @@ const Cart = ({navigation}) => {
           <Text style={styles.finalpriceInfo}>₹{totalPrice}</Text>
         </View>
         <View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text style={styles.Checkout}>CHECKOUT</Text>
           </TouchableOpacity>
         </View>
@@ -192,6 +194,7 @@ const styles = StyleSheet.create({
   price: {
     // marginTop: 38,
     justifyContent: 'center',
+    paddingLeft: 16,
   },
   brand: {
     color: primaryBlack,

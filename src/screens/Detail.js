@@ -39,10 +39,8 @@ const Detail = ({navigation, route}) => {
       console.error('Error fetching product details:', error);
     }
   };
-  // console.log('$$', product);
   const HandleAddtoCart = product => {
     dispatch(addToCart(product));
-    // navigation.navigate('cart-shopping');
     navigation.navigate('RootScreens', {screen: 'Bag'});
   };
   useEffect(() => {

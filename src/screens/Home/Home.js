@@ -154,7 +154,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     padding: 4,
   },
-  prod_Desc: {},
+  prod_Desc: {
+    color: primaryBlack,
+  },
   Price: {
     color: primaryBlack,
     fontSize: 12,

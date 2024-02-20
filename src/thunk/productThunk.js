@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {BASE_URL} from '../constant';
 
-export const getAllProducts = createAsyncThunk(
+export const  getAllProducts = createAsyncThunk(
   'getAllProducts',
   async (model, thunkAPI) => {
     try {

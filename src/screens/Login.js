@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import {
@@ -18,8 +18,30 @@ import {
   primaryred,
   primarywhite,
 } from '../constant';
+import {useDispatch} from 'react-redux';
+import {LoginApi} from '../thunk/auth';
+import {AsyncStorage} from 'react-native';
 
 const Login = ({navigation}) => {
+  const dispatch = useDispatch();
+  const [loginData, setLoginData] = useState({});
+
+  // -------------LOGIN FUNCTION --------
+  const HandleLogin = async () => {
+    try {
+      const payload = {
+        username: loginData?.username,
+        password: loginData?.password,
+      };
+      let res = await dispatch(LoginApi(payload)).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getdata = (value, key) => {
+    setLoginData({...loginData, [key]: value});
+  };
+ 
   return (
     <>
       <ScrollView style={{flex: 1}}>
@@ -44,8 +66,16 @@ const Login = ({navigation}) => {
             </View>
           </View>
           <View style={styles.formContainer}>
-            <TextInput style={styles.nameForm} placeholder="Enter Email" />
-            <TextInput style={styles.nameForm} placeholder="Enter Password" />
+            <TextInput
+              style={styles.nameForm}
+              placeholder="Enter Email"
+              onChangeText={text => getdata(text, 'username')}
+            />
+            <TextInput
+              style={styles.nameForm}
+              placeholder="Enter Password"
+              onChangeText={text => getdata(text, 'password')}
+            />
           </View>
           <View style={styles.Loginlink}>
             <TouchableOpacity>
@@ -53,7 +83,7 @@ const Login = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.Signinbtn}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => HandleLogin()}>
               <Text style={styles.signIn}>SIGN IN</Text>
             </TouchableOpacity>
           </View>
