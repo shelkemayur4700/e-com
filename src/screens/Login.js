@@ -34,6 +34,9 @@ const Login = ({navigation}) => {
         password: loginData?.password,
       };
       let res = await dispatch(LoginApi(payload)).unwrap();
+      if (res) {
+        navigation.pop()
+      }
     } catch (error) {
       console.log(error);
     }
@@ -41,7 +44,7 @@ const Login = ({navigation}) => {
   const getdata = (value, key) => {
     setLoginData({...loginData, [key]: value});
   };
- 
+
   return (
     <>
       <ScrollView style={{flex: 1}}>

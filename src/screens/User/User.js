@@ -15,7 +15,7 @@ import {
   Header_FONT_SIZE,
   primaryBlack,
   primarygrey,
-} from '../constant';
+} from '../../constant';
 
 const User = ({navigation}) => {
   return (
@@ -33,12 +33,15 @@ const User = ({navigation}) => {
           </View>
           {/* -----------------------profile section ------------ */}
           <View style={styles.Prodilecards}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('MainApp', {name: 'UserDetails'})
+              }>
               <View style={styles.profileContainer}>
                 <View style={styles.profileimageContainer}>
                   <Image
                     style={styles.profileimage}
-                    source={require('../Assets/Images/Pro.png')}></Image>
+                    source={require('../../Assets/Images/Pro.png')}></Image>
                 </View>
                 <View style={styles.prodata}>
                   <Text style={styles.name}>Matilda Brown</Text>
@@ -47,7 +50,10 @@ const User = ({navigation}) => {
               </View>
             </TouchableOpacity>
             {/* -----------------------order section ------------ */}
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('MainApp', {screen: 'Orders'})
+              }>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>My orders</Text>
@@ -63,7 +69,10 @@ const User = ({navigation}) => {
               </View>
             </TouchableOpacity>
             {/* -----------------------Address section ------------ */}
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('MainApp', {screen: 'Address'})
+              }>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>Shipping addresses</Text>
@@ -80,7 +89,10 @@ const User = ({navigation}) => {
             </TouchableOpacity>
 
             {/* -----------------------payment section ------------ */}
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('MainApp', {screen: 'Payment'})
+              }>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>Payment methods</Text>
@@ -96,7 +108,8 @@ const User = ({navigation}) => {
               </View>
             </TouchableOpacity>
             {/* -----------------------promocode section ------------ */}
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('MainApp', {screen: 'Promo'})}>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>Promocodes</Text>
@@ -114,7 +127,10 @@ const User = ({navigation}) => {
               </View>
             </TouchableOpacity>
             {/* -----------------------Review section ------------ */}
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('MainApp', {screen: 'Review'})
+              }>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>My reviews</Text>
@@ -131,7 +147,10 @@ const User = ({navigation}) => {
             </TouchableOpacity>
 
             {/* -----------------------Settings section ------------ */}
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('MainApp', {screen: 'Setings'})
+              }>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>Settings</Text>

@@ -1,5 +1,4 @@
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -8,6 +7,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import {
+  Card_Background,
   Header_FONT_SIZE,
   primaryBlack,
   primarygrey,
@@ -15,6 +15,7 @@ import {
 } from '../constant';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import EntypoIcons from 'react-native-vector-icons/Entypo';
+import {Image} from 'react-native';
 
 const Favorites = ({navigation}) => {
   return (
@@ -47,9 +48,27 @@ const Favorites = ({navigation}) => {
             </View>
           </ScrollView>
         </View>
-        <ScrollView>
+        <ScrollView style={{padding: 10}}>
+          {/* -----------------CARD------------ */}
           <View style={styles.cardContainer}>
-           
+            {/* ---------IMAGE------------ */}
+            <View style={styles.ImageContainer}>
+              <Image
+                style={styles.image}
+                source={require('../Assets/Images/Card_1.png')}
+              />
+            </View>
+            {/* -----------TEXT-DATA--------------- */}
+            <View style={styles.TextData}>
+              <View style={styles.ContainerONE}>
+                <Text style={styles.Cardbrand}>Shirt</Text>
+                <Text style={styles.CardCategory}>Category</Text>
+              </View>
+              <View style={styles.ContainerTWO}>
+                <EntypoIcons name="cross" size={25} color={primaryBlack} />
+                <Text style={styles.price}>₹222</Text>
+              </View>
+            </View>
           </View>
         </ScrollView>
       </View>
@@ -83,6 +102,7 @@ const styles = StyleSheet.create({
   HeadingText: {
     color: primaryBlack,
     fontSize: Header_FONT_SIZE,
+    fontWeight: '600',
     paddingLeft: 10,
     paddingTop: 20,
   },
@@ -106,28 +126,45 @@ const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
     flexDirection: 'row',
-    // justifyContent: 'space-between',
-    backgroundColor: 'yellow',
-  },
-  imageContainer: {},
-  image: {
-    height: 90,
-    width: 90,
+    backgroundColor: Card_Background,
     borderRadius: 10,
   },
-  cardText: {
-    // flexDirection: 'column',
-    // justifyContent: 'space-between',
+  ImageContainer: {},
+  image: {
+    height: 100,
+    width: 100,
+    borderRadius: 10,
   },
-  cardinfo1: {
-    flexDirection: 'row',
+  TextData: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'space-between',
-    justifyContent: 'space-between',
-    // right: 0,
+    flexDirection: 'row',
+    borderBottomRightRadius: 10,
   },
-  crossIcon: {
-    right: 0,
+  ContainerONE: {
+    width: '70%',
+    justifyContent: 'space-around',
+    alignItems: 'flex-start',
+    paddingLeft: 15,
+  },
+  Cardbrand: {
+    color: primaryBlack,
+    fontSize: 20,
+    fontWeight: '500',
+  },
+  CardCategory: {
+    color: primaryBlack,
+    fontSize: 15,
+    fontWeight: '400',
+  },
+  ContainerTWO: {
+    width: '30%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  price: {
+    color: primaryBlack,
+    fontSize: 18,
+    fontWeight: '400',
   },
 });

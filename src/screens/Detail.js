@@ -41,7 +41,7 @@ const Detail = ({navigation, route}) => {
   };
   const HandleAddtoCart = product => {
     dispatch(addToCart(product));
-    navigation.navigate('RootScreens', {screen: 'Bag'});
+    navigation.navigate('Bag');
   };
   useEffect(() => {
     getProductDetails(productId);

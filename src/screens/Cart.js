@@ -28,6 +28,7 @@ import {
 
 const Cart = ({navigation}) => {
   const dispatch = useDispatch();
+  let tokn = useSelector(state => state.auth.token);
   const {cart, totalQuantity, totalPrice} = useSelector(
     state => state.cartdata,
   );
@@ -41,7 +42,14 @@ const Cart = ({navigation}) => {
   };
   const handleRemoveItem = id => {
     dispatch(removeItem(id));
-    // dispatch()
+  };
+  // ------------------------Checkout--------------
+  const HandleCheckout = () => {
+    if (tokn) {
+      // place next screen's navigation code
+    } else {
+      navigation.navigate('Login');
+    }
   };
   useEffect(() => {
     dispatch(getCartTotal());
@@ -109,7 +117,7 @@ const Cart = ({navigation}) => {
           <Text style={styles.finalpriceInfo}>₹{totalPrice}</Text>
         </View>
         <View>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity onPress={() => HandleCheckout()}>
             <Text style={styles.Checkout}>CHECKOUT</Text>
           </TouchableOpacity>
         </View>

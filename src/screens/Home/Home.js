@@ -2,6 +2,7 @@ import {
   Button,
   Dimensions,
   FlatList,
+  Image,
   ImageBackground,
   ScrollView,
   StatusBar,
@@ -22,7 +23,6 @@ import {
   primarywhite,
 } from '../../constant';
 import Banner from './Components/Banner';
-import {Image} from '@rneui/base';
 const Card_Width = Dimensions.get('window').width * 0.45;
 
 const HomeScreen = ({navigation}) => {
@@ -101,7 +101,7 @@ const HomeScreen = ({navigation}) => {
                     alt={'Product'}
                     style={styles.cardImage}
                   />
-                  <Text style={styles.brand} numberOfLines={1}>
+                  <Text navistyle={styles.brand} numberOfLines={1}>
                     {ele?.title}
                   </Text>
                   <Text style={styles.prod_Desc} numberOfLines={2}>

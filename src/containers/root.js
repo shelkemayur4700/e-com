@@ -1,10 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/Home/Home';
-import Detail from '../screens/Detail';
 import Cart from '../screens/Cart';
-import User from '../screens/User';
+import User from '../screens/User/User';
 import Favorites from '../screens/Favorites';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwsome6Icons from 'react-native-vector-icons/FontAwesome6';
@@ -12,12 +11,19 @@ import FontistoIcons from 'react-native-vector-icons/Fontisto';
 import EvilIconsIcons from 'react-native-vector-icons/AntDesign';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
 import {primaryBlack, primarygrey, primaryred} from '../constant';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Shop from '../screens/Shop';
-
-const Root = () => {
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import Detail from '../screens/Detail';
+import SignUp from '../screens/SignUp';
+import Login from '../screens/Login';
+import ForgetPass from '../screens/ForgetPass';
+import EntypoIcons from 'react-native-vector-icons/Entypo';
+import {useDispatch, useSelector} from 'react-redux';
+import MainApp from './mainApp';
+import {checkAuthStatus} from '../thunk/auth';
+function Home() {
   const Tab = createBottomTabNavigator();
-
   return (
     <>
       <Tab.Navigator
@@ -52,8 +58,7 @@ const Root = () => {
                 size={22}
               />
             ),
-          }}
-          ></Tab.Screen>
+          }}></Tab.Screen>
         <Tab.Screen
           name="Bag"
           component={Cart}
@@ -96,6 +101,62 @@ const Root = () => {
             }),
           }}></Tab.Screen>
       </Tab.Navigator>
+    </>
+  );
+}
+
+const Root = () => {
+  const dispatch = useDispatch();
+  const Stack = createNativeStackNavigator();
+
+  let token = useSelector(state => state?.auth?.token);
+  console.log('token from -----root', token);
+  useEffect(() => {
+    dispatch(checkAuthStatus());
+  }, []);
+  return (
+    <>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="MainApp"
+          component={MainApp}
+          // component={token ? MainApp : Login}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Detail"
+          component={Detail}
+          options={{
+            title: 'Details',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <TouchableOpacity>
+                <EntypoIcons name="share" color={primaryBlack} size={22} />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ForgetPass"
+          component={ForgetPass}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
     </>
   );
 };

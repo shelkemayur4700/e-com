@@ -8,8 +8,10 @@ import {
 } from 'react-native';
 import React from 'react';
 import {primaryred, primarywhite} from '../../../constant';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // const Width = Dimensions.get('window').width;
+import {token} from '../../../slice/auth';
 
 const Banner = ({navigation}) => {
   return (
