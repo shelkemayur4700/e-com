@@ -110,7 +110,6 @@ const Root = () => {
   const Stack = createNativeStackNavigator();
 
   let token = useSelector(state => state?.auth?.token);
-  console.log('token from -----root', token);
   useEffect(() => {
     dispatch(checkAuthStatus());
   }, []);
@@ -119,8 +118,8 @@ const Root = () => {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="MainApp"
-          component={MainApp}
-          // component={token ? MainApp : Login}
+          // component={MainApp}
+          component={token ? MainApp : Login}
           options={{headerShown: false}}
         />
         <Stack.Screen

@@ -44,6 +44,7 @@ const HomeScreen = ({navigation}) => {
     <View style={{flex: 1}}>
       <StatusBar backgroundColor={primaryred} />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        {/* --------------------------Banner------------------------ */}
         <Banner />
         {/* --------------------------X----------------------- */}
         <View style={{flex: 1}}>
