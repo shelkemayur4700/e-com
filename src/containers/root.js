@@ -116,12 +116,14 @@ const Root = () => {
   return (
     <>
       <Stack.Navigator initialRouteName="Home">
+        {/* ----------Protected route---------------  */}
         <Stack.Screen
           name="MainApp"
-          // component={MainApp}
-          component={token ? MainApp : Login}
+          component={MainApp}
+          // component={token ? MainApp : Login}
           options={{headerShown: false}}
         />
+        {/* ----------Public routes---------------  */}
         <Stack.Screen
           name="Home"
           component={Home}

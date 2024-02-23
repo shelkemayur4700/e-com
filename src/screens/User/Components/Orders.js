@@ -14,36 +14,10 @@ import {
   primarygrey,
   primarywhite,
 } from '../../../constant';
-import FeatherIcons from 'react-native-vector-icons/Feather';
-import EntypoIcons from 'react-native-vector-icons/Entypo';
 
 const Orders = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.header}>
-        <View style={styles.Search}>
-          <TouchableOpacity>
-            <FeatherIcons name="search" size={25} color={primaryBlack} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.Heading}>
-          <Text style={styles.HeadingText}>My Orders</Text>
-        </View>
-        {/* ---------------vertical scroll for filters------------ */}
-        {/* <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}> */}
-        <View style={styles.filtersContainer}>
-          <View style={styles.filter}>
-            <Text style={styles.filterName}>Delivered</Text>
-          </View>
-          <View style={styles.filter}>
-            <Text style={styles.filterName}>Processing</Text>
-          </View>
-          <View style={styles.filter}>
-            <Text style={styles.filterName}>Cancelled</Text>
-          </View>
-        </View>
-        {/* </ScrollView> */}
-      </View>
       <ScrollView style={{padding: 10}}>
         {/* -----------------CARD------------ */}
         <View style={styles.cardContainer}>
@@ -93,14 +67,12 @@ const Orders = ({navigation}) => {
             }}>
             <Text
               style={{
-                // color: primaryBlack,
                 fontSize: 16,
               }}>
               Quantity:3
             </Text>
             <Text
               style={{
-                // color: primaryBlack,
                 fontSize: 16,
               }}>
               Total Amount :206
@@ -113,18 +85,21 @@ const Orders = ({navigation}) => {
               padding: 5,
               alignItems: 'center',
             }}>
-            <Text
-              style={{
-                // backgroundColor: 'red',
-                borderColor: primaryBlack,
-                borderWidth: 1,
-                borderRadius: 22,
-                color: primaryBlack,
-                paddingVertical: 8,
-                paddingHorizontal: 14,
-              }}>
-              Details
-            </Text>
+            <TouchableOpacity onPress={() => navigation.push('Myorders')}>
+              <Text
+                style={{
+                  // backgroundColor: 'red',
+                  borderColor: primaryBlack,
+                  borderWidth: 1,
+                  borderRadius: 22,
+                  color: primaryBlack,
+                  paddingVertical: 8,
+                  paddingHorizontal: 14,
+                }}>
+                Details
+              </Text>
+            </TouchableOpacity>
+
             <Text
               style={{
                 color: 'green',
