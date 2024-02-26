@@ -22,7 +22,7 @@ import EntypoIcons from 'react-native-vector-icons/Entypo';
 import {useDispatch, useSelector} from 'react-redux';
 import MainApp from './mainApp';
 import {checkAuthStatus} from '../thunk/auth';
-function Home() {
+function HomePage() {
   const Tab = createBottomTabNavigator();
   return (
     <>
@@ -37,6 +37,7 @@ function Home() {
           name="Home"
           component={HomeScreen}
           options={{
+            // initialRouteName:{},
             headerShown: false,
             tabBarIcon: ({focused}) => (
               <MaterialCommunityIcons
@@ -115,7 +116,7 @@ const Root = () => {
   }, []);
   return (
     <>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="HomePage">
         {/* ----------Protected route---------------  */}
         <Stack.Screen
           name="MainApp"
@@ -125,8 +126,8 @@ const Root = () => {
         />
         {/* ----------Public routes---------------  */}
         <Stack.Screen
-          name="Home"
-          component={Home}
+          name="HomePage"
+          component={HomePage}
           options={{headerShown: false}}
         />
         <Stack.Screen
