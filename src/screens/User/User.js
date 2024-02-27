@@ -20,7 +20,7 @@ import {
 const User = ({navigation}) => {
   return (
     <View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
           {/* --------------heading---------------------- */}
           <View style={styles.Search}>
