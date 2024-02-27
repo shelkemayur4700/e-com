@@ -1,12 +1,25 @@
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
-import {Bold_Font, Card_Background, primaryBlack} from '../constant';
+import {
+  Bold_Font,
+  Card_Background,
+  primaryBlack,
+  primaryred,
+  primarywhite,
+} from '../constant';
 
 const Myorders = () => {
   return (
     <>
       <View style={styles.MainContainer}>
-        <ScrollView style={{flex: 1}}>
+        <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
           {/* --------------header---------------- */}
           <View style={styles.headerContainer}>
             <View
@@ -68,6 +81,7 @@ const Myorders = () => {
               </Text>
             </View>
           </View>
+          {/* ------CARDS------- */}
           <View style={styles.cardContainer}>
             {/* ---------IMAGE------------ */}
             <View style={styles.ImageContainer}>
@@ -101,8 +115,154 @@ const Myorders = () => {
               </View>
             </View>
           </View>
-          <View></View>
-          <View></View>
+          <View style={styles.cardContainer}>
+            {/* ---------IMAGE------------ */}
+            <View style={styles.ImageContainer}>
+              <Image
+                style={styles.image}
+                source={require('../Assets/Images/Card_1.png')}
+              />
+            </View>
+            {/* -----------TEXT-DATA--------------- */}
+            <View style={styles.TextData}>
+              <View style={styles.ContainerONE}>
+                <Text style={styles.Cardbrand}>Shirt</Text>
+                <Text style={styles.subcategory}>Mango</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text style={styles.CardCategory}>Color:Grey</Text>
+                  <Text style={styles.Size}>Size:L</Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginRight: 20,
+                  }}>
+                  <Text style={styles.units}>Units:1</Text>
+                  <Text style={styles.units}>55$</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View style={styles.cardContainer}>
+            {/* ---------IMAGE------------ */}
+            <View style={styles.ImageContainer}>
+              <Image
+                style={styles.image}
+                source={require('../Assets/Images/Card_1.png')}
+              />
+            </View>
+            {/* -----------TEXT-DATA--------------- */}
+            <View style={styles.TextData}>
+              <View style={styles.ContainerONE}>
+                <Text style={styles.Cardbrand}>Shirt</Text>
+                <Text style={styles.subcategory}>Mango</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text style={styles.CardCategory}>Color:Grey</Text>
+                  <Text style={styles.Size}>Size:L</Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginRight: 20,
+                  }}>
+                  <Text style={styles.units}>Units:1</Text>
+                  <Text style={styles.units}>55$</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View style={styles.cardContainer}>
+            {/* ---------IMAGE------------ */}
+            <View style={styles.ImageContainer}>
+              <Image
+                style={styles.image}
+                source={require('../Assets/Images/Card_1.png')}
+              />
+            </View>
+            {/* -----------TEXT-DATA--------------- */}
+            <View style={styles.TextData}>
+              <View style={styles.ContainerONE}>
+                <Text style={styles.Cardbrand}>Shirt</Text>
+                <Text style={styles.subcategory}>Mango</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text style={styles.CardCategory}>Color:Grey</Text>
+                  <Text style={styles.Size}>Size:L</Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginRight: 20,
+                  }}>
+                  <Text style={styles.units}>Units:1</Text>
+                  <Text style={styles.units}>55$</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          {/* ----ORDER INFO------- */}
+          <View style={styles.OrderinfoContainer}>
+            <Text style={{fontSize: 20, color: primaryBlack}}>
+              Order information
+            </Text>
+            <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
+              <Text style={styles.OrderInfoKey}>Shopping Address:</Text>
+              <Text style={styles.orderInfoValue}>
+                3 Newbridge Court ,Chino Hills, CA 91709, United States
+              </Text>
+            </View>
+            <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
+              <Text style={styles.OrderInfoKey}>Payment method:</Text>
+              <Text style={styles.orderInfoValue}>**** **** **** 3947</Text>
+            </View>
+
+            <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
+              <Text style={styles.OrderInfoKey}>Delivery method:</Text>
+              <Text style={styles.orderInfoValue}>FedEx, 3 days, 15$</Text>
+            </View>
+
+            <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
+              <Text style={styles.OrderInfoKey}>Discount:</Text>
+              <Text style={styles.orderInfoValue}>
+                10%, Personal promo code
+              </Text>
+            </View>
+
+            <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
+              <Text style={styles.OrderInfoKey}>Total Amount:</Text>
+              <Text style={styles.orderInfoValue}>133$</Text>
+            </View>
+            {/* --------BTNS----------- */}
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                // padding: 5,
+                paddingVertical: 10,
+              }}>
+              <TouchableOpacity>
+                <Text style={styles.orderReorder}>Reorder</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.orderFeedBack}>Leave feedback</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </ScrollView>
       </View>
     </>
@@ -140,9 +300,6 @@ const styles = StyleSheet.create({
   ContainerONE: {
     width: '100%',
     paddingHorizontal: 10,
-    // flexDirection: 'row',
-    // paddingHorizontal: 20,
-    // backgroundColor: 'yellow', 
   },
   Cardbrand: {
     color: primaryBlack,
@@ -150,7 +307,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   CardCategory: {
-    // color: primaryBlack,
     fontSize: 15,
     fontWeight: '400',
   },
@@ -158,7 +314,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-    // backgroundColor: 'yellow',
   },
   price: {
     color: primaryBlack,
@@ -175,5 +330,33 @@ const styles = StyleSheet.create({
   },
   Size: {
     marginRight: 20,
+  },
+  OrderinfoContainer: {
+    flex: 1,
+    padding: 5,
+    // backgroundColor: 'yellow',
+  },
+  OrderInfoKey: {
+    fontSize: 17,
+  },
+  orderInfoValue: {
+    color: primaryBlack,
+    fontSize: 17,
+  },
+  orderReorder: {
+    padding: 8,
+    paddingHorizontal: 40,
+    color: primaryBlack,
+    borderRadius: 20,
+    borderColor: primaryBlack,
+    borderWidth: 1,
+    fontWeight: '500',
+  },
+  orderFeedBack: {
+    color: primarywhite,
+    backgroundColor: primaryred,
+    padding: 8,
+    paddingHorizontal: 40,
+    borderRadius: 20,
   },
 });
