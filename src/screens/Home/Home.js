@@ -1,9 +1,8 @@
+import React, {useEffect} from 'react';
 import {
-  Button,
   Dimensions,
   FlatList,
   Image,
-  ImageBackground,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -11,30 +10,28 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllProducts} from '../../thunk/productThunk';
+import LoaderComp from '../../components/LoaderComp';
 import {
   Bold_Font,
   Card_Background,
   primaryBlack,
-  primarygrey,
   primaryred,
-  primarywhite,
 } from '../../constant';
+import {getAllProducts} from '../../thunk/productThunk';
 import Banner from './Components/Banner';
 const Card_Width = Dimensions.get('window').width * 0.45;
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.productStore.data);
-
+  const loading = useSelector(state => state.productStore.loading);
   const getproductslist = async () => {
     let result = await dispatch(getAllProducts()).unwrap();
   };
 
-  const SingleProduct = productId => {
-    navigation.navigate('Detail', {productId});
+  const SingleProduct = product => {
+    navigation.navigate('Detail', {product: product});
   };
 
   useEffect(() => {
@@ -42,6 +39,7 @@ const HomeScreen = ({navigation}) => {
   }, []);
   return (
     <View style={{flex: 1}}>
+      {loading && <LoaderComp />}
       <StatusBar backgroundColor={primaryred} />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {/* --------------------------Banner------------------------ */}
@@ -63,7 +61,7 @@ const HomeScreen = ({navigation}) => {
               renderItem={({item}) => (
                 <TouchableOpacity
                   onPress={() => {
-                    SingleProduct(item?.id);
+                    SingleProduct(item);
                   }}>
                   <View key={item.id} style={styles.Card}>
                     <Image
@@ -94,7 +92,7 @@ const HomeScreen = ({navigation}) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  SingleProduct(ele?.id);
+                  SingleProduct(ele);
                 }}>
                 <View key={ele.id} style={styles.Card}>
                   <Image

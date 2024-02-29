@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,9 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
-import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
+import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {
   Bold_Font,
   Card_Background,

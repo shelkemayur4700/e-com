@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Image,
   ScrollView,
@@ -6,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import FeatherIcons from 'react-native-vector-icons/Feather';
 import {
   Card_Background,
   Header_FONT_SIZE,
@@ -14,7 +15,6 @@ import {
   primaryred,
   primarywhite,
 } from '../constant';
-import FeatherIcons from 'react-native-vector-icons/Feather';
 
 const Shop = ({navigation}) => {
   return (

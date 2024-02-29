@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,15 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
-import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import {
   Bold_Font,
   Card_Background,
   Header_FONT_SIZE,
   primaryBlack,
-  primarygrey,
   primaryred,
   primarywhite,
 } from '../constant';

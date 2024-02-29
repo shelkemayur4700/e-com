@@ -1,3 +1,4 @@
+import React, {useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -6,23 +7,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   Bold_Font,
   Card_Background,
   Header_FONT_SIZE,
   primaryBlack,
-  primarygrey,
   primaryred,
   primarywhite,
 } from '../constant';
-import {useDispatch, useSelector} from 'react-redux';
 import {
-  increaseItemQuantity,
   decreaseItemQuantity,
   getCartTotal,
+  increaseItemQuantity,
   removeItem,
 } from '../slice/cartSlice';
 

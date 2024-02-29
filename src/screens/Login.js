@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,9 +7,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
+import IoniconsIcons from 'react-native-vector-icons/Ionicons';
+import {useDispatch} from 'react-redux';
 import {
   Bold_Font,
   Card_Background,
@@ -18,9 +19,7 @@ import {
   primaryred,
   primarywhite,
 } from '../constant';
-import {useDispatch} from 'react-redux';
 import {LoginApi} from '../thunk/auth';
-import {AsyncStorage} from 'react-native';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -35,7 +34,7 @@ const Login = ({navigation}) => {
       };
       let res = await dispatch(LoginApi(payload)).unwrap();
       if (res) {
-        navigation.pop()
+        navigation.pop();
       }
     } catch (error) {
       console.log(error);

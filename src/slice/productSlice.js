@@ -4,6 +4,7 @@ import {getAllProducts} from '../thunk/productThunk';
 const initialState = {
   value: 0,
   data: [],
+  loading: false,
 };
 
 export const productSlice = createSlice({
@@ -11,13 +12,18 @@ export const productSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getAllProducts.pending, (state, actions) => {});
+    builder.addCase(getAllProducts.pending, (state, actions) => {
+      state.loading = true;
+    });
 
     builder.addCase(getAllProducts.fulfilled, (state, actions) => {
       state.data = actions?.payload?.data;
+      state.loading = false;
     });
 
-    builder.addCase(getAllProducts.rejected, (state, actions) => {});
+    builder.addCase(getAllProducts.rejected, (state, actions) => {
+      state.loading = true;
+    });
   },
 });
 

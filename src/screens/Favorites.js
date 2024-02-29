@@ -1,11 +1,14 @@
+import React from 'react';
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import EntypoIcons from 'react-native-vector-icons/Entypo';
+import FeatherIcons from 'react-native-vector-icons/Feather';
 import {
   Card_Background,
   Header_FONT_SIZE,
@@ -13,9 +16,6 @@ import {
   primarygrey,
   primarywhite,
 } from '../constant';
-import FeatherIcons from 'react-native-vector-icons/Feather';
-import EntypoIcons from 'react-native-vector-icons/Entypo';
-import {Image} from 'react-native';
 
 const Favorites = ({navigation}) => {
   return (

@@ -1,0 +1,14 @@
+{
+  "liveServer.settings.ChromeDebuggingAttachment": false,
+
+  // "workbench.colorTheme": "Default Dark Modern",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // "window.zoomLevel": 1,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit",
+    "source.sortMembers": "explicit"
+  }
+}

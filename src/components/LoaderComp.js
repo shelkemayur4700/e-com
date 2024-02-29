@@ -1,5 +1,5 @@
-import React from 'react';
 import LottieView from 'lottie-react-native';
+import React from 'react';
 import {Modal, View} from 'react-native';
 
 export default function LoaderComp() {
@@ -7,12 +7,12 @@ export default function LoaderComp() {
     <Modal transparent={true} animationType="none">
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <LottieView
-          source={require('../Assets/Images/LOADER.json')}
+          source={require('../Assets/LOADER.json')}
           autoPlay
           loop
-          justifyContent='center'
-          height={'30%'}
-          width={'30%'}
+          justifyContent="center"
+          height={'40%'}
+          width={'20%'}
         />
       </View>
     </Modal>

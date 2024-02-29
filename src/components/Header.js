@@ -1,9 +1,9 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import {primaryBlack} from '../constant';
-import IoniconsIcons from 'react-native-vector-icons/Ionicons';
-import EntypoIcons from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import EntypoIcons from 'react-native-vector-icons/Entypo';
+import IoniconsIcons from 'react-native-vector-icons/Ionicons';
+import {primaryBlack} from '../constant';
 
 const Header = ({currentScreenName}) => {
   const navigation = useNavigation();

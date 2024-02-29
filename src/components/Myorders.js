@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Image,
   ScrollView,
@@ -6,7 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
 import {
   Bold_Font,
   Card_Background,

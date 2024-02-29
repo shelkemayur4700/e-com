@@ -1,51 +1,31 @@
+import React from 'react';
 import {
   Image,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {
   Bold_Font,
   primaryBlack,
-  primarySilver,
   primarygrey,
   primaryred,
   primarywhite,
 } from '../constant';
-import {
-  getSingleProduct,
-  getSingleproduct,
-  getSingleroduct,
-} from '../thunk/productThunk';
-import {useDispatch, useSelector} from 'react-redux';
 import {addToCart} from '../slice/cartSlice';
-import {useNavigation} from '@react-navigation/native';
 const Detail = ({navigation, route}) => {
-  // const navigate = useNavigation();
-  const [product, setProduct] = useState([]);
   const dispatch = useDispatch();
-  const {productId} = route.params;
-  const getProductDetails = async id => {
-    try {
-      const response = await dispatch(getSingleProduct(id)).unwrap();
-      setProduct({...response, quantity: 1});
-      // setProduct(response);
-    } catch (error) {
-      console.error('Error fetching product details:', error);
-    }
-  };
+  let productData = route.params.product;
+
   const HandleAddtoCart = product => {
     dispatch(addToCart(product));
     navigation.navigate('Bag');
   };
-  useEffect(() => {
-    getProductDetails(productId);
-  }, [route]);
+
   return (
     <>
       <View style={styles.mainContainer}>
@@ -54,7 +34,7 @@ const Detail = ({navigation, route}) => {
           <View style={styles.Detail_Img}>
             <Image
               style={styles.Detail_Image}
-              source={{uri: product?.image}}
+              source={{uri: productData?.image}}
               alt="Image"
             />
           </View>
@@ -62,12 +42,12 @@ const Detail = ({navigation, route}) => {
           <View style={styles.footer}>
             <View style={styles.productDetailsContainer}>
               <View style={styles.productDetails}>
-                <Text style={styles.BrandName}>{product?.title}</Text>
-                <Text style={styles.Price}>₹{product?.price}</Text>
+                <Text style={styles.BrandName}>{productData?.title}</Text>
+                <Text style={styles.Price}>₹{productData?.price}</Text>
               </View>
-              <Text style={styles.ProductInfo}>{product?.category}</Text>
-              <Text style={styles.ProductDesc}>{product?.description}</Text>
-              <TouchableOpacity onPress={() => HandleAddtoCart(product)}>
+              <Text style={styles.ProductInfo}>{productData?.category}</Text>
+              <Text style={styles.ProductDesc}>{productData?.description}</Text>
+              <TouchableOpacity onPress={() => HandleAddtoCart(productData)}>
                 <Text style={styles.addtoCart}>ADD TO CART</Text>
               </TouchableOpacity>
             </View>
