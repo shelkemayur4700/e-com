@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {
-  Dimensions,
   FlatList,
   Image,
   ScrollView,
@@ -20,7 +19,7 @@ import {
 } from '../../constant';
 import {getAllProducts} from '../../thunk/productThunk';
 import Banner from './Components/Banner';
-const Card_Width = Dimensions.get('window').width * 0.45;
+// const Card_Width = Dimensions.get('window').width * 0.45;
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
   Card: {
     // flex: 1,
     backgroundColor: Card_Background,
-    width: Card_Width,
+    width: 180,
     borderRadius: 10,
     padding: 3,
     // backgroundColor: 'yellow',

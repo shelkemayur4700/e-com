@@ -1,17 +1,13 @@
+import React from 'react';
 import {
-  Dimensions,
   ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
 import {primaryred, primarywhite} from '../../../constant';
-import {useDispatch, useSelector} from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // const Width = Dimensions.get('window').width;
-import {token} from '../../../slice/auth';
 
 const Banner = ({navigation}) => {
   return (
@@ -37,7 +33,8 @@ const styles = StyleSheet.create({
   banner: {
     height: 536,
     // width: Width,
-    width: 376,
+    width: '100%',
+    // width: 376,
   },
   bannerText: {
     fontFamily: 'Metropolis-Bold',
