@@ -5,12 +5,12 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
 import {
   Bold_Font,
+  MainButton,
   primaryBlack,
   primarygrey,
   primaryred,
@@ -19,8 +19,11 @@ import {
 import {addToCart} from '../slice/cartSlice';
 const Detail = ({navigation, route}) => {
   const dispatch = useDispatch();
-  let productData = route.params.product;
-
+  let productInfo = route.params.product;
+  {
+    /*--------Temp solution to manage quantity --------------*/
+  }
+  let productData = {...productInfo, quantity: 1};
   const HandleAddtoCart = product => {
     dispatch(addToCart(product));
     navigation.navigate('Bag');
@@ -47,9 +50,11 @@ const Detail = ({navigation, route}) => {
               </View>
               <Text style={styles.ProductInfo}>{productData?.category}</Text>
               <Text style={styles.ProductDesc}>{productData?.description}</Text>
-              <TouchableOpacity onPress={() => HandleAddtoCart(productData)}>
-                <Text style={styles.addtoCart}>ADD TO CART</Text>
-              </TouchableOpacity>
+             
+              <MainButton
+                handleClick={() => HandleAddtoCart(productData)}
+                name="ADD TO CART"
+              />
             </View>
           </View>
         </ScrollView>

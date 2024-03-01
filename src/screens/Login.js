@@ -14,6 +14,7 @@ import {
   Bold_Font,
   Card_Background,
   Header_FONT_SIZE,
+  MainButton,
   primaryBlack,
   primarygrey,
   primaryred,
@@ -21,7 +22,7 @@ import {
 } from '../constant';
 import {LoginApi} from '../thunk/auth';
 
-const Login = ({navigation}) => {
+const Login = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [loginData, setLoginData] = useState({});
 
@@ -43,7 +44,12 @@ const Login = ({navigation}) => {
   const getdata = (value, key) => {
     setLoginData({...loginData, [key]: value});
   };
-
+  const handleSignup = () => {
+    navigation.navigate('SignUp');
+  };
+  const Forgetpass = () => {
+    navigation.navigate('ForgetPass');
+  };
   return (
     <>
       <ScrollView style={{flex: 1}}>
@@ -80,18 +86,17 @@ const Login = ({navigation}) => {
             />
           </View>
           <View style={styles.Loginlink}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => Forgetpass()}>
               <Text style={styles.loginlinkText}>Forgot your password?</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.Signinbtn}>
-            <TouchableOpacity onPress={() => HandleLogin()}>
-              <Text style={styles.signIn}>SIGN IN</Text>
-            </TouchableOpacity>
+            
+            <MainButton handleClick={() => HandleLogin()} name={'SIGN IN'} />
           </View>
           <View style={styles.footer}>
             <View style={styles.sigupLink}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => handleSignup()}>
                 <Text style={{fontSize: 15}}>Sign up</Text>
               </TouchableOpacity>
             </View>

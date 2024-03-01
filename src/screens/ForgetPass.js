@@ -12,12 +12,16 @@ import {
   Bold_Font,
   Card_Background,
   Header_FONT_SIZE,
+  MainButton,
   primaryBlack,
   primaryred,
   primarywhite,
 } from '../constant';
 
 const ForgetPass = ({navigation}) => {
+  const handleOTP = ()=>{
+    console.log("OTP")
+  }
   return (
     <>
       <ScrollView style={{flex: 1}}>
@@ -53,36 +57,8 @@ const ForgetPass = ({navigation}) => {
           </View>
 
           <View style={styles.otpbtn}>
-            <TouchableOpacity>
-              <Text style={styles.otp}>SEND OTP</Text>
-            </TouchableOpacity>
+            <MainButton handleClick={()=> handleOTP()} name={"SEND OTP"}/>
           </View>
-          {/* <View style={styles.footer}>
-            <View style={styles.sigupLink}>
-              <TouchableOpacity>
-                <Text style={{fontSize: 15}}>Sign up</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.SocialContainer}>
-              <Text>Or sign in with social account</Text>
-            </View>
-            <View style={styles.mediaLogo}>
-              <View style={styles.facebook}>
-                <TouchableOpacity>
-                  <AntDesignIcons
-                    name="facebook-square"
-                    color={'#3B5998'}
-                    size={35}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={[styles.google, styles.facebook]}>
-                <TouchableOpacity>
-                  <AntDesignIcons name="google" color={'#488BF4'} size={35} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View> */}
         </View>
       </ScrollView>
     </>

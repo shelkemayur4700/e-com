@@ -14,6 +14,7 @@ import {
   Bold_Font,
   Card_Background,
   Header_FONT_SIZE,
+  MainButton,
   primaryBlack,
   primaryred,
   primarywhite,
@@ -116,9 +117,7 @@ const Cart = ({navigation}) => {
           <Text style={styles.finalpriceInfo}>₹{totalPrice}</Text>
         </View>
         <View>
-          <TouchableOpacity onPress={() => HandleCheckout()}>
-            <Text style={styles.Checkout}>CHECKOUT</Text>
-          </TouchableOpacity>
+          <MainButton handleClick={() => HandleCheckout()} name={'CHECKOUT'} />
         </View>
       </View>
     </View>

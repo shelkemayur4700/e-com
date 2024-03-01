@@ -30,7 +30,7 @@ const HomeScreen = ({navigation}) => {
   };
 
   const SingleProduct = product => {
-    navigation.navigate('Detail', {product: product});
+    navigation.navigate('Detail', {product});
   };
 
   useEffect(() => {
@@ -40,7 +40,9 @@ const HomeScreen = ({navigation}) => {
     <View style={{flex: 1}}>
       {loading && <LoaderComp />}
       <StatusBar backgroundColor={primaryred} />
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <ScrollView
+        contentContainerStyle={styles.scrollViewContent}
+        showsVerticalScrollIndicator={false}>
         {/* --------------------------Banner------------------------ */}
         <Banner />
         {/* --------------------------X----------------------- */}
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
   Card: {
     // flex: 1,
     backgroundColor: Card_Background,
-    width: 180,
+    width: 165,
     borderRadius: 10,
     padding: 3,
     // backgroundColor: 'yellow',
