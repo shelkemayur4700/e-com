@@ -13,13 +13,20 @@ import {
   Bold_Font,
   Card_Background,
   Header_FONT_SIZE,
+  MainButton,
   primaryBlack,
   primarygrey,
   primaryred,
   primarywhite,
 } from '../constant';
 
-const SignUp = ({navigation}) => {
+const SignUp = ({navigation, route}) => {
+  const handleLogin = () => {
+    navigation.navigate('Login');
+  };
+  const handleSignUp = () => {
+    console.log('SIGN UP');
+  };
   return (
     <>
       <ScrollView style={{flex: 1}}>
@@ -49,21 +56,15 @@ const SignUp = ({navigation}) => {
             <TextInput style={styles.nameForm} placeholder="Enter Password" />
           </View>
           <View style={styles.Loginlink}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleLogin()}>
               <Text style={styles.loginlinkText}>
                 Already have an account ?
-                {/* <AntDesignIcons
-                  style={{marginLeft: 10}}
-                  name="arrowright"
-                  color={primaryred}
-                /> */}
               </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.Signupbtn}>
-            <TouchableOpacity>
-              <Text style={styles.signUp}>SIGN UP</Text>
-            </TouchableOpacity>
+        
+            <MainButton handleClick={() => handleSignUp()} name={'SIGN UP'} />
           </View>
           <View style={styles.footer}>
             <View style={styles.SocialContainer}>
