@@ -84,21 +84,21 @@ const Cart = ({navigation}) => {
                 </View>
                 <View style={styles.prodetailsContainer2}>
                   <View style={styles.prodetails}>
-                    <View style={[styles.btnBackground]}>
-                      <TouchableOpacity
-                        onPress={() => handleDcreaseItem(item?.id)}>
+                    <TouchableOpacity
+                      onPress={() => handleDcreaseItem(item?.id)}>
+                      <View style={[styles.btnBackground]}>
                         <Text style={{color: primaryBlack}}>-</Text>
-                      </TouchableOpacity>
-                    </View>
+                      </View>
+                    </TouchableOpacity>
                     <Text style={{color: primaryBlack}}>
                       {Number(item?.quantity)}
                     </Text>
-                    <View style={styles.btnBackground}>
-                      <TouchableOpacity
-                        onPress={() => handleIncreaseItem(Number(item?.id))}>
+                    <TouchableOpacity
+                      onPress={() => handleIncreaseItem(Number(item?.id))}>
+                      <View style={styles.btnBackground}>
                         <Text style={{color: primaryBlack}}>+</Text>
-                      </TouchableOpacity>
-                    </View>
+                      </View>
+                    </TouchableOpacity>
                   </View>
                   <View style={styles.price}>
                     <Text style={{fontSize: 20, color: primaryBlack}}>

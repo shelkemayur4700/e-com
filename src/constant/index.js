@@ -13,7 +13,7 @@ export const BASE_URL = 'https://fakestoreapi.com';
 
 {/* ------------------MAIN BUTTON COMPONENT------------------- */}
 export const MainButton = ({handleClick, name}) => {
-  console.log('calling main button');
+
   return (
     <>
       <View>
