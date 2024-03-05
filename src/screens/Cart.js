@@ -45,11 +45,12 @@ const Cart = ({navigation}) => {
   };
   // ------------------------Checkout--------------
   const HandleCheckout = () => {
-    if (tokn) {
-      // place next screen's navigation code
-    } else {
-      navigation.navigate('Login');
-    }
+    // if (tokn) {
+    // place next screen's navigation code
+    navigation.navigate('MainApp', {screen: 'Checkout'});
+    // } else {
+    //   navigation.navigate('Login');
+    // }
   };
   useEffect(() => {
     dispatch(getCartTotal());
@@ -57,7 +58,7 @@ const Cart = ({navigation}) => {
 
   return (
     <View style={styles.mainContainer}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.Search}>
           <TouchableOpacity>
             <FeatherIcons name="search" size={25} color={primaryBlack} />

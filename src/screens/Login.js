@@ -52,7 +52,7 @@ const Login = ({navigation, route}) => {
   };
   return (
     <>
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
           <View style={styles.HeaderSection}>
             <View style={styles.backBtnContainer}>
@@ -91,7 +91,6 @@ const Login = ({navigation, route}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.Signinbtn}>
-            
             <MainButton handleClick={() => HandleLogin()} name={'SIGN IN'} />
           </View>
           <View style={styles.footer}>

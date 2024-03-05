@@ -24,7 +24,7 @@ const ForgetPass = ({navigation}) => {
   }
   return (
     <>
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
           <View style={styles.HeaderSection}>
             <View style={styles.backBtnContainer}>
@@ -57,7 +57,7 @@ const ForgetPass = ({navigation}) => {
           </View>
 
           <View style={styles.otpbtn}>
-            <MainButton handleClick={()=> handleOTP()} name={"SEND OTP"}/>
+            <MainButton handleClick={() => handleOTP()} name={'SEND OTP'} />
           </View>
         </View>
       </ScrollView>

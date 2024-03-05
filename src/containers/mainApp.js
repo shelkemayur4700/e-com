@@ -1,18 +1,17 @@
-import {Settings, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import User from '../screens/User/User';
-import Orders from '../screens/User/Components/Orders';
-import Address from '../screens/User/Components/Address';
-import Payment from '../screens/User/Components/Payment';
-import Setings from '../screens/User/Components/Setings';
-import UserDetails from '../screens/User/Components/UserDetails';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React from 'react';
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import FeatherIcons from 'react-native-vector-icons/Feather';
+import Checkout from '../components/Checkout';
+import Myorders from '../components/Myorders';
+import {primaryBlack} from '../constant';
+import Address from '../screens/User/Components/Address';
+import Orders from '../screens/User/Components/Orders';
+import Payment from '../screens/User/Components/Payment';
 import Promo from '../screens/User/Components/Promo';
 import Review from '../screens/User/Components/Review';
-import FeatherIcons from 'react-native-vector-icons/Feather';
-import {primaryBlack} from '../constant';
-import Orderdetails from '../components/Myorders';
-import Myorders from '../components/Myorders';
+import Setings from '../screens/User/Components/Setings';
+import UserDetails from '../screens/User/Components/UserDetails';
 const MainApp = () => {
   const Stack = createNativeStackNavigator();
   return (
@@ -113,11 +112,23 @@ const MainApp = () => {
         />
         {/* ------------Nested orderDetail route ----------- */}
         <Stack.Screen
-          initialRouteName="Myorders"
           name="Myorders"
           component={Myorders}
           options={{
             title: 'Order Details',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <TouchableOpacity>
+                <FeatherIcons name="search" size={22} color={primaryBlack} />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Checkout"
+          component={Checkout}
+          options={{
+            title: 'Checkout',
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>

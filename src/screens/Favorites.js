@@ -48,7 +48,7 @@ const Favorites = ({navigation}) => {
             </View>
           </ScrollView>
         </View>
-        <ScrollView style={{padding: 10}}>
+        <ScrollView style={{padding: 10}} showsVerticalScrollIndicator={false}>
           {/* -----------------CARD------------ */}
           <View style={styles.cardContainer}>
             {/* ---------IMAGE------------ */}

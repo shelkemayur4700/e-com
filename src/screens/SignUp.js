@@ -29,7 +29,7 @@ const SignUp = ({navigation, route}) => {
   };
   return (
     <>
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
           <View style={styles.HeaderSection}>
             <View style={styles.backBtnContainer}>
@@ -63,7 +63,6 @@ const SignUp = ({navigation, route}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.Signupbtn}>
-        
             <MainButton handleClick={() => handleSignUp()} name={'SIGN UP'} />
           </View>
           <View style={styles.footer}>

@@ -18,7 +18,7 @@ import {
 const Orders = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
-      <ScrollView style={{padding: 10}}>
+      <ScrollView style={{padding: 10}} showsVerticalScrollIndicator={false}>
         {/* -----------------CARD------------ */}
         <View style={styles.cardContainer}>
           <View

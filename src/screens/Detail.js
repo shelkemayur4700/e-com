@@ -33,7 +33,7 @@ const Detail = ({navigation, route}) => {
     <>
       <View style={styles.mainContainer}>
         <StatusBar backgroundColor={primaryred} />
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.Detail_Img}>
             <Image
               style={styles.Detail_Image}
@@ -50,7 +50,7 @@ const Detail = ({navigation, route}) => {
               </View>
               <Text style={styles.ProductInfo}>{productData?.category}</Text>
               <Text style={styles.ProductDesc}>{productData?.description}</Text>
-             
+
               <MainButton
                 handleClick={() => HandleAddtoCart(productData)}
                 name="ADD TO CART"
