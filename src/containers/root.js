@@ -36,7 +36,6 @@ function HomePage() {
           name="Home"
           component={HomeScreen}
           options={{
-            // initialRouteName:{},
             headerShown: false,
             tabBarIcon: ({focused}) => (
               <MaterialCommunityIcons
@@ -119,8 +118,8 @@ const Root = () => {
         {/* ----------Protected route---------------  */}
         <Stack.Screen
           name="MainApp"
-          component={MainApp}
-          // component={token ? MainApp : Login}
+          // component={MainApp}
+          component={token ? MainApp : Login}
           options={{headerShown: false}}
         />
         {/* ----------Public routes---------------  */}

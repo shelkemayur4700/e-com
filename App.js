@@ -29,60 +29,6 @@ const App = ({navigation}) => {
           </Stack.Navigator>
         </Provider>
       </NavigationContainer>
-      {/* <NavigationContainer>
-        <Provider store={store}>
-          <Stack.Navigator>
-            {token ? (
-              <Stack.Screen
-                name="MainApp"
-                component={MainApp}
-                options={{headerShown: false}}
-              />
-            ) : (
-              <>
-                <Stack.Screen
-                  name="RootScreens"
-                  component={Root}
-                  options={{headerShown: false}}
-                />
-
-                <Stack.Screen
-                  name="Detail"
-                  component={Detail}
-                  options={{
-                    title: 'Details',
-                    headerTitleAlign: 'center',
-                    headerRight: () => (
-                      <TouchableOpacity>
-                        <EntypoIcons
-                          name="share"
-                          color={primaryBlack}
-                          size={22}
-                        />
-                      </TouchableOpacity>
-                    ),
-                  }}
-                />
-                <Stack.Screen
-                  name="SignUp"
-                  component={SignUp}
-                  options={{headerShown: false}}
-                />
-                <Stack.Screen
-                  name="Login"
-                  component={Login}
-                  options={{headerShown: false}}
-                />
-                <Stack.Screen
-                  name="ForgetPass"
-                  component={ForgetPass}
-                  options={{headerShown: false}}
-                />
-              </>
-            )}
-          </Stack.Navigator>
-        </Provider>
-      </NavigationContainer> */}
     </>
   );
 };
