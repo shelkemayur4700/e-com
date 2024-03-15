@@ -7,12 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {
-  Bold_Font,
-  Card_Background,
-  primaryBlack,
-  primarywhite,
-} from '../constant';
+
 import { COLORS, FONTFAMILY, FONTSIZE } from '../theme/theme';
 
 const Myorders = () => {

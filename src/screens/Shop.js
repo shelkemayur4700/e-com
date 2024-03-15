@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import FeatherIcons from 'react-native-vector-icons/Feather';
-import { COLORS, FONTSIZE } from '../theme/theme';
+import {COLORS, FONTSIZE} from '../theme/theme';
 
 const Shop = ({navigation}) => {
   return (
@@ -18,7 +18,11 @@ const Shop = ({navigation}) => {
         <View style={styles.header}>
           <View style={styles.Search}>
             <TouchableOpacity>
-              <FeatherIcons name="search" size={25} color={COLORS.primaryBlack} />
+              <FeatherIcons
+                name="search"
+                size={25}
+                color={COLORS.primaryBlack}
+              />
             </TouchableOpacity>
           </View>
           {/* <View style={styles.Heading}>
@@ -108,7 +112,7 @@ const styles = StyleSheet.create({
   },
   cards: {margin: 10, gap: 10},
   OfferCard: {
-    backgroundColor: primaryred,
+    backgroundColor: COLORS.primaryred,
     alignItems: 'center',
     padding: 30,
     borderRadius: 10,

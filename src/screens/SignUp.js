@@ -10,8 +10,7 @@ import {
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {RedButton} from '../components/RedButton';
-import {COLORS} from '../constant';
-import {FONTFAMILY, FONTSIZE} from '../theme/theme';
+import {COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
 
 const SignUp = ({navigation, route}) => {
   const handleLogin = () => {
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
     color: COLORS.primarygrey,
   },
   signUp: {
-    backgroundColor: primaryred,
+    backgroundColor: COLORS.primaryred,
     color: COLORS.primarywhite,
     height: 44,
     textAlign: 'center',

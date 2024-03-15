@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {RedButton} from '../components/RedButton';
-import {FONTFAMILY, FONTSIZE} from '../theme/theme';
+import {COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
 
 const ForgetPass = ({navigation}) => {
   const handleOTP = () => {
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
 
   otp: {
-    backgroundColor: primaryred,
+    backgroundColor: COLORS.primaryred,
     color: COLORS.primarywhite,
     height: 44,
     textAlign: 'center',
