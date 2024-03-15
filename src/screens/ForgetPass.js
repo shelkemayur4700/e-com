@@ -12,16 +12,16 @@ import {
   Bold_Font,
   Card_Background,
   Header_FONT_SIZE,
-  MainButton,
   primaryBlack,
   primaryred,
   primarywhite,
 } from '../constant';
+import { RedButton } from '../components/RedButton';
 
 const ForgetPass = ({navigation}) => {
-  const handleOTP = ()=>{
-    console.log("OTP")
-  }
+  const handleOTP = () => {
+    console.log('OTP');
+  };
   return (
     <>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
@@ -57,7 +57,7 @@ const ForgetPass = ({navigation}) => {
           </View>
 
           <View style={styles.otpbtn}>
-            <MainButton handleClick={() => handleOTP()} name={'SEND OTP'} />
+            <RedButton handleClick={() => handleOTP()} name={'SEND OTP'} />
           </View>
         </View>
       </ScrollView>

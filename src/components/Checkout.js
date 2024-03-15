@@ -10,10 +10,10 @@ import {
 import {
   Bold_Font,
   Card_Background,
-  MainButton,
   primaryBlack,
   primaryred,
 } from '../constant';
+import {RedButton} from './RedButton';
 
 const Checkout = ({navigation}) => {
   const handleSubmitOrder = () => {
@@ -30,8 +30,7 @@ const Checkout = ({navigation}) => {
               <View style={styles.AddCard}>
                 <View style={styles.addInfo}>
                   <Text style={styles.username}>Jane Doe</Text>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('Address')}>
+                  <TouchableOpacity onPress={() => navigation.push('Address')}>
                     <Text style={styles.changebtn}>Change</Text>
                   </TouchableOpacity>
                 </View>
@@ -89,7 +88,7 @@ const Checkout = ({navigation}) => {
         </View>
         {/* -----------------SUBMIT ORDER-------------------------- */}
         <View style={styles.submitBTN}>
-          <MainButton handleClick={handleSubmitOrder} name={'SUBMIT ORDER'} />
+          <RedButton handleClick={handleSubmitOrder} name={'SUBMIT ORDER'} />
         </View>
       </View>
     </>

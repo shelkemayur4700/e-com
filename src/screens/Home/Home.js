@@ -17,11 +17,11 @@ import {
   primaryBlack,
   primaryred,
 } from '../../constant';
-import {getAllProducts} from '../../thunk/productThunk';
+import {getAllProducts} from '../../thunk/product';
 import Banner from './Components/Banner';
 // const Card_Width = Dimensions.get('window').width * 0.45;
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.productStore.data);
   const loading = useSelector(state => state.productStore.loading);
@@ -30,7 +30,7 @@ const HomeScreen = ({navigation}) => {
   };
 
   const SingleProduct = product => {
-    navigation.navigate('Detail', {product});
+    navigation.push('Detail', {product});
   };
 
   useEffect(() => {

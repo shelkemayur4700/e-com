@@ -10,11 +10,12 @@ import {
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
+import {RedButton} from '../components/RedButton';
 import {
   Bold_Font,
   Card_Background,
   Header_FONT_SIZE,
-  MainButton,
+  // RedButton,
   primaryBlack,
   primaryred,
   primarywhite,
@@ -24,7 +25,7 @@ import {
   getCartTotal,
   increaseItemQuantity,
   removeItem,
-} from '../slice/cartSlice';
+} from '../slice/cart';
 
 const Cart = ({navigation}) => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const Cart = ({navigation}) => {
   const HandleCheckout = () => {
     // if (tokn) {
     // place next screen's navigation code
-    navigation.navigate('MainApp', {screen: 'Checkout'});
+    navigation.push('MainApp', {screen: 'Checkout'});
     // } else {
     //   navigation.navigate('Login');
     // }
@@ -118,7 +119,7 @@ const Cart = ({navigation}) => {
           <Text style={styles.finalpriceInfo}>₹{totalPrice}</Text>
         </View>
         <View>
-          <MainButton handleClick={() => HandleCheckout()} name={'CHECKOUT'} />
+          <RedButton handleClick={() => HandleCheckout()} name={'CHECKOUT'} />
         </View>
       </View>
     </View>
