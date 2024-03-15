@@ -11,9 +11,9 @@ import {
   Bold_Font,
   Card_Background,
   primaryBlack,
-  primaryred,
   primarywhite,
 } from '../constant';
+import { COLORS, FONTFAMILY, FONTSIZE } from '../theme/theme';
 
 const Myorders = () => {
   return (
@@ -31,8 +31,8 @@ const Myorders = () => {
               }}>
               <Text
                 style={{
-                  color: primaryBlack,
-                  fontFamily: Bold_Font,
+                  color: COLORS.primaryBlack,
+                  fontFamily: FONTFAMILY.Metropolis_bold,
                   fontSize: 16,
                 }}>
                 Order No:1947034
@@ -53,7 +53,7 @@ const Myorders = () => {
               }}>
               <Text
                 style={{
-                  color: primaryBlack,
+                  color: COLORS.primaryBlack,
                   fontSize: 16,
                 }}>
                 Tracking number:IW3475453455
@@ -216,7 +216,7 @@ const Myorders = () => {
           </View>
           {/* ----ORDER INFO------- */}
           <View style={styles.OrderinfoContainer}>
-            <Text style={{fontSize: 20, color: primaryBlack}}>
+            <Text style={{fontSize: 20, color: COLORS.primaryBlack}}>
               Order information
             </Text>
             <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     borderRadius: 10,
     marginVertical: 10,
     // backgroundColor: 'red',
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   Cardbrand: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 22,
     fontWeight: '500',
   },
@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   price: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 18,
     fontWeight: '400',
   },
@@ -340,21 +340,21 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   orderInfoValue: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 17,
   },
   orderReorder: {
     padding: 8,
     paddingHorizontal: 40,
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     borderRadius: 20,
-    borderColor: primaryBlack,
+    borderColor: COLORS.primaryBlack,
     borderWidth: 1,
     fontWeight: '500',
   },
   orderFeedBack: {
-    color: primarywhite,
-    backgroundColor: primaryred,
+    color: COLORS.primarywhite,
+    backgroundColor: COLORS.primaryred,
     padding: 8,
     paddingHorizontal: 40,
     borderRadius: 20,

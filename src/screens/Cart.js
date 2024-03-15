@@ -12,20 +12,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useDispatch, useSelector} from 'react-redux';
 import {RedButton} from '../components/RedButton';
 import {
-  Bold_Font,
-  Card_Background,
-  Header_FONT_SIZE,
-  // RedButton,
-  primaryBlack,
-  primaryred,
-  primarywhite,
-} from '../constant';
-import {
   decreaseItemQuantity,
   getCartTotal,
   increaseItemQuantity,
   removeItem,
 } from '../slice/cart';
+import {COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
 
 const Cart = ({navigation}) => {
   const dispatch = useDispatch();
@@ -62,7 +54,7 @@ const Cart = ({navigation}) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.Search}>
           <TouchableOpacity>
-            <FeatherIcons name="search" size={25} color={primaryBlack} />
+            <FeatherIcons name="search" size={25} color={COLORS.primaryBlack} />
           </TouchableOpacity>
         </View>
         <View style={styles.Heading}>
@@ -79,7 +71,7 @@ const Cart = ({navigation}) => {
                   <Text style={styles.brand}>{item?.title}</Text>
                   <MaterialCommunityIcons
                     name="delete"
-                    color={primaryBlack}
+                    color={COLORS.primaryBlack}
                     size={20}
                     onPress={() => handleRemoveItem(item?.id)}
                   />
@@ -89,21 +81,21 @@ const Cart = ({navigation}) => {
                     <TouchableOpacity
                       onPress={() => handleDcreaseItem(item?.id)}>
                       <View style={[styles.btnBackground]}>
-                        <Text style={{color: primaryBlack}}>-</Text>
+                        <Text style={{color: COLORS.primaryBlack}}>-</Text>
                       </View>
                     </TouchableOpacity>
-                    <Text style={{color: primaryBlack}}>
+                    <Text style={{color: COLORS.primaryBlack}}>
                       {Number(item?.quantity)}
                     </Text>
                     <TouchableOpacity
                       onPress={() => handleIncreaseItem(Number(item?.id))}>
                       <View style={styles.btnBackground}>
-                        <Text style={{color: primaryBlack}}>+</Text>
+                        <Text style={{color: COLORS.primaryBlack}}>+</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
                   <View style={styles.price}>
-                    <Text style={{fontSize: 20, color: primaryBlack}}>
+                    <Text style={{fontSize: 20, color: COLORS.primaryBlack}}>
                       ₹{item?.price}
                     </Text>
                   </View>
@@ -144,15 +136,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   HeadingText: {
-    color: primaryBlack,
-    fontSize: Header_FONT_SIZE,
+    color: COLORS.primaryBlack,
+    fontSize: FONTSIZE.Header_FONT_SIZE,
     paddingLeft: 10,
     paddingTop: 20,
   },
   productCard: {
     padding: 20,
     flexDirection: 'row',
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     borderRadius: 10,
     margin: 10,
     elevation: 5,
@@ -167,11 +159,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   prodetailsContainer: {
-    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // alignContent: 'center',
     paddingLeft: 10,
     paddingRight: 10,
   },
@@ -191,7 +181,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   btnBackground: {
-    backgroundColor: primarywhite,
+    backgroundColor: COLORS.COLORS.primarywhite,
     height: 30,
     width: 30,
     borderRadius: 90,
@@ -200,16 +190,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   price: {
-    // marginTop: 38,
     justifyContent: 'center',
     paddingLeft: 16,
   },
   brand: {
-    color: primaryBlack,
-    fontFamily: Bold_Font,
+    color: COLORS.primaryBlack,
+    fontFamily: FONTFAMILY.Metropolis_bold,
     fontSize: 20,
-    // paddingLeft: 10,
-    // paddingTop: 10,
   },
   footer: {
     padding: 10,
@@ -223,8 +210,8 @@ const styles = StyleSheet.create({
   },
   Checkout: {
     // flex: 1,
-    backgroundColor: primaryred,
-    color: primarywhite,
+    backgroundColor: COLORS.primaryred,
+    color: COLORS.primarywhite,
     height: 44,
     textAlign: 'center',
     textAlignVertical: 'center',
@@ -234,7 +221,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   finalpriceInfo: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 20,
   },
 });

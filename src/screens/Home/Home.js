@@ -11,14 +11,9 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import LoaderComp from '../../components/LoaderComp';
-import {
-  Bold_Font,
-  Card_Background,
-  primaryBlack,
-  primaryred,
-} from '../../constant';
 import {getAllProducts} from '../../thunk/product';
 import Banner from './Components/Banner';
+import { COLORS, FONTFAMILY } from '../../theme/theme';
 // const Card_Width = Dimensions.get('window').width * 0.45;
 
 const HomeScreen = ({navigation, route}) => {
@@ -39,7 +34,7 @@ const HomeScreen = ({navigation, route}) => {
   return (
     <View style={{flex: 1}}>
       {loading && <LoaderComp />}
-      <StatusBar backgroundColor={primaryred} />
+      <StatusBar backgroundColor={COLORS.primaryred} />
       <ScrollView
         contentContainerStyle={styles.scrollViewContent}
         showsVerticalScrollIndicator={false}>
@@ -133,7 +128,7 @@ const styles = StyleSheet.create({
   },
   Card: {
     // flex: 1,
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     width: 165,
     borderRadius: 10,
     padding: 3,
@@ -149,32 +144,32 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   brand: {
-    color: primaryBlack,
-    fontFamily: Bold_Font,
+    color: COLORS.primaryBlack,
+    fontFamily: FONTFAMILY.Metropolis_bold,
     fontSize: 15,
     padding: 4,
   },
   prod_Desc: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
   },
   Price: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 12,
-    fontFamily: Bold_Font,
+    fontFamily: FONTFAMILY.Metropolis_bold,
   },
   // --------------
   headingContainer: {
     justifyContent: 'center',
   },
   heading: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 32,
-    fontFamily: 'Metropolis-Bold',
+    fontFamily: FONTFAMILY.Metropolis_bold,
     padding: 10,
   },
   text1: {
-    fontFamily: 'Mertopolis-Medium',
-    color: primaryBlack,
+    fontFamily: FONTFAMILY.Mertopolis_medium,
+    color: COLORS.primaryBlack,
     fontSize: 11,
     position: 'absolute',
     right: 0,

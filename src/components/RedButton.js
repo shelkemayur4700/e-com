@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { primaryred, primarywhite } from '../constant';
+import {COLORS} from '../theme/theme';
 
 {
   /* ------------------MAIN BUTTON COMPONENT------------------- */
@@ -18,8 +18,8 @@ export const RedButton = ({handleClick, name}) => {
 const styles = StyleSheet.create({
   Checkout: {
     // flex: 1,
-    backgroundColor: primaryred,
-    color: primarywhite,
+    backgroundColor: COLORS.primaryred,
+    color: COLORS.primarywhite,
     height: 44,
     textAlign: 'center',
     textAlignVertical: 'center',
