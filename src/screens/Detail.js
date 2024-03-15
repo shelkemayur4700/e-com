@@ -10,7 +10,7 @@ import {
 import {useDispatch} from 'react-redux';
 import {RedButton} from '../components/RedButton';
 import {addToCart} from '../slice/cart';
-import { COLORS, FONTFAMILY } from '../theme/theme';
+import {COLORS, FONTFAMILY} from '../theme/theme';
 const Detail = ({navigation, route}) => {
   const dispatch = useDispatch();
   let productInfo = route.params.product;
@@ -28,7 +28,7 @@ const Detail = ({navigation, route}) => {
   return (
     <>
       <View style={styles.mainContainer}>
-        <StatusBar backgroundColor={primaryred} />
+        <StatusBar backgroundColor={COLORS.primaryred} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.Detail_Img}>
             <Image
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   addtoCart: {
     flex: 1,
-    backgroundColor: primaryred,
+    backgroundColor: COLORS.primaryred,
     color: COLORS.primarywhite,
     height: 44,
     textAlign: 'center',

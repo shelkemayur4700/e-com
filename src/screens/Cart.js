@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   btnBackground: {
-    backgroundColor: COLORS.COLORS.primarywhite,
+    backgroundColor: COLORS.primarywhite,
     height: 30,
     width: 30,
     borderRadius: 90,
