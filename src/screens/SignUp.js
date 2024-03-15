@@ -10,15 +10,7 @@ import {
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {RedButton} from '../components/RedButton';
-import {
-  Bold_Font,
-  Card_Background,
-  Header_FONT_SIZE,
-  primaryBlack,
-  primarygrey,
-  primaryred,
-  primarywhite,
-} from '../constant';
+import {COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
 
 const SignUp = ({navigation, route}) => {
   const handleLogin = () => {
@@ -41,7 +33,7 @@ const SignUp = ({navigation, route}) => {
                 }}>
                 <IoniconsIcons
                   name="chevron-back"
-                  color={primaryBlack}
+                  color={COLORS.primaryBlack}
                   size={22}
                 />
               </TouchableOpacity>
@@ -110,9 +102,9 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   title: {
-    fontFamily: Bold_Font,
-    fontSize: Header_FONT_SIZE,
-    color: primaryBlack,
+    fontFamily: FONTFAMILY.Metropolis_bold,
+    fontSize: FONTSIZE.Header_FONT_SIZE,
+    color: COLORS.primaryBlack,
   },
   formContainer: {
     flex: 1,
@@ -121,7 +113,7 @@ const styles = StyleSheet.create({
   nameForm: {
     height: 50,
     margin: 12,
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     padding: 10,
     borderRadius: 7,
     elevation: 4,
@@ -131,11 +123,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   loginlinkText: {
-    color: primarygrey,
+    color: COLORS.primarygrey,
   },
   signUp: {
-    backgroundColor: primaryred,
-    color: primarywhite,
+    backgroundColor: COLORS.primaryred,
+    color: COLORS.primarywhite,
     height: 44,
     textAlign: 'center',
     textAlignVertical: 'center',
@@ -159,7 +151,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   facebook: {
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     padding: 5,
     borderRadius: 10,
   },

@@ -9,13 +9,7 @@ import {
 } from 'react-native';
 import EntypoIcons from 'react-native-vector-icons/Entypo';
 import FeatherIcons from 'react-native-vector-icons/Feather';
-import {
-  Card_Background,
-  Header_FONT_SIZE,
-  primaryBlack,
-  primarygrey,
-  primarywhite,
-} from '../constant';
+import { COLORS, FONTSIZE } from '../theme/theme';
 
 const Favorites = ({navigation}) => {
   return (
@@ -24,7 +18,7 @@ const Favorites = ({navigation}) => {
         <View style={styles.header}>
           <View style={styles.Search}>
             <TouchableOpacity>
-              <FeatherIcons name="search" size={25} color={primaryBlack} />
+              <FeatherIcons name="search" size={25} color={COLORS.primaryBlack} />
             </TouchableOpacity>
           </View>
           <View style={styles.Heading}>
@@ -65,7 +59,7 @@ const Favorites = ({navigation}) => {
                 <Text style={styles.CardCategory}>Category</Text>
               </View>
               <View style={styles.ContainerTWO}>
-                <EntypoIcons name="cross" size={25} color={primaryBlack} />
+                <EntypoIcons name="cross" size={25} color={COLORS.primaryBlack} />
                 <Text style={styles.price}>₹222</Text>
               </View>
             </View>
@@ -86,7 +80,7 @@ const styles = StyleSheet.create({
   header: {
     paddingTop: 20,
     // backgroundColor: 'yellow',
-    borderBottomColor: primarygrey,
+    borderBottomColor: COLORS.primarygrey,
     borderBottomWidth: 1,
     // elevation: 5,
   },
@@ -100,8 +94,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   HeadingText: {
-    color: primaryBlack,
-    fontSize: Header_FONT_SIZE,
+    color: COLORS.primaryBlack,
+    fontSize: FONTSIZE.Header_FONT_SIZE,
     fontWeight: '600',
     paddingLeft: 10,
     paddingTop: 20,
@@ -116,17 +110,17 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: primaryBlack,
+    backgroundColor: COLORS.primaryBlack,
     borderRadius: 20,
   },
   filterName: {
-    color: primarywhite,
+    color: COLORS.primarywhite,
     fontSize: 16,
   },
   cardContainer: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     borderRadius: 10,
   },
   ImageContainer: {},
@@ -148,12 +142,12 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   Cardbrand: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 20,
     fontWeight: '500',
   },
   CardCategory: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 15,
     fontWeight: '400',
   },
@@ -163,7 +157,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   price: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 18,
     fontWeight: '400',
   },

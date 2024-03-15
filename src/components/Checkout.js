@@ -7,12 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {
-  Bold_Font,
-  Card_Background,
-  primaryBlack,
-  primaryred,
-} from '../constant';
+import {COLORS, FONTFAMILY} from '../theme/theme';
 import {RedButton} from './RedButton';
 
 const Checkout = ({navigation}) => {
@@ -105,13 +100,13 @@ const styles = StyleSheet.create({
   },
   addressContainer: {},
   AddHeading: {
-    fontFamily: Bold_Font,
+    fontFamily: FONTFAMILY.Metropolis_bold,
     fontSize: 18,
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
   },
   AddCard: {
     marginTop: 20,
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     borderRadius: 10,
     padding: 20,
   },
@@ -122,23 +117,23 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 18,
     fontWeight: '600',
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     paddingVertical: 5,
   },
   changebtn: {
-    color: primaryred,
+    color: COLORS.primaryred,
     fontSize: 18,
     fontWeight: '500',
   },
   add1: {
     paddingVertical: 2,
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 16,
     fontWeight: '400',
   },
   add2: {
     paddingVertical: 2,
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 16,
     fontWeight: '400',
   },
@@ -147,14 +142,14 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
   },
   paymentHeading: {
-    fontFamily: Bold_Font,
+    fontFamily: FONTFAMILY.Metropolis_bold,
     fontSize: 18,
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
   },
   paymentCard: {
     marginTop: 20,
     // backgroundColor: 'yellow',
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     borderRadius: 10,
     padding: 5,
   },
@@ -171,7 +166,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
   },
   cardInfo: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 16,
     fontWeight: '600',
   },
@@ -179,9 +174,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   summaryHeading: {
-    fontFamily: Bold_Font,
+    fontFamily: FONTFAMILY.Metropolis_bold,
     fontSize: 18,
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
   },
   SummaryInfo: {
     flexDirection: 'row',

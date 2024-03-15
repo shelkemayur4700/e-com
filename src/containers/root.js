@@ -9,7 +9,6 @@ import FontAwsome6Icons from 'react-native-vector-icons/FontAwesome6';
 import FontistoIcons from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
-import {primaryBlack, primarygrey, primaryred} from '../constant';
 import Cart from '../screens/Cart';
 import Detail from '../screens/Detail';
 import Favorites from '../screens/Favorites';
@@ -19,6 +18,7 @@ import Login from '../screens/Login';
 import Shop from '../screens/Shop';
 import SignUp from '../screens/SignUp';
 import User from '../screens/User/User';
+import {COLORS} from '../theme/theme';
 import {checkAuthStatus} from '../thunk/auth';
 import MainApp from './mainApp';
 function HomePage() {
@@ -29,8 +29,8 @@ function HomePage() {
         style={styles.navBar}
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: primaryred,
-          tabBarInactiveTintColor: primaryBlack,
+          tabBarActiveTintColor: COLORS.primaryred,
+          tabBarInactiveTintColor: COLORS.primaryBlack,
         }}>
         <Tab.Screen
           name="Home"
@@ -40,7 +40,7 @@ function HomePage() {
             tabBarIcon: ({focused}) => (
               <MaterialCommunityIcons
                 name="home"
-                color={focused ? primaryred : primarygrey}
+                color={focused ? COLORS.primaryred : COLORS.primarygrey}
                 size={30}
               />
             ),
@@ -48,12 +48,12 @@ function HomePage() {
         <Tab.Screen
           name="Shop"
           component={Shop}
-          style={{backgroundColor: primaryred}}
+          style={{backgroundColor: COLORS.primaryred}}
           options={{
             tabBarIcon: ({focused}) => (
               <FontAwsome6Icons
                 name="cart-shopping"
-                color={focused ? primaryred : primarygrey}
+                color={focused ? COLORS.primaryred : COLORS.primarygrey}
                 size={22}
               />
             ),
@@ -65,7 +65,7 @@ function HomePage() {
             tabBarIcon: ({focused}) => (
               <FontistoIcons
                 name="shopping-bag"
-                color={focused ? primaryred : primarygrey}
+                color={focused ? COLORS.primaryred : COLORS.primarygrey}
                 size={18}
               />
             ),
@@ -77,7 +77,7 @@ function HomePage() {
             tabBarIcon: ({focused}) => (
               <EvilIconsIcons
                 name={focused ? 'heart' : 'hearto'}
-                color={focused ? primaryred : primarygrey}
+                color={focused ? COLORS.primaryred : COLORS.primarygrey}
                 styles={styles.IconsStyles}
                 size={22}
               />
@@ -91,12 +91,12 @@ function HomePage() {
             tabBarIcon: ({focused}) => (
               <FontAwesomeIcons
                 name="user"
-                color={focused ? primaryred : primarygrey}
+                color={focused ? COLORS.primaryred : COLORS.primarygrey}
                 size={22}
               />
             ),
             tabBarLabelStyle: ({focused}) => ({
-              color: focused ? primaryred : primarygrey,
+              color: focused ? COLORS.primaryred : COLORS.primarygrey,
             }),
           }}></Tab.Screen>
       </Tab.Navigator>
@@ -136,7 +136,7 @@ const Root = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <EntypoIcons name="share" color={primaryBlack} size={22} />
+                <EntypoIcons name="share" color={COLORS.primaryBlack} size={22} />
               </TouchableOpacity>
             ),
           }}

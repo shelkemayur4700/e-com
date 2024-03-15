@@ -8,13 +8,7 @@ import {
   View,
 } from 'react-native';
 import FeatherIcons from 'react-native-vector-icons/Feather';
-import {
-  Card_Background,
-  Header_FONT_SIZE,
-  primaryBlack,
-  primaryred,
-  primarywhite,
-} from '../constant';
+import {COLORS, FONTSIZE} from '../theme/theme';
 
 const Shop = ({navigation}) => {
   return (
@@ -24,7 +18,11 @@ const Shop = ({navigation}) => {
         <View style={styles.header}>
           <View style={styles.Search}>
             <TouchableOpacity>
-              <FeatherIcons name="search" size={25} color={primaryBlack} />
+              <FeatherIcons
+                name="search"
+                size={25}
+                color={COLORS.primaryBlack}
+              />
             </TouchableOpacity>
           </View>
           {/* <View style={styles.Heading}>
@@ -90,8 +88,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   HeadingText: {
-    color: primaryBlack,
-    fontSize: Header_FONT_SIZE,
+    color: COLORS.primaryBlack,
+    fontSize: FONTSIZE.Header_FONT_SIZE,
     paddingLeft: 10,
     paddingTop: 20,
   },
@@ -101,7 +99,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'baseline',
     justifyContent: 'space-between',
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     borderRadius: 10,
   },
   menCategory: {
@@ -109,35 +107,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   categoryTitle: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 18,
   },
   cards: {margin: 10, gap: 10},
   OfferCard: {
-    backgroundColor: primaryred,
+    backgroundColor: COLORS.primaryred,
     alignItems: 'center',
     padding: 30,
     borderRadius: 10,
   },
   offerTitle: {
-    color: primarywhite,
+    color: COLORS.primarywhite,
     fontSize: 22,
   },
   offerInfo: {
-    color: primarywhite,
+    color: COLORS.primarywhite,
     fontSize: 18,
   },
   categoryCard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     borderRadius: 10,
   },
   catrgorytitle: {
     fontSize: 20,
     paddingLeft: 20,
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     justifyContent: 'center',
     alignContent: 'center',
   },

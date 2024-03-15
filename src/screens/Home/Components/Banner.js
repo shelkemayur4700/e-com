@@ -6,8 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {primaryred, primarywhite} from '../../../constant';
-// const Width = Dimensions.get('window').width;
+import { COLORS, FONTFAMILY } from '../../../theme/theme';
 
 const Banner = ({navigation}) => {
   return (
@@ -37,9 +36,9 @@ const styles = StyleSheet.create({
     // width: 376,
   },
   bannerText: {
-    fontFamily: 'Metropolis-Bold',
+    fontFamily: FONTFAMILY.Metropolis_bold,
     fontSize: 48,
-    color: primarywhite,
+    color: COLORS.primarywhite,
     marginLeft: 10,
   },
 
@@ -60,8 +59,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   checkButton: {
-    backgroundColor: primaryred,
-    color: primarywhite,
+    backgroundColor: COLORS.primaryred,
+    color: COLORS.primarywhite,
     height: 36,
     width: 150,
     textAlign: 'center',

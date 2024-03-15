@@ -8,15 +8,8 @@ import {
   View,
 } from 'react-native';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
-import {
-  Bold_Font,
-  Card_Background,
-  Header_FONT_SIZE,
-  primaryBlack,
-  primaryred,
-  primarywhite,
-} from '../constant';
-import { RedButton } from '../components/RedButton';
+import {RedButton} from '../components/RedButton';
+import {COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
 
 const ForgetPass = ({navigation}) => {
   const handleOTP = () => {
@@ -36,7 +29,7 @@ const ForgetPass = ({navigation}) => {
                 }}>
                 <IoniconsIcons
                   name="chevron-back"
-                  color={primaryBlack}
+                  color={COLORS.primaryBlack}
                   size={22}
                 />
               </TouchableOpacity>
@@ -82,15 +75,15 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   title: {
-    fontFamily: Bold_Font,
-    fontSize: Header_FONT_SIZE,
-    color: primaryBlack,
+    fontFamily: FONTFAMILY.Metropolis_bold,
+    fontSize: FONTSIZE.Header_FONT_SIZE,
+    color: COLORS.primaryBlack,
   },
   instructionContainer: {
     padding: 5,
   },
   instruction: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
   },
   formContainer: {
     flex: 1,
@@ -99,15 +92,15 @@ const styles = StyleSheet.create({
   nameForm: {
     height: 50,
     margin: 12,
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     padding: 10,
     borderRadius: 7,
     elevation: 4,
   },
 
   otp: {
-    backgroundColor: primaryred,
-    color: primarywhite,
+    backgroundColor: COLORS.primaryred,
+    color: COLORS.primarywhite,
     height: 44,
     textAlign: 'center',
     textAlignVertical: 'center',

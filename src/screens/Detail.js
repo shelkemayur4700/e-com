@@ -9,14 +9,8 @@ import {
 } from 'react-native';
 import {useDispatch} from 'react-redux';
 import {RedButton} from '../components/RedButton';
-import {
-  Bold_Font,
-  primaryBlack,
-  primarygrey,
-  primaryred,
-  primarywhite,
-} from '../constant';
 import {addToCart} from '../slice/cart';
+import {COLORS, FONTFAMILY} from '../theme/theme';
 const Detail = ({navigation, route}) => {
   const dispatch = useDispatch();
   let productInfo = route.params.product;
@@ -34,7 +28,7 @@ const Detail = ({navigation, route}) => {
   return (
     <>
       <View style={styles.mainContainer}>
-        <StatusBar backgroundColor={primaryred} />
+        <StatusBar backgroundColor={COLORS.primaryred} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.Detail_Img}>
             <Image
@@ -92,29 +86,29 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   BrandName: {
-    fontFamily: Bold_Font,
-    color: primaryBlack,
+    fontFamily: FONTFAMILY.Metropolis_bold,
+    color: COLORS.primaryBlack,
     fontSize: 25,
   },
   Price: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     paddingRight: 10,
     fontSize: 25,
   },
   ProductInfo: {
-    color: primarygrey,
+    color: COLORS.primarygrey,
     paddingTop: 5,
   },
   ProductDesc: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     justifyContent: 'center',
     paddingTop: 5,
     fontSize: 15,
   },
   addtoCart: {
     flex: 1,
-    backgroundColor: primaryred,
-    color: primarywhite,
+    backgroundColor: COLORS.primaryred,
+    color: COLORS.primarywhite,
     height: 44,
     textAlign: 'center',
     textAlignVertical: 'center',

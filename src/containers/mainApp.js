@@ -4,7 +4,6 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import Checkout from '../components/Checkout';
 import Myorders from '../components/Myorders';
-import {primaryBlack} from '../constant';
 import Address from '../screens/User/Components/Address';
 import Orders from '../screens/User/Components/Orders';
 import Payment from '../screens/User/Components/Payment';
@@ -12,6 +11,7 @@ import Promo from '../screens/User/Components/Promo';
 import Review from '../screens/User/Components/Review';
 import Setings from '../screens/User/Components/Setings';
 import UserDetails from '../screens/User/Components/UserDetails';
+import { COLORS } from '../theme/theme';
 const MainApp = () => {
   const Stack = createNativeStackNavigator();
   return (
@@ -26,7 +26,7 @@ const MainApp = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <FeatherIcons name="search" size={22} color={primaryBlack} />
+                <FeatherIcons name="search" size={22} color={COLORS.primaryBlack} />
               </TouchableOpacity>
             ),
           }}
@@ -40,7 +40,7 @@ const MainApp = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <FeatherIcons name="search" size={22} color={primaryBlack} />
+                <FeatherIcons name="search" size={22} color={COLORS.primaryBlack} />
               </TouchableOpacity>
             ),
           }}
@@ -53,7 +53,7 @@ const MainApp = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <FeatherIcons name="search" size={22} color={primaryBlack} />
+                <FeatherIcons name="search" size={22} color={COLORS.primaryBlack} />
               </TouchableOpacity>
             ),
           }}
@@ -66,7 +66,7 @@ const MainApp = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <FeatherIcons name="search" size={22} color={primaryBlack} />
+                <FeatherIcons name="search" size={22} color={COLORS.primaryBlack} />
               </TouchableOpacity>
             ),
           }}
@@ -79,7 +79,7 @@ const MainApp = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <FeatherIcons name="search" size={22} color={primaryBlack} />
+                <FeatherIcons name="search" size={22} color={COLORS.primaryBlack} />
               </TouchableOpacity>
             ),
           }}
@@ -92,7 +92,7 @@ const MainApp = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <FeatherIcons name="search" size={22} color={primaryBlack} />
+                <FeatherIcons name="search" size={22} color={COLORS.primaryBlack} />
               </TouchableOpacity>
             ),
           }}
@@ -105,7 +105,7 @@ const MainApp = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <FeatherIcons name="search" size={22} color={primaryBlack} />
+                <FeatherIcons name="search" size={22} color={COLORS.primaryBlack} />
               </TouchableOpacity>
             ),
           }}
@@ -119,7 +119,7 @@ const MainApp = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <FeatherIcons name="search" size={22} color={primaryBlack} />
+                <FeatherIcons name="search" size={22} color={COLORS.primaryBlack} />
               </TouchableOpacity>
             ),
           }}
@@ -132,7 +132,7 @@ const MainApp = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <FeatherIcons name="search" size={22} color={primaryBlack} />
+                <FeatherIcons name="search" size={22} color={COLORS.primaryBlack} />
               </TouchableOpacity>
             ),
           }}
