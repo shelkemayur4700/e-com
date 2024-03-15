@@ -9,7 +9,7 @@ export const LoginApi = createAsyncThunk(
     try {
       let response = await axios.post(`${BASE_URL}/auth/login`, model);
       const responseData = response.data;
-      console.log('#####', toString(responseData?.token));
+      // console.log('#####', toString(responseData?.token));
       if (response) {
         await AsyncStorage.setItem('token', responseData?.token);
       }

@@ -12,31 +12,3 @@ export const Bold_Font = 'Metropolis-Bold';
 export const Header_FONT_SIZE = 30;
 export const BASE_URL = 'https://fakestoreapi.com';
 
-{
-  /* ------------------MAIN BUTTON COMPONENT------------------- */
-}
-export const MainButton = ({handleClick, name}) => {
-  return (
-    <>
-      <View>
-        <TouchableOpacity onPress={() => handleClick()}>
-          <Text style={styles.Checkout}>{name}</Text>
-        </TouchableOpacity>
-      </View>
-    </>
-  );
-};
-const styles = StyleSheet.create({
-  Checkout: {
-    // flex: 1,
-    backgroundColor: primaryred,
-    color: primarywhite,
-    height: 44,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    borderRadius: 20,
-    marginTop: 10,
-    marginLeft: 15,
-    marginRight: 15,
-  },
-});

@@ -14,13 +14,13 @@ import {
   Bold_Font,
   Card_Background,
   Header_FONT_SIZE,
-  MainButton,
   primaryBlack,
   primarygrey,
   primaryred,
   primarywhite,
 } from '../constant';
 import {LoginApi} from '../thunk/auth';
+import { RedButton } from '../components/RedButton';
 
 const Login = ({navigation, route}) => {
   const dispatch = useDispatch();
@@ -91,7 +91,7 @@ const Login = ({navigation, route}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.Signinbtn}>
-            <MainButton handleClick={() => HandleLogin()} name={'SIGN IN'} />
+            <RedButton handleClick={() => HandleLogin()} name={'SIGN IN'} />
           </View>
           <View style={styles.footer}>
             <View style={styles.sigupLink}>

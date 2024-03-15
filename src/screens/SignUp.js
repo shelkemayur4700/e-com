@@ -9,11 +9,11 @@ import {
 } from 'react-native';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
+import {RedButton} from '../components/RedButton';
 import {
   Bold_Font,
   Card_Background,
   Header_FONT_SIZE,
-  MainButton,
   primaryBlack,
   primarygrey,
   primaryred,
@@ -63,7 +63,7 @@ const SignUp = ({navigation, route}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.Signupbtn}>
-            <MainButton handleClick={() => handleSignUp()} name={'SIGN UP'} />
+            <RedButton handleClick={() => handleSignUp()} name={'SIGN UP'} />
           </View>
           <View style={styles.footer}>
             <View style={styles.SocialContainer}>

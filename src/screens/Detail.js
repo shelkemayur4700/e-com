@@ -8,15 +8,15 @@ import {
   View,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
+import {RedButton} from '../components/RedButton';
 import {
   Bold_Font,
-  MainButton,
   primaryBlack,
   primarygrey,
   primaryred,
   primarywhite,
 } from '../constant';
-import {addToCart} from '../slice/cartSlice';
+import {addToCart} from '../slice/cart';
 const Detail = ({navigation, route}) => {
   const dispatch = useDispatch();
   let productInfo = route.params.product;
@@ -26,7 +26,9 @@ const Detail = ({navigation, route}) => {
   let productData = {...productInfo, quantity: 1};
   const HandleAddtoCart = product => {
     dispatch(addToCart(product));
-    navigation.navigate('Bag');
+    navigation.push('HomePage', {
+      screen: 'Bag',
+    });
   };
 
   return (
@@ -51,7 +53,7 @@ const Detail = ({navigation, route}) => {
               <Text style={styles.ProductInfo}>{productData?.category}</Text>
               <Text style={styles.ProductDesc}>{productData?.description}</Text>
 
-              <MainButton
+              <RedButton
                 handleClick={() => HandleAddtoCart(productData)}
                 name="ADD TO CART"
               />

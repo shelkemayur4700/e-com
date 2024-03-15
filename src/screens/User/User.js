@@ -35,7 +35,7 @@ const User = ({navigation}) => {
           <View style={styles.Prodilecards}>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('MainApp', {name: 'UserDetails'})
+                navigation.push('MainApp', {name: 'UserDetails'})
               }>
               <View style={styles.profileContainer}>
                 <View style={styles.profileimageContainer}>
@@ -52,7 +52,7 @@ const User = ({navigation}) => {
             {/* -----------------------order section ------------ */}
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('MainApp', {screen: 'Orders'})
+                navigation.push('MainApp', {screen: 'Orders'})
               }>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
@@ -71,7 +71,7 @@ const User = ({navigation}) => {
             {/* -----------------------Address section ------------ */}
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('MainApp', {screen: 'Address'})
+                navigation.push('MainApp', {screen: 'Address'})
               }>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
@@ -91,7 +91,7 @@ const User = ({navigation}) => {
             {/* -----------------------payment section ------------ */}
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('MainApp', {screen: 'Payment'})
+                navigation.push('MainApp', {screen: 'Payment'})
               }>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
@@ -109,7 +109,7 @@ const User = ({navigation}) => {
             </TouchableOpacity>
             {/* -----------------------promocode section ------------ */}
             <TouchableOpacity
-              onPress={() => navigation.navigate('MainApp', {screen: 'Promo'})}>
+              onPress={() => navigation.push('MainApp', {screen: 'Promo'})}>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>Promocodes</Text>
@@ -129,7 +129,7 @@ const User = ({navigation}) => {
             {/* -----------------------Review section ------------ */}
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('MainApp', {screen: 'Review'})
+                navigation.push('MainApp', {screen: 'Review'})
               }>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
@@ -149,7 +149,7 @@ const User = ({navigation}) => {
             {/* -----------------------Settings section ------------ */}
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('MainApp', {screen: 'Setings'})
+                navigation.push('MainApp', {screen: 'Setings'})
               }>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
