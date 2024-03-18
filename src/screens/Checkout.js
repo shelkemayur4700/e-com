@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {RedButton} from '../components/RedButton';
 import {COLORS, FONTFAMILY} from '../theme/theme';
-import {RedButton} from './RedButton';
 
 const Checkout = ({navigation}) => {
   const handleSubmitOrder = () => {
-    console.log('submit');
+    navigation.push('Success');
   };
   return (
     <>
