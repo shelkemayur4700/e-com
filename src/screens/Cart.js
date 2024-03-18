@@ -1,3 +1,4 @@
+import LottieView from 'lottie-react-native';
 import React, {useEffect} from 'react';
 import {
   Image,
@@ -36,6 +37,10 @@ const Cart = ({navigation}) => {
   const handleRemoveItem = id => {
     dispatch(removeItem(id));
   };
+  // WHEN CART IS EMPTY
+  const HandleAddtoCart = () => {
+    navigation.navigate('Home');
+  };
   // ------------------------Checkout--------------
   const HandleCheckout = () => {
     // if (tokn) {
@@ -48,72 +53,105 @@ const Cart = ({navigation}) => {
   useEffect(() => {
     dispatch(getCartTotal());
   }, [cart]);
-
+  console.log('cart.length', cart.length);
   return (
     <View style={styles.mainContainer}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.Search}>
-          <TouchableOpacity>
-            <FeatherIcons name="search" size={25} color={COLORS.primaryBlack} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.Heading}>
-          <Text style={styles.HeadingText}>My Bag</Text>
-        </View>
-        {cart.map(item => {
-          return (
-            <View key={item?.id} style={styles.productCard}>
-              <View>
-                <Image style={styles.cartimg} source={{uri: item?.image}} />
-              </View>
-              <View style={styles.Info}>
-                <View style={styles.prodetailsContainer}>
-                  <Text style={styles.brand}>{item?.title}</Text>
-                  <MaterialCommunityIcons
-                    name="delete"
-                    color={COLORS.primaryBlack}
-                    size={20}
-                    onPress={() => handleRemoveItem(item?.id)}
-                  />
-                </View>
-                <View style={styles.prodetailsContainer2}>
-                  <View style={styles.prodetails}>
-                    <TouchableOpacity
-                      onPress={() => handleDcreaseItem(item?.id)}>
-                      <View style={[styles.btnBackground]}>
-                        <Text style={{color: COLORS.primaryBlack}}>-</Text>
-                      </View>
-                    </TouchableOpacity>
-                    <Text style={{color: COLORS.primaryBlack}}>
-                      {Number(item?.quantity)}
-                    </Text>
-                    <TouchableOpacity
-                      onPress={() => handleIncreaseItem(Number(item?.id))}>
-                      <View style={styles.btnBackground}>
-                        <Text style={{color: COLORS.primaryBlack}}>+</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.price}>
-                    <Text style={{fontSize: 20, color: COLORS.primaryBlack}}>
-                      ₹{item?.price}
-                    </Text>
-                  </View>
-                </View>
-              </View>
+      {/* -----------------EMPTY CART CONTENT-------------------------------- */}
+      {cart.length <= 0 ? (
+        <>
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <LottieView
+              source={require('../Assets/Empty Cart.json')}
+              autoPlay
+              loop
+              justifyContent="center"
+              height={'50%'}
+              width={'80%'}
+            />
+            <Text style={styles.EmptyCartText}>Your cart is empty!</Text>
+          </View>
+          {/* SHOP NOW  */}
+          <View>
+            <RedButton name="Shop now" handleClick={HandleAddtoCart} />
+          </View>
+        </>
+      ) : (
+        // ----------------------CART CONTENT------------------------------
+        <View style={{flex: 1}}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.Search}>
+              <TouchableOpacity>
+                <FeatherIcons
+                  name="search"
+                  size={25}
+                  color={COLORS.primaryBlack}
+                />
+              </TouchableOpacity>
             </View>
-          );
-        })}
-      </ScrollView>
-      <View style={styles.footer}>
-        <View style={styles.finalPrice}>
-          <Text style={styles.finalpriceInfo}>Total Amount:</Text>
-          <Text style={styles.finalpriceInfo}>₹{totalPrice}</Text>
+            <View style={styles.Heading}>
+              <Text style={styles.HeadingText}>My Bag</Text>
+            </View>
+            {cart.map(item => {
+              return (
+                <View key={item?.id} style={styles.productCard}>
+                  <View>
+                    <Image style={styles.cartimg} source={{uri: item?.image}} />
+                  </View>
+                  <View style={styles.Info}>
+                    <View style={styles.prodetailsContainer}>
+                      <Text style={styles.brand}>{item?.title}</Text>
+                      <MaterialCommunityIcons
+                        name="delete"
+                        color={COLORS.primaryBlack}
+                        size={20}
+                        onPress={() => handleRemoveItem(item?.id)}
+                      />
+                    </View>
+                    <View style={styles.prodetailsContainer2}>
+                      <View style={styles.prodetails}>
+                        <TouchableOpacity
+                          onPress={() => handleDcreaseItem(item?.id)}>
+                          <View style={[styles.btnBackground]}>
+                            <Text style={{color: COLORS.primaryBlack}}>-</Text>
+                          </View>
+                        </TouchableOpacity>
+                        <Text style={{color: COLORS.primaryBlack}}>
+                          {Number(item?.quantity)}
+                        </Text>
+                        <TouchableOpacity
+                          onPress={() => handleIncreaseItem(Number(item?.id))}>
+                          <View style={styles.btnBackground}>
+                            <Text style={{color: COLORS.primaryBlack}}>+</Text>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.price}>
+                        <Text
+                          style={{fontSize: 20, color: COLORS.primaryBlack}}>
+                          ₹{item?.price}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              );
+            })}
+          </ScrollView>
+          <View style={styles.footer}>
+            <View style={styles.finalPrice}>
+              <Text style={styles.finalpriceInfo}>Total Amount:</Text>
+              <Text style={styles.finalpriceInfo}>₹{totalPrice}</Text>
+            </View>
+            <View>
+              <RedButton
+                handleClick={() => HandleCheckout()}
+                name={'CHECKOUT'}
+              />
+            </View>
+          </View>
         </View>
-        <View>
-          <RedButton handleClick={() => HandleCheckout()} name={'CHECKOUT'} />
-        </View>
-      </View>
+      )}
     </View>
   );
 };
@@ -223,5 +261,10 @@ const styles = StyleSheet.create({
   finalpriceInfo: {
     color: COLORS.primaryBlack,
     fontSize: 20,
+  },
+  EmptyCartText: {
+    color: COLORS.primaryBlack,
+    fontSize: FONTSIZE.size_18,
+    fontFamily: FONTFAMILY.Mertopolis_medium,
   },
 });
