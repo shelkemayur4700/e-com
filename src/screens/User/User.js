@@ -25,7 +25,6 @@ const User = ({navigation}) => {
   const handleSignout = async () => {
     try {
       await AsyncStorage.removeItem('token');
-      getToken();
       navigation.navigate('Home');
     } catch (error) {
       console.log(error);
