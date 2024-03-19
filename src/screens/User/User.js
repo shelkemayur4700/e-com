@@ -20,7 +20,7 @@ import {
 import {COLORS, FONTFAMILY, SPACING} from '../../theme/theme';
 
 const User = ({navigation}) => {
-
+  console.log('user screen');
   // -------------SIGN OUT-------------
   const handleSignout = async () => {
     try {
