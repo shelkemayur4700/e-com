@@ -70,10 +70,10 @@ const Cart = ({navigation}) => {
               width={'80%'}
             />
             <Text style={styles.EmptyCartText}>Your cart is empty!</Text>
-          </View>
-          {/* SHOP NOW  */}
-          <View>
-            <RedButton name="Shop now" handleClick={HandleAddtoCart} />
+            {/* SHOP NOW  */}
+            <TouchableOpacity onPress={HandleAddtoCart}>
+              <Text style={styles.ShopNowText}> SHOP NOW</Text>
+            </TouchableOpacity>
           </View>
         </>
       ) : (
@@ -266,5 +266,15 @@ const styles = StyleSheet.create({
     color: COLORS.primaryBlack,
     fontSize: FONTSIZE.size_18,
     fontFamily: FONTFAMILY.Mertopolis_medium,
+  },
+  ShopNowText: {
+    backgroundColor: COLORS.primaryred,
+    color: COLORS.primarywhite,
+    height: 36,
+    width: 150,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    borderRadius: 20,
+    marginVertical: 20,
   },
 });
