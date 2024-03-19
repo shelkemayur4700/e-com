@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
 import {
   Image,
   ScrollView,
@@ -6,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -16,8 +17,20 @@ import {
   primaryBlack,
   primarygrey,
 } from '../../constant';
+import {COLORS, FONTFAMILY, SPACING} from '../../theme/theme';
 
 const User = ({navigation}) => {
+
+  // -------------SIGN OUT-------------
+  const handleSignout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+      getToken();
+      navigation.navigate('Home');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -34,9 +47,7 @@ const User = ({navigation}) => {
           {/* -----------------------profile section ------------ */}
           <View style={styles.Prodilecards}>
             <TouchableOpacity
-              onPress={() =>
-                navigation.push('MainApp', {name: 'UserDetails'})
-              }>
+              onPress={() => navigation.push('MainApp', {name: 'UserDetails'})}>
               <View style={styles.profileContainer}>
                 <View style={styles.profileimageContainer}>
                   <Image
@@ -51,9 +62,7 @@ const User = ({navigation}) => {
             </TouchableOpacity>
             {/* -----------------------order section ------------ */}
             <TouchableOpacity
-              onPress={() =>
-                navigation.push('MainApp', {screen: 'Orders'})
-              }>
+              onPress={() => navigation.push('MainApp', {screen: 'Orders'})}>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>My orders</Text>
@@ -70,9 +79,7 @@ const User = ({navigation}) => {
             </TouchableOpacity>
             {/* -----------------------Address section ------------ */}
             <TouchableOpacity
-              onPress={() =>
-                navigation.push('MainApp', {screen: 'Address'})
-              }>
+              onPress={() => navigation.push('MainApp', {screen: 'Address'})}>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>Shipping addresses</Text>
@@ -90,9 +97,7 @@ const User = ({navigation}) => {
 
             {/* -----------------------payment section ------------ */}
             <TouchableOpacity
-              onPress={() =>
-                navigation.push('MainApp', {screen: 'Payment'})
-              }>
+              onPress={() => navigation.push('MainApp', {screen: 'Payment'})}>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>Payment methods</Text>
@@ -128,9 +133,7 @@ const User = ({navigation}) => {
             </TouchableOpacity>
             {/* -----------------------Review section ------------ */}
             <TouchableOpacity
-              onPress={() =>
-                navigation.push('MainApp', {screen: 'Review'})
-              }>
+              onPress={() => navigation.push('MainApp', {screen: 'Review'})}>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>My reviews</Text>
@@ -148,9 +151,7 @@ const User = ({navigation}) => {
 
             {/* -----------------------Settings section ------------ */}
             <TouchableOpacity
-              onPress={() =>
-                navigation.push('MainApp', {screen: 'Setings'})
-              }>
+              onPress={() => navigation.push('MainApp', {screen: 'Setings'})}>
               <View style={styles.cardContainer}>
                 <View style={styles.order}>
                   <Text style={styles.cardHeading}>Settings</Text>
@@ -163,6 +164,12 @@ const User = ({navigation}) => {
                     size={20}
                   />
                 </View>
+              </View>
+            </TouchableOpacity>
+            {/* -----------------------Signout section ------------ */}
+            <TouchableOpacity onPress={() => handleSignout()}>
+              <View style={styles.SignourBtn}>
+                <Text style={styles.SignoutText}>SIGN OUT</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -237,4 +244,16 @@ const styles = StyleSheet.create({
     color: primaryBlack,
   },
   cardInfo: {},
+  SignourBtn: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 10,
+    backgroundColor: COLORS.primaryBlack,
+    paddingVertical: SPACING.space_10,
+  },
+  SignoutText: {
+    color: COLORS.primarywhite,
+    fontFamily: FONTFAMILY.Metropolis_bold,
+    // fontSize: FONTSIZE.,
+  },
 });

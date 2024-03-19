@@ -45,7 +45,9 @@ const Checkout = ({navigation}) => {
             <TouchableOpacity>
               <View style={styles.paymentCard}>
                 <View style={styles.paymetLogoCard}>
-                  <Text style={styles.changebtn}>Change</Text>
+                  <TouchableOpacity onPress={() => navigation.push('Payment')}>
+                    <Text style={styles.changebtn}>Change</Text>
+                  </TouchableOpacity>
                 </View>
                 <View style={styles.cardDetails}>
                   <Image

@@ -15,7 +15,7 @@ export const LoginApi = createAsyncThunk(
       }
       return responseData;
     } catch (error) {
-      return thunkApi.rejectWithValue(error?.response?.data);
+      console.log(error);
     }
   },
 );

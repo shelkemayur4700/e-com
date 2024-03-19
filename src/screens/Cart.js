@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
 import React, {useEffect} from 'react';
 import {
@@ -22,7 +23,6 @@ import {COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
 
 const Cart = ({navigation}) => {
   const dispatch = useDispatch();
-  let tokn = useSelector(state => state.auth.token);
   const {cart, totalQuantity, totalPrice} = useSelector(
     state => state.cartdata,
   );
@@ -42,13 +42,15 @@ const Cart = ({navigation}) => {
     navigation.navigate('Home');
   };
   // ------------------------Checkout--------------
-  const HandleCheckout = () => {
-    // if (tokn) {
-    // place next screen's navigation code
-    navigation.push('MainApp', {screen: 'Checkout'});
-    // } else {
-    //   navigation.navigate('Login');
-    // }
+
+  const HandleCheckout = async () => {
+    let tokn = await AsyncStorage.getItem('token');
+    if (tokn) {
+      // place next screen's navigation code
+      navigation.push('MainApp', {screen: 'Checkout'});
+    } else {
+      navigation.navigate('Login');
+    }
   };
   useEffect(() => {
     dispatch(getCartTotal());
@@ -229,7 +231,7 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 5,
+    elevation: 2,
   },
   price: {
     justifyContent: 'center',
