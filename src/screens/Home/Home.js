@@ -11,9 +11,9 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import LoaderComp from '../../components/LoaderComp';
+import {COLORS, FONTFAMILY, SPACING} from '../../theme/theme';
 import {getAllProducts} from '../../thunk/product';
 import Banner from './Components/Banner';
-import { COLORS, FONTFAMILY } from '../../theme/theme';
 // const Card_Width = Dimensions.get('window').width * 0.45;
 
 const HomeScreen = ({navigation, route}) => {
@@ -82,8 +82,8 @@ const HomeScreen = ({navigation, route}) => {
             <Text style={styles.text1}>View all</Text>
           </View>
         </View>
-        {/* --------------------------X----------------------- */}
-        <View style={styles.Products}>
+        {/* --------------------------ALL PRODUCTS----------------------- */}
+        {/* <View style={styles.Products}>
           {products?.map((ele, i) => {
             return (
               <TouchableOpacity
@@ -107,6 +107,42 @@ const HomeScreen = ({navigation, route}) => {
               </TouchableOpacity>
             );
           })}
+        </View> */}
+        <View>
+          <FlatList
+            contentContainerStyle={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              gap: SPACING.space_8,
+              justifyContent: 'center',
+            }}
+            showsVerticalScrollIndicator={false}
+            // numColumns={50}
+            data={products}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                onPress={() => {
+                  SingleProduct(item);
+                }}>
+                <View key={item.id} style={styles.Card}>
+                  <Image
+                    source={{uri: item?.image}}
+                    alt={'Product'}
+                    style={styles.cardImage}
+                  />
+                  <Text style={styles.brand} numberOfLines={1}>
+                    {item?.title}
+                  </Text>
+                  <Text style={styles.prod_Desc} numberOfLines={2}>
+                    {item?.category}
+                  </Text>
+                  <Text style={styles.Price}>₹{item?.price}</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
         </View>
       </ScrollView>
     </View>
@@ -135,7 +171,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'yellow',
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 5,
+    // elevation: 1,
   },
   cardImage: {
     width: 130,
