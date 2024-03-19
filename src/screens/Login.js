@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState} from 'react';
 import {
   ScrollView,
@@ -10,14 +11,18 @@ import {
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
+import {RedButton} from '../components/RedButton';
+import {COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
 import {LoginApi} from '../thunk/auth';
-import { RedButton } from '../components/RedButton';
-import { COLORS, FONTFAMILY, FONTSIZE } from '../theme/theme';
 
 const Login = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [loginData, setLoginData] = useState({});
-
+  // ----------RETRIVING TOKEN ----------
+  const getToken = async () => {
+    const storedToken = await AsyncStorage.getItem('token');
+    console.log(storedToken);
+  };
   // -------------LOGIN FUNCTION --------
   const HandleLogin = async () => {
     try {
@@ -27,6 +32,7 @@ const Login = ({navigation, route}) => {
       };
       let res = await dispatch(LoginApi(payload)).unwrap();
       if (res) {
+        getToken();
         navigation.pop();
       }
     } catch (error) {
@@ -42,6 +48,7 @@ const Login = ({navigation, route}) => {
   const Forgetpass = () => {
     navigation.navigate('ForgetPass');
   };
+
   return (
     <>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>

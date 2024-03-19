@@ -118,8 +118,8 @@ const Root = () => {
         {/* ----------Protected route---------------  */}
         <Stack.Screen
           name="MainApp"
-          component={MainApp}
-          // component={token ? MainApp : Login}
+          // component={MainApp}
+          component={token ? MainApp : Login}
           options={{headerShown: false}}
         />
         {/* ----------Public routes---------------  */}
@@ -136,7 +136,11 @@ const Root = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
-                <EntypoIcons name="share" color={COLORS.primaryBlack} size={22} />
+                <EntypoIcons
+                  name="share"
+                  color={COLORS.primaryBlack}
+                  size={22}
+                />
               </TouchableOpacity>
             ),
           }}
