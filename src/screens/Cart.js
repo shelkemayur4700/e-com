@@ -53,7 +53,7 @@ const Cart = ({navigation}) => {
   useEffect(() => {
     dispatch(getCartTotal());
   }, [cart]);
-  console.log('cart.length', cart.length);
+
   return (
     <View style={styles.mainContainer}>
       {/* -----------------EMPTY CART CONTENT-------------------------------- */}
@@ -111,7 +111,11 @@ const Cart = ({navigation}) => {
                     <View style={styles.prodetailsContainer2}>
                       <View style={styles.prodetails}>
                         <TouchableOpacity
-                          onPress={() => handleDcreaseItem(item?.id)}>
+                          onPress={() =>
+                            item.quantity <= 1
+                              ? handleRemoveItem(item?.id)
+                              : handleDcreaseItem(item?.id)
+                          }>
                           <View style={[styles.btnBackground]}>
                             <Text style={{color: COLORS.primaryBlack}}>-</Text>
                           </View>
