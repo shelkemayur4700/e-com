@@ -18,6 +18,7 @@ import {
   primaryBlack,
   primarygrey,
 } from '../../constant';
+import {logoutUser} from '../../slice/auth';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../../theme/theme';
 import {checkAuthStatus, logout} from '../../thunk/auth';
 
@@ -27,6 +28,7 @@ const User = ({navigation}) => {
   const handleSignout = async () => {
     try {
       dispatch(logout());
+      dispatch(logoutUser());
       navigation.navigate('Home');
     } catch (error) {
       console.log(error);
@@ -34,7 +36,7 @@ const User = ({navigation}) => {
   };
   // ---------------------CHECK FOR TOKEN----------------
 
-  let token = useSelector(state => state?.auth?.isAuth);
+  let token = useSelector(state => state?.auth?.token);
   console.log('Token from User..............', token);
   useEffect(() => {
     if (!token) {

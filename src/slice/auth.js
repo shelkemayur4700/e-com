@@ -9,7 +9,11 @@ const initialState = {
 const authSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    logoutUser: state => {
+      state.token = null;
+    },
+  },
   extraReducers: builder => {
     // login
     builder.addCase(LoginApi.pending, (state, action) => {
@@ -41,5 +45,5 @@ const authSlice = createSlice({
       });
   },
 });
-
+export const {logoutUser} = authSlice.actions;
 export default authSlice.reducer;
