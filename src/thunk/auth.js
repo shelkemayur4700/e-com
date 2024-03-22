@@ -20,6 +20,19 @@ export const LoginApi = createAsyncThunk(
   },
 );
 
+export const logout = createAsyncThunk(
+  'auth/logout',
+  async (model, thunkAPi) => {
+    try {
+      let res = {data: {status: 200}};
+      // await AsyncStorage.removeItem('user');
+      await AsyncStorage.removeItem('token');
+      return res.data;
+    } catch (error) {
+      return thunkAPi.rejectWithValue(error);
+    }
+  },
+);
 export const checkAuthStatus = createAsyncThunk(
   'auth/checkAuthStatus',
   async (model, thunkApi) => {
