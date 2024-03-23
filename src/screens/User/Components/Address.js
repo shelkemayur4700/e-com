@@ -2,11 +2,16 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTFAMILY} from '../../../theme/theme';
-const Address = () => {
+const Address = ({navigation}) => {
   const [isChecked, setIsChecked] = useState(false);
+  // METHOD TO SELECT ADD
   const HandleSelectDeliveryAdd = () => {
     console.log('function');
     setIsChecked(!isChecked);
+  };
+  // METHOD TO ADD ADDRESS
+  const handleAddAddress = () => {
+    navigation.push('AddAddress');
   };
 
   return (
@@ -41,7 +46,18 @@ const Address = () => {
             <Text style={styles.AddressText}>Use as the shipping Address.</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.PlusBtnContainer}></View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            // backgroundColor: 'yellow',
+          }}>
+          <TouchableOpacity
+            style={styles.PlusBtnContainer}
+            onPress={() => handleAddAddress()}>
+            <AntDesignIcon name="plus" size={20} color={COLORS.primarywhite} />
+          </TouchableOpacity>
+        </View>
       </View>
     </>
   );
@@ -92,11 +108,15 @@ const styles = StyleSheet.create({
     color: COLORS.primaryBlack,
   },
   PlusBtnContainer: {
-    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: COLORS.primaryBlack,
     borderRadius: 50,
-    // padding: 20,
     width: 50,
     height: 50,
+    marginVertical: 10,
+    // left: -1,
+    elevation: 10,
+    marginRight: 5,
   },
 });

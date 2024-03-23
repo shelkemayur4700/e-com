@@ -2,6 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import FeatherIcons from 'react-native-vector-icons/Feather';
+import AddAddress from '../components/AddAddress';
 import Myorders from '../components/Myorders';
 import Checkout from '../screens/Checkout';
 import Success from '../screens/Success';
@@ -181,6 +182,24 @@ const MainApp = () => {
           component={Success}
           options={{
             headerShown: false,
+          }}
+        />
+        {/* -----------------AddAddress-Screen----------- */}
+        <Stack.Screen
+          name="AddAddress"
+          component={AddAddress}
+          options={{
+            title: 'Add Address',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <TouchableOpacity>
+                <FeatherIcons
+                  name="search"
+                  size={22}
+                  color={COLORS.primaryBlack}
+                />
+              </TouchableOpacity>
+            ),
           }}
         />
       </Stack.Navigator>
