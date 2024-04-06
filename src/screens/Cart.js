@@ -98,7 +98,7 @@ const Cart = ({navigation}) => {
               return (
                 <View key={item?.id} style={styles.productCard}>
                   <View>
-                    <Image style={styles.cartimg} source={{uri: item?.image}} />
+                    <Image style={styles.cartimg} source={{uri: item?.img}} />
                   </View>
                   <View style={styles.Info}>
                     <View style={styles.prodetailsContainer}>
