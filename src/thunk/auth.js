@@ -7,7 +7,7 @@ export const LoginApi = createAsyncThunk(
   'auth/login',
   async (model, thunkApi) => {
     try {
-      let response = await axios.post(`${BASE_URL}/auth/login`, model);
+      let response = await axios.post(`${BASE_URL}/auth/signin`, model);
       const responseData = response.data;
       // console.log('#####', toString(responseData?.token));
       if (response) {

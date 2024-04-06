@@ -33,7 +33,7 @@ const Detail = ({navigation, route}) => {
           <View style={styles.Detail_Img}>
             <Image
               style={styles.Detail_Image}
-              source={{uri: productData?.image}}
+              source={{uri: productData?.img}}
               alt="Image"
             />
           </View>

@@ -21,9 +21,14 @@ const HomeScreen = ({navigation, route}) => {
   const products = useSelector(state => state.productStore.data);
   const loading = useSelector(state => state.productStore.loading);
   const getproductslist = async () => {
-    let result = await dispatch(getAllProducts()).unwrap();
+    try {
+      let result = await dispatch(getAllProducts()).unwrap();
+      console.log('result', result);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
+  // console.log('products', products);
   const SingleProduct = product => {
     navigation.push('Detail', {product});
   };
@@ -53,7 +58,7 @@ const HomeScreen = ({navigation, route}) => {
               contentContainerStyle={{gap: 8}}
               showsHorizontalScrollIndicator={false}
               data={products}
-              keyExtractor={item => item.id}
+              keyExtractor={item => item._id}
               renderItem={({item}) => (
                 <TouchableOpacity
                   onPress={() => {
@@ -61,7 +66,7 @@ const HomeScreen = ({navigation, route}) => {
                   }}>
                   <View key={item.id} style={styles.Card}>
                     <Image
-                      source={{uri: item?.image}}
+                      source={{uri: item?.img}}
                       alt={'Product'}
                       style={styles.cardImage}
                     />
@@ -120,7 +125,7 @@ const HomeScreen = ({navigation, route}) => {
             showsVerticalScrollIndicator={false}
             // numColumns={50}
             data={products}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item._id}
             renderItem={({item}) => (
               <TouchableOpacity
                 onPress={() => {
@@ -128,7 +133,7 @@ const HomeScreen = ({navigation, route}) => {
                 }}>
                 <View key={item.id} style={styles.Card}>
                   <Image
-                    source={{uri: item?.image}}
+                    source={{uri: item?.img}}
                     alt={'Product'}
                     style={styles.cardImage}
                   />

@@ -17,7 +17,10 @@ import {LoginApi} from '../thunk/auth';
 
 const Login = ({navigation, route}) => {
   const dispatch = useDispatch();
-  const [loginData, setLoginData] = useState({});
+  const [loginData, setLoginData] = useState({
+    userName: '',
+    password: '',
+  });
   // ----------RETRIVING TOKEN ----------
   const getToken = async () => {
     const storedToken = await AsyncStorage.getItem('token');
@@ -27,10 +30,11 @@ const Login = ({navigation, route}) => {
   const HandleLogin = async () => {
     try {
       const payload = {
-        username: loginData?.username,
+        userName: loginData?.username,
         password: loginData?.password,
       };
       let res = await dispatch(LoginApi(payload)).unwrap();
+      console.log('res...login..', res);
       if (res) {
         getToken();
         navigation.pop();

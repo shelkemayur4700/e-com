@@ -8,4 +8,6 @@ export const Card_Background = '#FFFFFF';
 
 export const Bold_Font = 'Metropolis-Bold';
 export const Header_FONT_SIZE = 30;
-export const BASE_URL = 'https://fakestoreapi.com';
+// ----------FAKESTORE
+// export const BASE_URL = 'https://fakestoreapi.com';
+export const BASE_URL = 'http://192.168.107.216:8989';
