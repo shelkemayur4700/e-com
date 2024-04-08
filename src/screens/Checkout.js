@@ -80,7 +80,9 @@ const Checkout = ({navigation}) => {
             <Text style={[styles.summaryText, styles.summaryHeading]}>
               Summary:
             </Text>
-            <Text style={[styles.summaryText, styles.summaryHeading]}>125</Text>
+            <Text style={[styles.summaryText, styles.summaryHeading]}>
+              ₹ 125
+            </Text>
           </View>
         </View>
         {/* -----------------SUBMIT ORDER-------------------------- */}

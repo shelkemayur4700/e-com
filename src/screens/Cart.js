@@ -107,7 +107,7 @@ const Cart = ({navigation}) => {
                         name="delete"
                         color={COLORS.primaryBlack}
                         size={20}
-                        onPress={() => handleRemoveItem(item?.id)}
+                        onPress={() => handleRemoveItem(item?._id)}
                       />
                     </View>
                     <View style={styles.prodetailsContainer2}>
@@ -115,8 +115,8 @@ const Cart = ({navigation}) => {
                         <TouchableOpacity
                           onPress={() =>
                             item.quantity <= 1
-                              ? handleRemoveItem(item?.id)
-                              : handleDcreaseItem(item?.id)
+                              ? handleRemoveItem(item?._id)
+                              : handleDcreaseItem(item?._id)
                           }>
                           <View style={[styles.btnBackground]}>
                             <Text style={{color: COLORS.primaryBlack}}>-</Text>
@@ -126,7 +126,7 @@ const Cart = ({navigation}) => {
                           {Number(item?.quantity)}
                         </Text>
                         <TouchableOpacity
-                          onPress={() => handleIncreaseItem(Number(item?.id))}>
+                          onPress={() => handleIncreaseItem(item?._id)}>
                           <View style={styles.btnBackground}>
                             <Text style={{color: COLORS.primaryBlack}}>+</Text>
                           </View>
