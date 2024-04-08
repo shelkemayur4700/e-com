@@ -23,7 +23,7 @@ const HomeScreen = ({navigation, route}) => {
   const getproductslist = async () => {
     try {
       let result = await dispatch(getAllProducts()).unwrap();
-      console.log('result', result);
+      // console.log('result', result);
     } catch (error) {
       console.log(error);
     }
@@ -64,7 +64,7 @@ const HomeScreen = ({navigation, route}) => {
                   onPress={() => {
                     SingleProduct(item);
                   }}>
-                  <View key={item.id} style={styles.Card}>
+                  <View key={item._id} style={styles.Card}>
                     <Image
                       source={{uri: item?.img}}
                       alt={'Product'}
@@ -131,7 +131,7 @@ const HomeScreen = ({navigation, route}) => {
                 onPress={() => {
                   SingleProduct(item);
                 }}>
-                <View key={item.id} style={styles.Card}>
+                <View key={item._id} style={styles.Card}>
                   <Image
                     source={{uri: item?.img}}
                     alt={'Product'}
