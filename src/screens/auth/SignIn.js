@@ -11,9 +11,9 @@ import {
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
-import {RedButton} from '../components/RedButton';
-import {COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
-import {LoginApi} from '../thunk/auth';
+import {RedButton} from '../../components/RedButton';
+import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
+import {SignInApi} from '../../thunk/auth';
 
 const Login = ({navigation, route}) => {
   const dispatch = useDispatch();
@@ -30,10 +30,10 @@ const Login = ({navigation, route}) => {
   const HandleLogin = async () => {
     try {
       const payload = {
-        userName: loginData?.username,
+        userName: loginData?.userName,
         password: loginData?.password,
       };
-      let res = await dispatch(LoginApi(payload)).unwrap();
+      let res = await dispatch(SignInApi(payload)).unwrap();
       console.log('res...login..', res);
       if (res) {
         getToken();
@@ -80,7 +80,7 @@ const Login = ({navigation, route}) => {
             <TextInput
               style={styles.nameForm}
               placeholder="Enter Email"
-              onChangeText={text => getdata(text, 'username')}
+              onChangeText={text => getdata(text, 'userName')}
             />
             <TextInput
               style={styles.nameForm}
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   loginlinkText: {
     color: COLORS.primarygrey,
   },
-  signIn: {
+  SignIn: {
     backgroundColor: COLORS.primaryred,
     color: COLORS.primarywhite,
     height: 44,

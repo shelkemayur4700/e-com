@@ -3,8 +3,8 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {BASE_URL} from '../constant';
 
-export const LoginApi = createAsyncThunk(
-  'auth/login',
+export const SignInApi = createAsyncThunk(
+  'auth/SignIn',
   async (model, thunkApi) => {
     try {
       let response = await axios.post(`${BASE_URL}/auth/signin`, model);
@@ -15,21 +15,21 @@ export const LoginApi = createAsyncThunk(
       }
       return responseData;
     } catch (error) {
-      console.log(error);
+      return thunkApi.rejectWithValue(error);
     }
   },
 );
 
 export const logout = createAsyncThunk(
   'auth/logout',
-  async (model, thunkAPi) => {
+  async (model, thunkApi) => {
     try {
       let res = {data: {status: 200}};
       // await AsyncStorage.removeItem('user');
       await AsyncStorage.removeItem('token');
       return res.data;
     } catch (error) {
-      return thunkAPi.rejectWithValue(error);
+      return thunkApi.rejectWithValue(error);
     }
   },
 );

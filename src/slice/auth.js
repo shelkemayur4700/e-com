@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {LoginApi, checkAuthStatus} from '../thunk/auth';
+import {SignInApi, checkAuthStatus} from '../thunk/auth';
 
 const initialState = {
   loading: false,
@@ -15,16 +15,16 @@ const authSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    // login
-    builder.addCase(LoginApi.pending, (state, action) => {
+    // SignIn
+    builder.addCase(SignInApi.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(LoginApi.fulfilled, (state, action) => {
+    builder.addCase(SignInApi.fulfilled, (state, action) => {
       // console.log('payload...', action?.payload);
       state.token = action?.payload?.token;
       state.loading = false;
     });
-    builder.addCase(LoginApi.rejected, (state, action) => {
+    builder.addCase(SignInApi.rejected, (state, action) => {
       // console.log('payload...', action);
       state.loading = false;
     });

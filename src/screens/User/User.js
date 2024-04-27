@@ -199,7 +199,7 @@ const User = ({navigation}) => {
                 />
               </View>
               <View style={styles.DemoUserBtn}>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
                   <Text style={styles.SignInBTNText}>SIGN IN / Join</Text>
                 </TouchableOpacity>
               </View>

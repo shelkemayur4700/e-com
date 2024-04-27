@@ -10,7 +10,7 @@ export const Bold_Font = 'Metropolis-Bold';
 export const Header_FONT_SIZE = 30;
 // ----------FAKESTORE
 // export const BASE_URL = 'https://fakestoreapi.com';
-// PERSONAL MOBILE
-// export const BASE_URL = 'http://192.168.107.216:8989';
 // ICONNECT HP
-export const BASE_URL = 'http://172.18.0.175:8989';
+// export const BASE_URL = 'http://172.18.0.175:8989';
+// MOBILE
+export const BASE_URL = 'http://192.168.107.216:8989';

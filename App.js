@@ -1,17 +1,9 @@
-import {StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
-import {store} from './src/store/store';
-import {Provider, useSelector} from 'react-redux';
-import Root from './src/containers/root';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Detail from './src/screens/Detail';
-import {primaryBlack} from './src/constant';
-import EntypoIcons from 'react-native-vector-icons/Entypo';
-import Login from './src/screens/Login';
-import SignUp from './src/screens/SignUp';
-import ForgetPass from './src/screens/ForgetPass';
-import MainApp from './src/containers/mainApp';
+import React from 'react';
+import {Provider} from 'react-redux';
+import Root from './src/containers/root';
+import {store} from './src/store/store';
 
 const App = ({navigation}) => {
   const Stack = createNativeStackNavigator();
@@ -34,5 +26,3 @@ const App = ({navigation}) => {
 };
 
 export default App;
-
-const styles = StyleSheet.create({});

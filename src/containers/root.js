@@ -12,12 +12,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import Cart from '../screens/Cart';
 import Detail from '../screens/Detail';
 import Favorites from '../screens/Favorites';
-import ForgetPass from '../screens/ForgetPass';
 import HomeScreen from '../screens/Home/Home';
-import Login from '../screens/Login';
 import Shop from '../screens/Shop';
-import SignUp from '../screens/SignUp';
 import User from '../screens/User/User';
+import ForgetPass from '../screens/auth/ForgetPass';
+import SignIn from '../screens/auth/SignIn';
+import SignUp from '../screens/auth/SignUp';
 import {COLORS} from '../theme/theme';
 import {checkAuthStatus} from '../thunk/auth';
 import MainApp from './mainApp';
@@ -119,7 +119,7 @@ const Root = () => {
         <Stack.Screen
           name="MainApp"
           // component={MainApp}
-          component={token ? MainApp : Login}
+          component={token ? MainApp : SignIn}
           options={{headerShown: false}}
         />
         {/* ----------Public routes---------------  */}
@@ -151,8 +151,8 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Login"
-          component={Login}
+          name="SignIn"
+          component={SignIn}
           options={{headerShown: false}}
         />
         <Stack.Screen

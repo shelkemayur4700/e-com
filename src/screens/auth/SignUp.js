@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
-import {RedButton} from '../components/RedButton';
-import {COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
+import {RedButton} from '../../components/RedButton';
+import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
 
 const SignUp = ({navigation, route}) => {
   const handleLogin = () => {
-    navigation.navigate('Login');
+    navigation.navigate('SignIn');
   };
   const handleSignUp = () => {
     console.log('SIGN UP');

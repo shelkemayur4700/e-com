@@ -43,13 +43,14 @@ const Cart = ({navigation}) => {
   };
   // ------------------------Checkout--------------
 
-  const HandleCheckout = async () => {
+  const HandleCheckout = async cartData => {
+    console.log('********', cartData);
     let tokn = await AsyncStorage.getItem('token');
     if (tokn) {
       // place next screen's navigation code
       navigation.push('MainApp', {screen: 'Checkout'});
     } else {
-      navigation.navigate('Login');
+      navigation.navigate('SignIn');
     }
   };
   useEffect(() => {
@@ -151,7 +152,7 @@ const Cart = ({navigation}) => {
             </View>
             <View>
               <RedButton
-                handleClick={() => HandleCheckout()}
+                handleClick={() => HandleCheckout(cart)}
                 name={'CHECKOUT'}
               />
             </View>

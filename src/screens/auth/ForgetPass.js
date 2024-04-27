@@ -8,8 +8,8 @@ import {
   View,
 } from 'react-native';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
-import {RedButton} from '../components/RedButton';
-import {COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
+import {RedButton} from '../../components/RedButton';
+import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
 
 const ForgetPass = ({navigation}) => {
   const handleOTP = () => {
