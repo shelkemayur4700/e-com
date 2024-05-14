@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -9,16 +9,58 @@ import {
 } from 'react-native';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
+import {useDispatch} from 'react-redux';
 import {RedButton} from '../../components/RedButton';
 import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
+import {SignUpApi} from '../../thunk/auth';
 
 const SignUp = ({navigation, route}) => {
+  const [UserData, setUserData] = useState({
+    Name: '',
+    Email: '',
+    MobNo: '',
+    Password: '',
+  });
+  console.log('Sinup user data', UserData);
+  const dispatch = useDispatch();
+
   const handleLogin = () => {
     navigation.navigate('SignIn');
   };
-  const handleSignUp = () => {
-    console.log('SIGN UP');
+  // METHOD TO GET DATA FROM USER
+  const getData = (value, key) => {
+    setUserData({...UserData, [key]: value});
   };
+  // SIGNUP API CALL
+  const handleSignUp = async () => {
+    console.log('SIGN UP');
+    let password = UserData?.Password;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+    console.log('passwordRegex.test(password)', passwordRegex.test(password));
+    if (!passwordRegex.test(password)) {
+      console.log(
+        'Password must be 8 digits and contain one one special char and one alphabet',
+      );
+      return;
+    }
+    const payload = {
+      Name: UserData?.Name,
+      Email: UserData?.Email,
+      MobNo: UserData?.MobNo,
+      Password: UserData?.Password,
+    };
+    try {
+      let response = await dispatch(SignUpApi(payload)).unwrap();
+      console.log('response', response);
+      if (response) {
+        handleLogin();
+      }
+    } catch (error) {
+      console.log('error from SingnUP api', error);
+    }
+  };
+
   return (
     <>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
@@ -43,9 +85,26 @@ const SignUp = ({navigation, route}) => {
             </View>
           </View>
           <View style={styles.formContainer}>
-            <TextInput style={styles.nameForm} placeholder="Enter Name" />
-            <TextInput style={styles.nameForm} placeholder="Enter Email" />
-            <TextInput style={styles.nameForm} placeholder="Enter Password" />
+            <TextInput
+              style={styles.nameForm}
+              placeholder="Enter Name"
+              onChangeText={text => getData(text, 'Name')}
+            />
+            <TextInput
+              style={styles.nameForm}
+              placeholder="Enter Email"
+              onChangeText={text => getData(text, 'Email')}
+            />
+            <TextInput
+              style={styles.nameForm}
+              placeholder="Enter Mobile No"
+              onChangeText={text => getData(text, 'MobNo')}
+            />
+            <TextInput
+              style={styles.nameForm}
+              placeholder="Enter Password"
+              onChangeText={text => getData(text, 'Password')}
+            />
           </View>
           <View style={styles.Loginlink}>
             <TouchableOpacity onPress={() => handleLogin()}>

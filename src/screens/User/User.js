@@ -37,7 +37,7 @@ const User = ({navigation}) => {
   // ---------------------CHECK FOR TOKEN----------------
 
   let token = useSelector(state => state?.auth?.token);
-  console.log('Token from User..............', token);
+  // console.log('Token from User..............', token);
   useEffect(() => {
     if (!token) {
       dispatch(checkAuthStatus());

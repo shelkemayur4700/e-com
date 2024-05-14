@@ -16,6 +16,8 @@ import HomeScreen from '../screens/Home/Home';
 import Shop from '../screens/Shop';
 import User from '../screens/User/User';
 import ForgetPass from '../screens/auth/ForgetPass';
+import NewPass from '../screens/auth/NewPass';
+import Otp from '../screens/auth/Otp';
 import SignIn from '../screens/auth/SignIn';
 import SignUp from '../screens/auth/SignUp';
 import {COLORS} from '../theme/theme';
@@ -145,6 +147,7 @@ const Root = () => {
             ),
           }}
         />
+        {/* ------------LOGIN--RESET--PASS--ROUTES------------------- */}
         <Stack.Screen
           name="SignUp"
           component={SignUp}
@@ -155,9 +158,22 @@ const Root = () => {
           component={SignIn}
           options={{headerShown: false}}
         />
+
         <Stack.Screen
           name="ForgetPass"
           component={ForgetPass}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="Otp"
+          component={Otp}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="NewPass"
+          component={NewPass}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

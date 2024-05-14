@@ -1,13 +1,15 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {SignInApi, checkAuthStatus} from '../thunk/auth';
+import {ForgetPassApi, SignInApi, checkAuthStatus} from '../thunk/auth';
 
 const initialState = {
   loading: false,
   isAuth: false,
   token: null,
+  ForegetPasstoken: null,
+  userId: null,
 };
 const authSlice = createSlice({
-  name: 'cart',
+  name: 'auth',
   initialState,
   reducers: {
     logoutUser: state => {
@@ -25,6 +27,21 @@ const authSlice = createSlice({
       state.loading = false;
     });
     builder.addCase(SignInApi.rejected, (state, action) => {
+      // console.log('payload...', action);
+      state.loading = false;
+    });
+
+    // SignIn
+    builder.addCase(ForgetPassApi.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(ForgetPassApi.fulfilled, (state, action) => {
+      console.log('forget pass payload...', action?.payload);
+      state.ForegetPasstoken = action?.payload?.token;
+      state.userId = action?.payload?.userID;
+      state.loading = false;
+    });
+    builder.addCase(ForgetPassApi.rejected, (state, action) => {
       // console.log('payload...', action);
       state.loading = false;
     });

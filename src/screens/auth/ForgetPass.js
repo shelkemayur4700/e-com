@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -8,12 +8,31 @@ import {
   View,
 } from 'react-native';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
+import {useDispatch} from 'react-redux';
 import {RedButton} from '../../components/RedButton';
 import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
+import {ForgetPassApi} from '../../thunk/auth';
 
 const ForgetPass = ({navigation}) => {
-  const handleOTP = () => {
-    console.log('OTP');
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState({
+    Email: '',
+  });
+
+  const getdata = e => {
+    setEmail({Email: e});
+  };
+  console.log("mail",email);
+  const handleOTP = async () => {
+    try {
+      let res = await dispatch(ForgetPassApi(email)).unwrap();
+      // console.log('res...forget..', res);
+      if (res) {
+        navigation.push('Otp');
+      }
+    } catch (error) {
+      console.log('error from forget pass', error);
+    }
   };
   return (
     <>
@@ -46,7 +65,11 @@ const ForgetPass = ({navigation}) => {
                 create a new password via email.
               </Text>
             </View>
-            <TextInput style={styles.nameForm} placeholder="Enter Email" />
+            <TextInput
+              style={styles.nameForm}
+              placeholder="Enter Email"
+              onChangeText={text => getdata(text)}
+            />
           </View>
 
           <View style={styles.otpbtn}>

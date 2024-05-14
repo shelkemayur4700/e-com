@@ -8,50 +8,69 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RedButton} from '../../components/RedButton';
 import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
-import {SignInApi} from '../../thunk/auth';
+import {NewpassApi} from '../../thunk/auth';
 
-const Login = ({navigation, route}) => {
+const NewPass = ({navigation, route}) => {
   const dispatch = useDispatch();
-  const [loginData, setLoginData] = useState({
-    Email: '',
-    Password: '',
+  const [iserror, setIserror] = useState(false);
+  const [passData, setPassData] = useState({
+    Cpassword: '',
+    Npassword: '',
   });
-  console.log('logindata', loginData);
+  console.log('new pass', passData.Cpassword, passData.Npassword);
   // ----------RETRIVING TOKEN ----------
   const getToken = async () => {
     const storedToken = await AsyncStorage.getItem('token');
     console.log(storedToken);
   };
-  // -------------LOGIN FUNCTION --------
-  const HandleLogin = async () => {
+  const userId = useSelector(state => state?.auth?.userId);
+  console.log('xyz', userId);
+
+  // -------------RESET PASS METHOD --------
+  const HandleResetPass = async () => {
     try {
+      // passValidate();
+      if (passData?.Cpassword !== passData?.Npassword) {
+        console.log('enter correct password');
+        return;
+      }
+      let password = passData?.Npassword;
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+      console.log('passwordRegex.test(password)', passwordRegex.test(password));
+      if (!passwordRegex.test(password)) {
+        console.log(
+          'Password must be 8 digits and contain one one special char and one alphabet',
+        );
+        return;
+      }
+      // ------------
+      let User = await AsyncStorage.getItem('User');
+      let token = await AsyncStorage.getItem('token');
+      console.log('user', User, 'token', token);
       const payload = {
-        Email: loginData?.Email,
-        Password: loginData?.Password,
+        Password: password,
+        User: User ? User : userId,
+        token: token,
       };
-      let res = await dispatch(SignInApi(payload)).unwrap();
-      console.log('res...login..', res);
+      console.log('payload', payload);
+      let res = await dispatch(NewpassApi(payload)).unwrap();
+      console.log('Reset password  response ..', res);
       if (res) {
+        console.log('done....');
         getToken();
-        navigation.pop();
+        navigation.navigate('Home');
       }
     } catch (error) {
       console.log(error);
     }
   };
   const getdata = (value, key) => {
-    setLoginData({...loginData, [key]: value});
-  };
-  const handleSignup = () => {
-    navigation.navigate('SignUp');
-  };
-  const Forgetpass = () => {
-    navigation.navigate('ForgetPass');
+    setPassData({...passData, [key]: value});
   };
 
   return (
@@ -62,9 +81,7 @@ const Login = ({navigation, route}) => {
             <View style={styles.backBtnContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.goBack('MainRoute', {
-                    screen: 'Home',
-                  });
+                  navigation.goBack('Otp');
                 }}>
                 <IoniconsIcons
                   name="chevron-back"
@@ -74,54 +91,31 @@ const Login = ({navigation, route}) => {
               </TouchableOpacity>
             </View>
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>Sign in</Text>
+              <Text style={styles.title}>Enter new password</Text>
             </View>
           </View>
           <View style={styles.formContainer}>
+            <View style={styles.instructionContainer}>
+              <Text style={styles.instruction}>
+                Please, enter new password.
+              </Text>
+            </View>
             <TextInput
               style={styles.nameForm}
-              placeholder="Enter Email"
-              onChangeText={text => getdata(text, 'Email')}
+              placeholder="Enter new password"
+              onChangeText={text => getdata(text, 'Cpassword')}
             />
             <TextInput
               style={styles.nameForm}
-              placeholder="Enter Password"
-              onChangeText={text => getdata(text, 'Password')}
+              placeholder="Confirm Password"
+              onChangeText={text => getdata(text, 'Npassword')}
             />
-          </View>
-          <View style={styles.Loginlink}>
-            <TouchableOpacity onPress={() => Forgetpass()}>
-              <Text style={styles.loginlinkText}>Forgot your password?</Text>
-            </TouchableOpacity>
           </View>
           <View style={styles.Signinbtn}>
-            <RedButton handleClick={() => HandleLogin()} name={'SIGN IN'} />
-          </View>
-          <View style={styles.footer}>
-            <View style={styles.sigupLink}>
-              <TouchableOpacity onPress={() => handleSignup()}>
-                <Text style={{fontSize: 15}}>Sign up</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.SocialContainer}>
-              <Text>Or sign in with social account</Text>
-            </View>
-            <View style={styles.mediaLogo}>
-              <View style={styles.facebook}>
-                <TouchableOpacity>
-                  <AntDesignIcons
-                    name="facebook-square"
-                    color={'#3B5998'}
-                    size={35}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={[styles.google, styles.facebook]}>
-                <TouchableOpacity>
-                  <AntDesignIcons name="google" color={'#488BF4'} size={35} />
-                </TouchableOpacity>
-              </View>
-            </View>
+            <RedButton
+              handleClick={() => HandleResetPass()}
+              name={'RESET PASSWORD'}
+            />
           </View>
         </View>
       </ScrollView>
@@ -129,7 +123,7 @@ const Login = ({navigation, route}) => {
   );
 };
 
-export default Login;
+export default NewPass;
 
 const styles = StyleSheet.create({
   mainContainer: {
