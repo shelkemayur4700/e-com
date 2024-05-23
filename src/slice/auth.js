@@ -7,6 +7,7 @@ const initialState = {
   token: null,
   ForegetPasstoken: null,
   userId: null,
+  userData: '',
 };
 const authSlice = createSlice({
   name: 'auth',
@@ -24,6 +25,8 @@ const authSlice = createSlice({
     builder.addCase(SignInApi.fulfilled, (state, action) => {
       // console.log('payload...', action?.payload);
       state.token = action?.payload?.token;
+      state.userId = action?.payload?.user?._id;
+      state.userData = action?.payload?.user;
       state.loading = false;
     });
     builder.addCase(SignInApi.rejected, (state, action) => {

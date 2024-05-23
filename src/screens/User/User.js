@@ -24,6 +24,9 @@ import {checkAuthStatus, logout} from '../../thunk/auth';
 
 const User = ({navigation}) => {
   const dispatch = useDispatch();
+  let NoOfAddress = useSelector(state => state?.address?.noOfAddress);
+  let UserDetails = useSelector(state => state?.auth?.userData);
+  console.log('user details', UserDetails);
   // -------------SIGN OUT-------------
   const handleSignout = async () => {
     try {
@@ -68,11 +71,11 @@ const User = ({navigation}) => {
                   <View style={styles.profileimageContainer}>
                     <Image
                       style={styles.profileimage}
-                      source={require('../../Assets/Images/Pro.png')}></Image>
+                      source={require('../../Assets/Images/Demo.png')}></Image>
                   </View>
                   <View style={styles.prodata}>
-                    <Text style={styles.name}>Matilda Brown</Text>
-                    <Text>matildabrown@mail.com</Text>
+                    <Text style={styles.name}>{UserDetails?.Name}</Text>
+                    <Text>{UserDetails?.Email}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -99,7 +102,7 @@ const User = ({navigation}) => {
                 <View style={styles.cardContainer}>
                   <View style={styles.order}>
                     <Text style={styles.cardHeading}>Shipping addresses</Text>
-                    <Text style={styles.cardInfo}>3 Adresses</Text>
+                    <Text style={styles.cardInfo}>{NoOfAddress} Address</Text>
                   </View>
                   <View style={styles.arrowIcon}>
                     <MaterialIcons
@@ -272,6 +275,8 @@ const styles = StyleSheet.create({
     gap: SPACING.space_20,
   },
   profileimage: {
+    height: 90,
+    width: 90,
     borderRadius: 50,
   },
   prodata: {

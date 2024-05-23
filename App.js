@@ -1,9 +1,11 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import {ToastProvider} from 'react-native-toast-notifications';
 import {Provider} from 'react-redux';
 import Root from './src/containers/root';
 import {store} from './src/store/store';
+import {COLORS} from './src/theme/theme';
 
 const App = ({navigation}) => {
   const Stack = createNativeStackNavigator();
@@ -12,13 +14,21 @@ const App = ({navigation}) => {
     <>
       <NavigationContainer>
         <Provider store={store}>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Root"
-              component={Root}
-              options={{headerShown: false}}
-            />
-          </Stack.Navigator>
+          <ToastProvider
+            placement="bottom"
+            duration={4000}
+            successColor="green"
+            dangerColor={COLORS?.primaryred}
+            warningColor="orange"
+            normalColor={COLORS?.primarygrey}>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Root"
+                component={Root}
+                options={{headerShown: false}}
+              />
+            </Stack.Navigator>
+          </ToastProvider>
         </Provider>
       </NavigationContainer>
     </>

@@ -2,6 +2,10 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "src/assets/fonts/E-Commerce App Design (Community) (1).zip",
+      "sha1": "721d1f5e0c692153ee33aec78f4c0fa9e9865c1d"
+    },
+    {
       "path": "src/assets/fonts/Metropolis-Black.otf",
       "sha1": "0b806ce10e950793a547fcc23d6ce71df4104e96"
     },

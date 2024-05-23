@@ -46,11 +46,12 @@ const Detail = ({navigation, route}) => {
               </View>
               <Text style={styles.ProductInfo}>{productData?.category}</Text>
               <Text style={styles.ProductDesc}>{productData?.description}</Text>
-
-              <RedButton
-                handleClick={() => HandleAddtoCart(productData)}
-                name="ADD TO CART"
-              />
+              <View style={{position: 'relative', bottom: 0}}>
+                <RedButton
+                  handleClick={() => HandleAddtoCart(productData)}
+                  name="ADD TO CART"
+                />
+              </View>
             </View>
           </View>
         </ScrollView>

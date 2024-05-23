@@ -8,15 +8,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useToast} from 'react-native-toast-notifications';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
+import LoaderComp from '../../components/LoaderComp';
 import {RedButton} from '../../components/RedButton';
 import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
 import {NewpassApi} from '../../thunk/auth';
 
 const NewPass = ({navigation, route}) => {
+  const toast = useToast();
   const dispatch = useDispatch();
-  const [iserror, setIserror] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, seterror] = useState(false);
   const [passData, setPassData] = useState({
     Cpassword: '',
     Npassword: '',
@@ -58,15 +62,26 @@ const NewPass = ({navigation, route}) => {
         token: token,
       };
       console.log('payload', payload);
+      setLoading(true);
       let res = await dispatch(NewpassApi(payload)).unwrap();
       console.log('Reset password  response ..', res);
       if (res) {
-        console.log('done....');
+        setLoading(false);
+        // TO SHOW TOAST ON SAME SCREEN
+        setTimeout(() => {
+          toast.show(res?.message, {type: 'success'});
+        }, 2000);
         getToken();
         navigation.navigate('Home');
       }
     } catch (error) {
       console.log(error);
+      toast.show(
+        error?.response?.data?.message || 'unable to reser password  ',
+        {
+          type: 'danger',
+        },
+      );
     }
   };
   const getdata = (value, key) => {
@@ -77,6 +92,7 @@ const NewPass = ({navigation, route}) => {
     <>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
+          {loading && <LoaderComp />}
           <View style={styles.HeaderSection}>
             <View style={styles.backBtnContainer}>
               <TouchableOpacity
@@ -100,11 +116,13 @@ const NewPass = ({navigation, route}) => {
                 Please, enter new password.
               </Text>
             </View>
+            <Text style={styles.lable}> New password *</Text>
             <TextInput
               style={styles.nameForm}
               placeholder="Enter new password"
               onChangeText={text => getdata(text, 'Cpassword')}
             />
+            <Text style={styles.lable}>Confirm password *</Text>
             <TextInput
               style={styles.nameForm}
               placeholder="Confirm Password"
@@ -150,53 +168,21 @@ const styles = StyleSheet.create({
   },
   nameForm: {
     height: 50,
-    margin: 12,
+    marginHorizontal: 12,
+    marginBottom: 12,
     backgroundColor: COLORS.Card_Background,
     padding: 10,
     borderRadius: 7,
     elevation: 4,
   },
-  Loginlink: {
-    justifyContent: 'flex-end',
-    flexDirection: 'row',
+  lable: {
+    marginLeft: 18,
+    marginBottom: 2,
+    marginTop: 5,
+    color: COLORS?.primaryBlack,
+    paddingBottom: 2,
   },
-  loginlinkText: {
-    color: COLORS.primarygrey,
-  },
-  SignIn: {
-    backgroundColor: COLORS.primaryred,
-    color: COLORS.primarywhite,
-    height: 44,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    borderRadius: 20,
-    marginTop: 10,
-    marginLeft: 15,
-    marginRight: 15,
-  },
-  sigupLink: {
-    alignItems: 'center',
-    paddingBottom: 20,
-  },
-  SocialContainer: {
-    flex: 1,
-    bottom: 0,
-    // marginTop: 100,
-    alignItems: 'center',
-  },
-  mediaLogo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    paddingTop: 10,
-  },
-  facebook: {
-    backgroundColor: COLORS.Card_Background,
-    padding: 5,
-    borderRadius: 10,
-  },
-  footer: {
-    marginTop: 100,
+  instruction: {
+    color: COLORS?.primaryBlack,
   },
 });

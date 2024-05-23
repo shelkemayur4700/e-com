@@ -22,7 +22,7 @@ export const productSlice = createSlice({
     });
 
     builder.addCase(getAllProducts.rejected, (state, actions) => {
-      state.loading = true;
+      state.loading = false;
     });
   },
 });

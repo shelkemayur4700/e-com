@@ -5,7 +5,12 @@ import {Modal, View} from 'react-native';
 export default function LoaderComp() {
   return (
     <Modal transparent={true} animationType="none">
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
         <LottieView
           source={require('../Assets/LOADER.json')}
           autoPlay

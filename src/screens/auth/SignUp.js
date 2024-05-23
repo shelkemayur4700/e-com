@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useToast} from 'react-native-toast-notifications';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
@@ -15,6 +16,7 @@ import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
 import {SignUpApi} from '../../thunk/auth';
 
 const SignUp = ({navigation, route}) => {
+  const toast = useToast();
   const [UserData, setUserData] = useState({
     Name: '',
     Email: '',
@@ -52,12 +54,16 @@ const SignUp = ({navigation, route}) => {
     };
     try {
       let response = await dispatch(SignUpApi(payload)).unwrap();
-      console.log('response', response);
-      if (response) {
+      console.log('response from signup', response);
+      if (response?.status == 'Success') {
+        toast.show('signed up successfully !', {type: 'success'});
         handleLogin();
       }
     } catch (error) {
       console.log('error from SingnUP api', error);
+       toast.show(error?.response?.data?.message || 'error to Sign up ', {
+         type: 'danger',
+       });
     }
   };
 
@@ -85,21 +91,25 @@ const SignUp = ({navigation, route}) => {
             </View>
           </View>
           <View style={styles.formContainer}>
+            <Text style={styles.lable}>Name *</Text>
             <TextInput
               style={styles.nameForm}
               placeholder="Enter Name"
               onChangeText={text => getData(text, 'Name')}
             />
+            <Text style={styles.lable}>Email *</Text>
             <TextInput
               style={styles.nameForm}
               placeholder="Enter Email"
               onChangeText={text => getData(text, 'Email')}
             />
+            <Text style={styles.lable}>Phone no *</Text>
             <TextInput
               style={styles.nameForm}
               placeholder="Enter Mobile No"
               onChangeText={text => getData(text, 'MobNo')}
             />
+            <Text style={styles.lable}>Password *</Text>
             <TextInput
               style={styles.nameForm}
               placeholder="Enter Password"
@@ -170,7 +180,8 @@ const styles = StyleSheet.create({
   },
   nameForm: {
     height: 50,
-    margin: 12,
+    marginHorizontal: 12,
+    marginBottom: 12,
     backgroundColor: COLORS.Card_Background,
     padding: 10,
     borderRadius: 7,
@@ -198,7 +209,7 @@ const styles = StyleSheet.create({
   SocialContainer: {
     flex: 1,
     bottom: 0,
-    marginTop: 100,
+    marginTop: 50,
     alignItems: 'center',
   },
   mediaLogo: {
@@ -212,5 +223,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.Card_Background,
     padding: 5,
     borderRadius: 10,
+  },
+  lable: {
+    marginLeft: 18,
+    color: COLORS?.primaryBlack,
+    paddingBottom: 2,
   },
 });

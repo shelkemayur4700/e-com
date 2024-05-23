@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {BASE_URL} from '../constant';
+
 // ----------------SIGN UP API
 export const SignUpApi = createAsyncThunk(
   'auth/SignUp',
@@ -25,12 +26,13 @@ export const SignInApi = createAsyncThunk(
     try {
       let response = await axios.post(`${BASE_URL}/auth/signin`, model);
       const responseData = response.data;
-      // console.log('#####', toString(responseData?.token));
+      console.log('Sign in API response', responseData);
       if (response) {
         await AsyncStorage.setItem('token', responseData?.token);
       }
       return responseData;
     } catch (error) {
+      // console.log('Error response:', error.response);
       return thunkApi.rejectWithValue(error);
     }
   },

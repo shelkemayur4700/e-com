@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import React, {useCallback} from 'react';
 import {
   FlatList,
   Image,
@@ -33,12 +34,14 @@ const HomeScreen = ({navigation, route}) => {
     navigation.push('Detail', {product});
   };
 
-  useEffect(() => {
-    getproductslist();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getproductslist();
+    }, []),
+  );
   return (
     <View style={{flex: 1}}>
-      {loading && <LoaderComp />}
+      {/* {loading && <LoaderComp />} */}
       <StatusBar backgroundColor={COLORS.primaryred} />
       <ScrollView
         contentContainerStyle={styles.scrollViewContent}

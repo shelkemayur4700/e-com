@@ -8,18 +8,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useToast} from 'react-native-toast-notifications';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
+import LoaderComp from '../../components/LoaderComp';
 import {RedButton} from '../../components/RedButton';
 import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
 import {SignInApi} from '../../thunk/auth';
-
 const Login = ({navigation, route}) => {
   const dispatch = useDispatch();
+  const toast = useToast();
+  const [loading, setLoading] = useState(false);
   const [loginData, setLoginData] = useState({
-    Email: '',
-    Password: '',
+    Email: 'Shelkegroups00@gmail.com',
+    Password: 'Test@0000',
   });
   console.log('logindata', loginData);
   // ----------RETRIVING TOKEN ----------
@@ -34,14 +37,21 @@ const Login = ({navigation, route}) => {
         Email: loginData?.Email,
         Password: loginData?.Password,
       };
+      setLoading(true);
       let res = await dispatch(SignInApi(payload)).unwrap();
       console.log('res...login..', res);
-      if (res) {
+      setLoading(false);
+      if (res.status == 'Success') {
+        // toast.show(res?.message, {type: 'success'});
         getToken();
         navigation.pop();
       }
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      console.log('error from function', error.response.data);
+      toast.show(error?.response?.data?.message || 'error to sign in  ', {
+        type: 'danger',
+      });
     }
   };
   const getdata = (value, key) => {
@@ -58,6 +68,7 @@ const Login = ({navigation, route}) => {
     <>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
+          {loading && <LoaderComp />}
           <View style={styles.HeaderSection}>
             <View style={styles.backBtnContainer}>
               <TouchableOpacity
@@ -78,11 +89,13 @@ const Login = ({navigation, route}) => {
             </View>
           </View>
           <View style={styles.formContainer}>
+            <Text style={styles.lable}>Email *</Text>
             <TextInput
               style={styles.nameForm}
               placeholder="Enter Email"
               onChangeText={text => getdata(text, 'Email')}
             />
+            <Text style={styles.lable}>Password *</Text>
             <TextInput
               style={styles.nameForm}
               placeholder="Enter Password"
@@ -156,7 +169,8 @@ const styles = StyleSheet.create({
   },
   nameForm: {
     height: 50,
-    margin: 12,
+    marginHorizontal: 12,
+    marginBottom: 12,
     backgroundColor: COLORS.Card_Background,
     padding: 10,
     borderRadius: 7,
@@ -204,5 +218,11 @@ const styles = StyleSheet.create({
   },
   footer: {
     marginTop: 100,
+  },
+  lable: {
+    marginLeft: 18,
+    color: COLORS?.primaryBlack,
+    paddingBottom: 2,
+    marginBottom: 2,
   },
 });

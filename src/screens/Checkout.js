@@ -1,4 +1,6 @@
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
+import React, {useCallback} from 'react';
 import {
   Image,
   ScrollView,
@@ -7,31 +9,65 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import LoaderComp from '../components/LoaderComp';
 import {RedButton} from '../components/RedButton';
 import {COLORS, FONTFAMILY} from '../theme/theme';
+import {getSingleAddress} from '../thunk/address';
 
 const Checkout = ({navigation}) => {
+  const dispatch = useDispatch();
+  const address = useSelector(state => state?.address?.PrefferedAdd);
+  const loading = useSelector(state => state?.address?.loading);
+  console.log('address', address, loading);
+  //METHOD TO SUBMIT ORDER
   const handleSubmitOrder = () => {
     navigation.push('Success');
   };
+  //METHOD TO GET PREFFERED ADDRESS
+  const getSelectedAdd = async () => {
+    let id = await AsyncStorage.getItem('prefferedAdd');
+    console.log('preferred address', id);
+    try {
+      const res = await dispatch(getSingleAddress({AddId: id})).unwrap();
+      console.log('reponse by getaddbyID in checkout section', res);
+    } catch (error) {
+      console.log('error from getbyid in checkout section', error);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      setTimeout(() => {
+        getSelectedAdd();
+      }, 1000);
+    }, []),
+  );
+  //   {"__v": 0, "_id": "664952aa222a18ee58e3bda6", "address": "Morgaon ", "city": "Baramati", "isHome": true, "name":
+  // "Swapnil ", "phoneNo": 9860247070, "postalCode": "123321", "state": "Maharashtra ", "userId": "664391129fba997fe5c5f15e"}
   return (
     <>
       <View style={styles.mainContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
+          {loading && LoaderComp}
           {/* ---------ADDRESS-CONTAINER-------------- */}
           <View style={styles.addressContainer}>
             <Text style={styles.AddHeading}>Shipping address</Text>
             <TouchableOpacity>
               <View style={styles.AddCard}>
                 <View style={styles.addInfo}>
-                  <Text style={styles.username}>Jane Doe</Text>
+                  <Text style={styles.username}>{address?.name}</Text>
                   <TouchableOpacity onPress={() => navigation.push('Address')}>
                     <Text style={styles.changebtn}>Change</Text>
                   </TouchableOpacity>
                 </View>
-                <Text style={styles.add1}>3 Newbridge Court</Text>
+                <Text style={styles.add1}>{address?.address}</Text>
                 <Text style={styles.add2}>
-                  Chino Hills, CA 91709, United States
+                  {address?.city}
+                  {' ,'} {address?.state}
+                  {'-'}
+                  {address?.postalCode}
+                  {address.isHome ? ' Home' : 'Type : Work'}
                 </Text>
               </View>
             </TouchableOpacity>

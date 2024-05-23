@@ -7,14 +7,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useToast} from 'react-native-toast-notifications';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
+import LoaderComp from '../../components/LoaderComp';
 import {RedButton} from '../../components/RedButton';
 import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
 import {ForgetPassApi} from '../../thunk/auth';
 
 const ForgetPass = ({navigation}) => {
+  const toast = useToast();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState({
     Email: '',
   });
@@ -22,22 +26,33 @@ const ForgetPass = ({navigation}) => {
   const getdata = e => {
     setEmail({Email: e});
   };
-  console.log("mail",email);
+  console.log('mail', email);
+  // METHOD TO SEND OTP IN API
   const handleOTP = async () => {
     try {
+      setLoading(true);
       let res = await dispatch(ForgetPassApi(email)).unwrap();
-      // console.log('res...forget..', res);
+      console.log('res...forget..', res);
       if (res) {
-        navigation.push('Otp');
+        setLoading(false);
+        toast.show(res?.message, {type: 'success'});
+        // TO SHOW TOAST ON SAME SCREEN
+        setTimeout(() => {
+          navigation.push('Otp');
+        }, 2000);
       }
     } catch (error) {
       console.log('error from forget pass', error);
+      toast.show(error?.response?.data?.message || 'unable to send OPT  ', {
+        type: 'danger',
+      });
     }
   };
   return (
     <>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
+          {loading && <LoaderComp />}
           <View style={styles.HeaderSection}>
             <View style={styles.backBtnContainer}>
               <TouchableOpacity
@@ -65,6 +80,7 @@ const ForgetPass = ({navigation}) => {
                 create a new password via email.
               </Text>
             </View>
+            <Text style={styles.lable}>Email *</Text>
             <TextInput
               style={styles.nameForm}
               placeholder="Enter Email"
@@ -114,13 +130,13 @@ const styles = StyleSheet.create({
   },
   nameForm: {
     height: 50,
-    margin: 12,
+    marginHorizontal: 12,
+    marginBottom: 12,
     backgroundColor: COLORS.Card_Background,
     padding: 10,
     borderRadius: 7,
     elevation: 4,
   },
-
   otp: {
     backgroundColor: COLORS.primaryred,
     color: COLORS.primarywhite,
@@ -131,5 +147,11 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginLeft: 15,
     marginRight: 15,
+  },
+  lable: {
+    marginTop: 10,
+    marginLeft: 18,
+    color: COLORS?.primaryBlack,
+    paddingBottom: 2,
   },
 });

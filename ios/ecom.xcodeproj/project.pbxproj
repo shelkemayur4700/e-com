@@ -33,6 +33,7 @@
 		A0CF872A168949B28C857E80 /* Metropolis-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8ABFDBB1AB1D40618CEDFE29 /* Metropolis-Thin.otf */; };
 		7EB544CC20C8415CB09EFFE5 /* Metropolis-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 20E40E5FFBFC4ED28B3A42CD /* Metropolis-ThinItalic.otf */; };
 		1EE8D6C6D9324B08B9D9E815 /* SIL Open Font License.txt in Resources */ = {isa = PBXBuildFile; fileRef = D109704E68254D17A4D03A2E /* SIL Open Font License.txt */; };
+		8AD1AD2E1012486290E1DA4C /* E-Commerce App Design (Community) (1).zip in Resources */ = {isa = PBXBuildFile; fileRef = F86D31A61FFF4112ACF67470 /* E-Commerce App Design (Community) (1).zip */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		8ABFDBB1AB1D40618CEDFE29 /* Metropolis-Thin.otf */ = {isa = PBXFileReference; name = "Metropolis-Thin.otf"; path = "../src/assets/fonts/Metropolis-Thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		20E40E5FFBFC4ED28B3A42CD /* Metropolis-ThinItalic.otf */ = {isa = PBXFileReference; name = "Metropolis-ThinItalic.otf"; path = "../src/assets/fonts/Metropolis-ThinItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D109704E68254D17A4D03A2E /* SIL Open Font License.txt */ = {isa = PBXFileReference; name = "SIL Open Font License.txt"; path = "../src/assets/fonts/SIL Open Font License.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F86D31A61FFF4112ACF67470 /* E-Commerce App Design (Community) (1).zip */ = {isa = PBXFileReference; name = "E-Commerce App Design (Community) (1).zip"; path = "../src/assets/fonts/E-Commerce App Design (Community) (1).zip"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 				8ABFDBB1AB1D40618CEDFE29 /* Metropolis-Thin.otf */,
 				20E40E5FFBFC4ED28B3A42CD /* Metropolis-ThinItalic.otf */,
 				D109704E68254D17A4D03A2E /* SIL Open Font License.txt */,
+				F86D31A61FFF4112ACF67470 /* E-Commerce App Design (Community) (1).zip */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				A0CF872A168949B28C857E80 /* Metropolis-Thin.otf in Resources */,
 				7EB544CC20C8415CB09EFFE5 /* Metropolis-ThinItalic.otf in Resources */,
 				1EE8D6C6D9324B08B9D9E815 /* SIL Open Font License.txt in Resources */,
+				8AD1AD2E1012486290E1DA4C /* E-Commerce App Design (Community) (1).zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

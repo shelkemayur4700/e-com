@@ -8,34 +8,50 @@ import {
   View,
 } from 'react-native';
 import OtpInputs from 'react-native-otp-inputs';
+import {useToast} from 'react-native-toast-notifications';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
+import LoaderComp from '../../components/LoaderComp';
 import {RedButton} from '../../components/RedButton';
 import {COLORS, FONTFAMILY, FONTSIZE} from '../../theme/theme';
 import {OtpValidateApi} from '../../thunk/auth';
 
 const Otp = ({navigation}) => {
+  const toast = useToast();
   const dispatch = useDispatch();
   let token = useSelector(state => state?.auth?.ForegetPasstoken);
   // console.log('selector', token);
+  const [loading, setLoading] = useState(false);
   const [otp, SetOtp] = useState();
   const getOtp = otp => {
     SetOtp(otp);
   };
   console.log('otp', otp);
-  // /API CALL FUNCTION
+  // API CALL TO SEND OTP
   const handleVerifyOTP = async () => {
     try {
       const payload = {
         otp: otp,
         token: token,
       };
+      setLoading(true);
       let res = await dispatch(OtpValidateApi(payload)).unwrap();
-      if (res) {
+      setLoading(false);
+      console.log('error from otp ', res);
+      if (res?.status == 'Success') {
+        setLoading(false);
+        // TO SHOW TOAST ON SAME SCREEN
+        setTimeout(() => {
+          toast.show(res?.message, {type: 'success'});
+        }, 2000);
         navigation.push('NewPass');
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
+      toast.show(error?.response?.data?.message || 'unable to send OPT  ', {
+        type: 'danger',
+      });
     }
   };
   // RESEND OTP METHOD
@@ -59,6 +75,7 @@ const Otp = ({navigation}) => {
     <>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
+          {loading && <LoaderComp />}
           <View style={styles.HeaderSection}>
             <View style={styles.backBtnContainer}>
               <TouchableOpacity
