@@ -41,13 +41,12 @@ const Cart = ({navigation}) => {
   const HandleAddtoCart = () => {
     navigation.navigate('Home');
   };
+  
   // ------------------------Checkout--------------
-
   const HandleCheckout = async cartData => {
     console.log('********', cartData);
     let tokn = await AsyncStorage.getItem('token');
     if (tokn) {
-      // place next screen's navigation code
       navigation.push('MainApp', {screen: 'Checkout'});
     } else {
       navigation.navigate('SignIn');

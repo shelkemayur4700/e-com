@@ -59,8 +59,8 @@ const Address = ({navigation}) => {
     try {
       setLoading(true);
       let res = await dispatch(deleteAddress({AddId: id})).unwrap();
+      setLoading(false);
       if (res?.status == 'Success') {
-        setLoading(false);
         getallAddress();
         console.log('address deleted sucessfully.');
       }

@@ -96,7 +96,7 @@ export const getLocation = createAsyncThunk(
     try {
       console.log('model of delete address', model);
       const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${model?.latitude},${model?.longitude}&key=AIzaSyAYcjEtvFQ38XExgdVHOL7kghZiUtb6LLw`,
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${model?.latitude},${model?.longitude}&key=`,
       );
       const responseData = response?.data;
       // console.log('google API  RES', responseData.results[0]);
