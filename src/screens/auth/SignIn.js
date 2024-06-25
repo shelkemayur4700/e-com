@@ -43,6 +43,8 @@ const Login = ({navigation, route}) => {
       setLoading(false);
       if (res.status == 'Success') {
         // toast.show(res?.message, {type: 'success'});
+        await AsyncStorage.setItem('UserEmail', res?.user?.Email);
+        await AsyncStorage.setItem('LogInUser', JSON.stringify(res?.user));
         getToken();
         navigation.pop();
       }

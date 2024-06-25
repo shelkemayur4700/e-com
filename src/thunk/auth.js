@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {BASE_URL} from '../constant';
+import {BASE_URL} from '../setting';
 
 // ----------------SIGN UP API
 export const SignUpApi = createAsyncThunk(

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -7,13 +8,41 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {COLORS, FONTFAMILY} from '../theme/theme';
+import {getOrderDetails} from '../thunk/order';
+import LoaderComp from './LoaderComp';
+const Myorders = ({route}) => {
+  const {OrderId} = route.params;
+  console.log('orderid', OrderId);
 
-import { COLORS, FONTFAMILY, FONTSIZE } from '../theme/theme';
+  const [loading, setLoading] = useState(false);
+  const [order, setOrder] = useState();
+  const dispatch = useDispatch();
 
-const Myorders = () => {
+  //METHOD TO GET ORDER DATA
+  const getOrderData = async () => {
+    try {
+      setLoading(true);
+      const res = await dispatch(getOrderDetails({id: OrderId})).unwrap();
+      if (res) {
+        console.log('response of specific order', res);
+        setOrder(res?.order);
+        setLoading(false);
+      }
+      console.log('All orders od user', res);
+    } catch (error) {
+      console.log('Error from get all order API', error);
+    }
+  };
+  console.log('order', order);
+  useEffect(() => {
+    getOrderData();
+  }, []);
   return (
     <>
       <View style={styles.MainContainer}>
+        {loading && <LoaderComp />}
         <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
           {/* --------------header---------------- */}
           <View style={styles.headerContainer}>
@@ -30,14 +59,15 @@ const Myorders = () => {
                   fontFamily: FONTFAMILY.Metropolis_bold,
                   fontSize: 16,
                 }}>
-                Order No:1947034
+                Order No:
+                {order?.orderNo ? order?.orderNo?.split('-')[0] : 'NA'}
               </Text>
               <Text
                 style={{
                   // color: primaryBlack,
                   fontSize: 16,
                 }}>
-                5-2-24
+                {order?.createdAt ? order?.createdAt?.split('T')[0] : 'NA'}
               </Text>
             </View>
             <View
@@ -46,13 +76,13 @@ const Myorders = () => {
                 alignItems: 'flex-start',
                 padding: 5,
               }}>
-              <Text
+              {/* <Text
                 style={{
                   color: COLORS.primaryBlack,
                   fontSize: 16,
                 }}>
-                Tracking number:IW3475453455
-              </Text>
+                Tracking number:{order?.orderNo}
+              </Text> */}
             </View>
             <View
               style={{
@@ -64,170 +94,88 @@ const Myorders = () => {
               <Text
                 style={{
                   fontSize: 16,
+                  color: COLORS?.primaryBlack,
                 }}>
-                3 Items
+                {order?.products?.length} items
               </Text>
               <Text
                 style={{
                   color: 'green',
                   fontSize: 16,
                 }}>
-                Delivered
+                {order?.orderStatus}
               </Text>
             </View>
           </View>
           {/* ------CARDS------- */}
-          <View style={styles.cardContainer}>
-            {/* ---------IMAGE------------ */}
-            <View style={styles.ImageContainer}>
-              <Image
-                style={styles.image}
-                source={require('../Assets/Images/Card_1.png')}
-              />
-            </View>
-            {/* -----------TEXT-DATA--------------- */}
-            <View style={styles.TextData}>
-              <View style={styles.ContainerONE}>
-                <Text style={styles.Cardbrand}>Shirt</Text>
-                <Text style={styles.subcategory}>Mango</Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.CardCategory}>Color:Grey</Text>
-                  <Text style={styles.Size}>Size:L</Text>
+          <FlatList
+            style={{flex: 1}}
+            contentContainerStyle={{gap: 8}}
+            showsHorizontalScrollIndicator={false}
+            data={order?.products}
+            keyExtractor={item => item._id}
+            renderItem={({item}) => (
+              <View style={styles.cardContainer}>
+                {/* ---------IMAGE------------ */}
+                <View style={styles.ImageContainer}>
+                  <Image style={styles.image} source={{uri: item?.img}} />
                 </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginRight: 20,
-                  }}>
-                  <Text style={styles.units}>Units:1</Text>
-                  <Text style={styles.units}>55$</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-          <View style={styles.cardContainer}>
-            {/* ---------IMAGE------------ */}
-            <View style={styles.ImageContainer}>
-              <Image
-                style={styles.image}
-                source={require('../Assets/Images/Card_1.png')}
-              />
-            </View>
-            {/* -----------TEXT-DATA--------------- */}
-            <View style={styles.TextData}>
-              <View style={styles.ContainerONE}>
-                <Text style={styles.Cardbrand}>Shirt</Text>
-                <Text style={styles.subcategory}>Mango</Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.CardCategory}>Color:Grey</Text>
-                  <Text style={styles.Size}>Size:L</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginRight: 20,
-                  }}>
-                  <Text style={styles.units}>Units:1</Text>
-                  <Text style={styles.units}>55$</Text>
+                {/* -----------TEXT-DATA--------------- */}
+                <View style={styles.TextData}>
+                  <View style={styles.ContainerONE}>
+                    <Text style={styles.Cardbrand}>{item?.title}</Text>
+                    <Text style={styles.subcategory}>{item?.category}</Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.CardCategory}>
+                        Color:{item?.color[0]}
+                      </Text>
+                      <Text style={styles.Size}>Size:{item?.size[0]}</Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        marginRight: 20,
+                      }}>
+                      <Text style={styles.units}>Units:{item?.quantity}</Text>
+                      <Text style={styles.units}>₹{item?.price}</Text>
+                    </View>
+                  </View>
                 </View>
               </View>
-            </View>
-          </View>
-          <View style={styles.cardContainer}>
-            {/* ---------IMAGE------------ */}
-            <View style={styles.ImageContainer}>
-              <Image
-                style={styles.image}
-                source={require('../Assets/Images/Card_1.png')}
-              />
-            </View>
-            {/* -----------TEXT-DATA--------------- */}
-            <View style={styles.TextData}>
-              <View style={styles.ContainerONE}>
-                <Text style={styles.Cardbrand}>Shirt</Text>
-                <Text style={styles.subcategory}>Mango</Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.CardCategory}>Color:Grey</Text>
-                  <Text style={styles.Size}>Size:L</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginRight: 20,
-                  }}>
-                  <Text style={styles.units}>Units:1</Text>
-                  <Text style={styles.units}>55$</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-          <View style={styles.cardContainer}>
-            {/* ---------IMAGE------------ */}
-            <View style={styles.ImageContainer}>
-              <Image
-                style={styles.image}
-                source={require('../Assets/Images/Card_1.png')}
-              />
-            </View>
-            {/* -----------TEXT-DATA--------------- */}
-            <View style={styles.TextData}>
-              <View style={styles.ContainerONE}>
-                <Text style={styles.Cardbrand}>Shirt</Text>
-                <Text style={styles.subcategory}>Mango</Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.CardCategory}>Color:Grey</Text>
-                  <Text style={styles.Size}>Size:L</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginRight: 20,
-                  }}>
-                  <Text style={styles.units}>Units:1</Text>
-                  <Text style={styles.units}>55$</Text>
-                </View>
-              </View>
-            </View>
-          </View>
+            )}
+          />
+
           {/* ----ORDER INFO------- */}
           <View style={styles.OrderinfoContainer}>
             <Text style={{fontSize: 20, color: COLORS.primaryBlack}}>
               Order information
             </Text>
             <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
-              <Text style={styles.OrderInfoKey}>Shopping Address:</Text>
+              <Text style={styles.OrderInfoKey}>Shipping Address:</Text>
               <Text style={styles.orderInfoValue}>
-                3 Newbridge Court ,Chino Hills, CA 91709, United States
+                {order?.address?.address}, {''}
+                {order?.address?.city},{''}
+                {order?.address?.state},{' - '}
+                {order?.address?.postalCode}
               </Text>
             </View>
             <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
               <Text style={styles.OrderInfoKey}>Payment method:</Text>
-              <Text style={styles.orderInfoValue}>**** **** **** 3947</Text>
+              <Text style={styles.orderInfoValue}>
+                {order?.paymentDetails?.modeOfPayment}
+              </Text>
             </View>
 
             <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
               <Text style={styles.OrderInfoKey}>Delivery method:</Text>
-              <Text style={styles.orderInfoValue}>FedEx, 3 days, 15$</Text>
+              <Text style={styles.orderInfoValue}>
+                FedEx, 3 days, {order?.paymentDetails?.deliveryCharges}
+              </Text>
             </View>
 
             <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
@@ -239,7 +187,9 @@ const Myorders = () => {
 
             <View style={{flexDirection: 'row', gap: 10, padding: 5}}>
               <Text style={styles.OrderInfoKey}>Total Amount:</Text>
-              <Text style={styles.orderInfoValue}>133$</Text>
+              <Text style={styles.orderInfoValue}>
+                ₹ {order?.paymentDetails?.total}
+              </Text>
             </View>
             {/* --------BTNS----------- */}
             <View
@@ -327,12 +277,11 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   OrderinfoContainer: {
-    flex: 1,
     padding: 5,
-    // backgroundColor: 'yellow',
   },
   OrderInfoKey: {
     fontSize: 17,
+    color: COLORS.primaryBlack,
   },
   orderInfoValue: {
     color: COLORS.primaryBlack,

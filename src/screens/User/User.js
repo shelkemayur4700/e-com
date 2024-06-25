@@ -11,13 +11,6 @@ import FeatherIcons from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  Bold_Font,
-  Card_Background,
-  Header_FONT_SIZE,
-  primaryBlack,
-  primarygrey,
-} from '../../constant';
 import {logoutUser} from '../../slice/auth';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../../theme/theme';
 import {checkAuthStatus, logout} from '../../thunk/auth';
@@ -53,7 +46,11 @@ const User = ({navigation}) => {
           {/* --------------heading---------------------- */}
           <View style={styles.Search}>
             <TouchableOpacity>
-              <FeatherIcons name="search" size={25} color={primaryBlack} />
+              <FeatherIcons
+                name="search"
+                size={25}
+                color={COLORS.primaryBlack}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.Heading}>
@@ -90,7 +87,7 @@ const User = ({navigation}) => {
                   <View style={styles.arrowIcon}>
                     <MaterialIcons
                       name="keyboard-arrow-right"
-                      color={primarygrey}
+                      color={COLORS.primarygrey}
                       size={20}
                     />
                   </View>
@@ -107,7 +104,7 @@ const User = ({navigation}) => {
                   <View style={styles.arrowIcon}>
                     <MaterialIcons
                       name="keyboard-arrow-right"
-                      color={primarygrey}
+                      color={COLORS.primarygrey}
                       size={20}
                     />
                   </View>
@@ -125,7 +122,7 @@ const User = ({navigation}) => {
                   <View style={styles.arrowIcon}>
                     <MaterialIcons
                       name="keyboard-arrow-right"
-                      color={primarygrey}
+                      color={COLORS.primarygrey}
                       size={20}
                     />
                   </View>
@@ -144,7 +141,7 @@ const User = ({navigation}) => {
                   <View style={styles.arrowIcon}>
                     <MaterialIcons
                       name="keyboard-arrow-right"
-                      color={primarygrey}
+                      color={COLORS.primarygrey}
                       size={20}
                     />
                   </View>
@@ -161,7 +158,7 @@ const User = ({navigation}) => {
                   <View style={styles.arrowIcon}>
                     <MaterialIcons
                       name="keyboard-arrow-right"
-                      color={primarygrey}
+                      color={COLORS.primarygrey}
                       size={20}
                     />
                   </View>
@@ -179,7 +176,7 @@ const User = ({navigation}) => {
                   <View style={styles.arrowIcon}>
                     <MaterialIcons
                       name="keyboard-arrow-right"
-                      color={primarygrey}
+                      color={COLORS.primarygrey}
                       size={20}
                     />
                   </View>
@@ -232,8 +229,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   HeadingText: {
-    color: primaryBlack,
-    fontSize: Header_FONT_SIZE,
+    color: COLORS.primaryBlack,
+    fontSize: FONTSIZE.Header_FONT_SIZE,
     paddingLeft: SPACING.space_10,
     paddingTop: SPACING.space_20,
   },
@@ -270,7 +267,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: SPACING.space_10,
     borderRadius: SPACING.space_10,
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     padding: SPACING.space_20,
     gap: SPACING.space_20,
   },
@@ -285,9 +282,9 @@ const styles = StyleSheet.create({
     gap: 1,
   },
   name: {
-    fontFamily: Bold_Font,
+    fontFamily: FONTFAMILY.Bold_Font,
     fontSize: SPACING.space_18,
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
   },
   order: {},
   cardContainer: {
@@ -295,7 +292,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: SPACING.space_10,
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     padding: SPACING.space_10,
   },
 
@@ -303,7 +300,7 @@ const styles = StyleSheet.create({
     // fontFamily: Bold_Font,
     fontWeight: '500',
     fontSize: SPACING.space_18,
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
   },
   cardInfo: {},
   SignoutBtn: {

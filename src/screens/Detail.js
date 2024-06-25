@@ -5,6 +5,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
@@ -18,13 +19,19 @@ const Detail = ({navigation, route}) => {
 
   // Temp solution to manage quantity
   let productData = {...productInfo, quantity: 1};
-
+  //METHOD TO ADD PROD IN CART
   const HandleAddtoCart = product => {
     dispatch(addToCart(product));
     navigation.push('HomePage', {
       screen: 'Bag',
     });
   };
+
+  //METHOD TO ADD REVIEW ON PRODUCT
+  const HandleAddReview = () => {
+    navigation.push('MainApp', {screen: 'Review'});
+  };
+  //
 
   return (
     <View style={styles.mainContainer}>
@@ -47,13 +54,25 @@ const Detail = ({navigation, route}) => {
             <Text style={styles.ProductInfo}>{productData?.category}</Text>
             <Text style={styles.ProductDesc}>{productData?.description}</Text>
           </View>
+          {/* BRAND DETAILS SECTION  */}
+          <View style={styles.BrandDetails}>
+            <Text>SHOW BRAND DETAILS</Text>
+          </View>
           {/* SIMILER PRODUCT SECTION  */}
           <View style={styles.SimilerProd}>
-            <Text>Hello</Text>
+            <Text>SHOW SIMILER PRODUCTS</Text>
           </View>
           {/* RATINGS AND REVIEW SECTION  */}
-          <View style={styles.Review}>
-            <View style={styles.ratingTitle}></View>
+          <View style={styles.ReviewContainer}>
+            <View style={styles.ratingTitleContainer}>
+              <Text style={styles.ratingTitleText}>Rating & Reviews</Text>
+            </View>
+            {/* RATE PRODUCT BTN  */}
+            <TouchableOpacity
+              style={styles.rateBtn}
+              onPress={() => HandleAddReview()}>
+              <Text style={styles.RatebtnText}>Rate Product</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -119,13 +138,33 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 10,
+    padding: 5,
+    backgroundColor: COLORS.primarywhite,
+  },
+  BrandDetails: {
+    backgroundColor: 'blue',
   },
   SimilerProd: {
     backgroundColor: 'yellow',
   },
-  Review: {
-    backgroundColor: 'green',
+  ReviewContainer: {
+    padding: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   ratingTitle: {},
+  RatebtnText: {
+    color: COLORS.primaryBlack,
+  },
+  ratingTitleText: {
+    color: COLORS.primaryBlack,
+    fontSize: 16,
+  },
+  rateBtn: {
+    borderRadius: 10,
+    borderColor: COLORS.primaryBlack,
+    borderWidth: 1,
+    padding: 5,
+  },
 });
