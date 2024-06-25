@@ -3,7 +3,8 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import EntypoIcons from 'react-native-vector-icons/Entypo';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
-import {primaryBlack} from '../constant';
+import { COLORS } from '../theme/theme';
+
 
 const Header = ({currentScreenName}) => {
   const navigation = useNavigation();
@@ -18,7 +19,7 @@ const Header = ({currentScreenName}) => {
                 screen: 'Home',
               });
             }}>
-            <IoniconsIcons name="chevron-back" color={primaryBlack} size={22} />
+            <IoniconsIcons name="chevron-back" color={COLORS.primaryBlack} size={22} />
           </TouchableOpacity>
         </View>
         <Text style={styles.headingText}>
@@ -33,7 +34,7 @@ const Header = ({currentScreenName}) => {
                 screen: 'Home',
               });
             }}>
-            <EntypoIcons name="share" color={primaryBlack} size={22} />
+            <EntypoIcons name="share" color={COLORS.primaryBlack} size={22} />
           </TouchableOpacity>
         </View>
       </View>
@@ -52,10 +53,10 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
     padding: 15,
-    shadowColor: primaryBlack,
+    shadowColor: COLORS.primaryBlack,
   },
   headingText: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontFamily: 'Metropolis-SemiBold',
     fontSize: 18,
   },

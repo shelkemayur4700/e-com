@@ -4,11 +4,11 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import AddAddress from '../components/AddAddress';
 import Myorders from '../components/Myorders';
+import PaymentScreen from '../components/PaymentScreen';
 import Checkout from '../screens/Checkout';
 import Success from '../screens/Success';
 import Address from '../screens/User/Components/Address';
 import Orders from '../screens/User/Components/Orders';
-import Payment from '../screens/User/Components/Payment';
 import Promo from '../screens/User/Components/Promo';
 import Review from '../screens/User/Components/Review';
 import Setings from '../screens/User/Components/Setings';
@@ -72,7 +72,7 @@ const MainApp = () => {
             ),
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Payment"
           component={Payment}
           options={{
@@ -88,7 +88,7 @@ const MainApp = () => {
               </TouchableOpacity>
             ),
           }}
-        />
+        /> */}
         <Stack.Screen
           name="Promo"
           component={Promo}
@@ -163,7 +163,7 @@ const MainApp = () => {
           name="Checkout"
           component={Checkout}
           options={{
-            title: 'Checkout',
+            title: 'Order Summary',
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>
@@ -190,6 +190,23 @@ const MainApp = () => {
           component={AddAddress}
           options={{
             title: 'Add Address',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <TouchableOpacity>
+                <FeatherIcons
+                  name="search"
+                  size={22}
+                  color={COLORS.primaryBlack}
+                />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Payment"
+          component={PaymentScreen}
+          options={{
+            title: 'Payment',
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>

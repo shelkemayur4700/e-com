@@ -1,114 +1,152 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useEffect, useState} from 'react';
 import {
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
-import {
-  Bold_Font,
-  Card_Background,
-  Header_FONT_SIZE,
-  primaryBlack,
-  primarygrey,
-  primarywhite,
-} from '../../../constant';
+import {useDispatch} from 'react-redux';
+import LoaderComp from '../../../components/LoaderComp';
+import {COLORS, FONTFAMILY, FONTSIZE} from '../../../theme/theme';
+import {getUserOrders} from '../../../thunk/order';
 
 const Orders = ({navigation}) => {
+  const dispatch = useDispatch();
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  //METHOD TO GET ALL ORDERS OF USER
+  const getOrdersOfUser = async () => {
+    try {
+      let userDetails = await AsyncStorage.getItem('LogInUser');
+      let userData = JSON.parse(userDetails);
+      console.log('user id is ', userData?._id);
+      setLoading(true);
+      const res = await dispatch(getUserOrders({id: userData?._id})).unwrap();
+      if (res) {
+        setOrders(res?.orders);
+        setLoading(false);
+      }
+      console.log('All orders od user', res);
+    } catch (error) {
+      console.log('Error from get all order API', error);
+    }
+  };
+
+  useEffect(() => {
+    getOrdersOfUser();
+  }, []);
   return (
     <View style={styles.mainContainer}>
+      {loading && <LoaderComp />}
       <ScrollView style={{padding: 10}} showsVerticalScrollIndicator={false}>
         {/* -----------------CARD------------ */}
-        <View style={styles.cardContainer}>
-          <View
-            style={{
-              // flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 5,
-            }}>
-            <Text
-              style={{
-                color: primaryBlack,
-                fontFamily: Bold_Font,
-                fontSize: 16,
-              }}>
-              Order No:1947034
-            </Text>
-            <Text
-              style={{
-                // color: primaryBlack,
-                fontSize: 16,
-              }}>
-              5-2-24
-            </Text>
-          </View>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-              padding: 5,
-            }}>
-            <Text
-              style={{
-                color: primaryBlack,
-                fontSize: 16,
-              }}>
-              Tracking number:IW3475453455
-            </Text>
-          </View>
-          <View
-            style={{
-              justifyContent: 'space-between',
-              alignItems: 'baseline',
-              flexDirection: 'row',
-              padding: 5,
-            }}>
-            <Text
-              style={{
-                fontSize: 16,
-              }}>
-              Quantity:3
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-              }}>
-              Total Amount :206
-            </Text>
-          </View>
-          <View
-            style={{
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              padding: 5,
-              alignItems: 'center',
-            }}>
-            <TouchableOpacity onPress={() => navigation.push('Myorders')}>
-              <Text
+        <FlatList
+          style={{flex: 1}}
+          contentContainerStyle={{gap: 8}}
+          showsHorizontalScrollIndicator={false}
+          data={orders}
+          keyExtractor={item => item._id}
+          renderItem={({item}) => (
+            <View style={styles.cardContainer}>
+              <View
                 style={{
-                  // backgroundColor: 'red',
-                  borderColor: primaryBlack,
-                  borderWidth: 1,
-                  borderRadius: 22,
-                  color: primaryBlack,
-                  paddingVertical: 8,
-                  paddingHorizontal: 14,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  padding: 5,
                 }}>
-                Details
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={{
+                    color: COLORS.primaryBlack,
+                    fontFamily: FONTFAMILY.Metropolis_bold,
+                    fontSize: 16,
+                  }}>
+                  Order No:{' '}
+                  {item?.orderNo ? item?.orderNo?.split('-')[0] : 'NA'}
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.primaryBlack,
+                    fontSize: 16,
+                  }}>
+                  {item?.createdAt ? item?.createdAt?.split('T')[0] : 'NA'}
+                </Text>
+              </View>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'flex-start',
+                  padding: 5,
+                }}>
+                <Text
+                  style={{
+                    color: COLORS.primaryBlack,
+                    fontSize: 16,
+                  }}>
+                  Tracking number: {item?.orderNo}
+                </Text>
+              </View>
+              <View
+                style={{
+                  justifyContent: 'space-between',
+                  alignItems: 'baseline',
+                  flexDirection: 'row',
+                  padding: 5,
+                }}>
+                <Text
+                  style={{
+                    color: COLORS.primaryBlack,
+                    fontSize: 16,
+                  }}>
+                  Quantity:{item?.products?.length}
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.primaryBlack,
+                    fontSize: 16,
+                  }}>
+                  Total Amount : ₹{item?.paymentDetails?.total}
+                </Text>
+              </View>
+              <View
+                style={{
+                  justifyContent: 'space-between',
+                  flexDirection: 'row',
+                  padding: 5,
+                  alignItems: 'center',
+                }}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.push('Myorders', {OrderId: item?._id})
+                  }>
+                  <Text
+                    style={{
+                      // backgroundColor: 'red',
+                      borderColor: COLORS.primaryBlack,
+                      borderWidth: 1,
+                      borderRadius: 22,
+                      color: COLORS.primaryBlack,
+                      paddingVertical: 8,
+                      paddingHorizontal: 14,
+                    }}>
+                    Details
+                  </Text>
+                </TouchableOpacity>
 
-            <Text
-              style={{
-                color: 'green',
-                fontSize: 16,
-              }}>
-              Delivered
-            </Text>
-          </View>
-        </View>
+                <Text
+                  style={{
+                    color: 'green',
+                    fontSize: 16,
+                  }}>
+                  {item?.orderStatus ? item?.orderStatus : 'NOTUPDATED'}
+                </Text>
+              </View>
+            </View>
+          )}
+        />
       </ScrollView>
     </View>
   );
@@ -135,8 +173,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   HeadingText: {
-    color: primaryBlack,
-    fontSize: Header_FONT_SIZE,
+    color: COLORS.primaryBlack,
+    fontSize: FONTSIZE.size_30,
     fontWeight: '600',
     paddingLeft: 10,
     paddingTop: 20,
@@ -151,16 +189,16 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingLeft: 15,
     paddingRight: 15,
-    backgroundColor: primaryBlack,
+    backgroundColor: COLORS.primaryBlack,
     borderRadius: 20,
   },
   filterName: {
-    color: primarywhite,
+    color: COLORS.primarywhite,
     fontSize: 16,
   },
   cardContainer: {
     flex: 1,
-    backgroundColor: Card_Background,
+    backgroundColor: COLORS.Card_Background,
     borderRadius: 10,
     padding: 12,
   },
@@ -183,12 +221,12 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   Cardbrand: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 20,
     fontWeight: '500',
   },
   CardCategory: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 15,
     fontWeight: '400',
   },
@@ -198,7 +236,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   price: {
-    color: primaryBlack,
+    color: COLORS.primaryBlack,
     fontSize: 18,
     fontWeight: '400',
   },

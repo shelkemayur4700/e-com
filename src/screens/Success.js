@@ -22,10 +22,12 @@ const Success = ({navigation, route}) => {
         </Text>
       </View>
       <View>
-        <RedButton
-          name="CONTINUE SHOPPING"
-          handleClick={handleContinueShopping}
-        />
+        <View style={{marginBottom: 10}}>
+          <RedButton
+            name="CONTINUE SHOPPING"
+            handleClick={handleContinueShopping}
+          />
+        </View>
       </View>
     </View>
   );

@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -15,27 +16,45 @@ import {RedButton} from '../components/RedButton';
 import {COLORS, FONTFAMILY} from '../theme/theme';
 import {getSingleAddress} from '../thunk/address';
 
-const Checkout = ({navigation}) => {
+const Checkout = ({navigation, route}) => {
+  let {products} = route.params;
   const dispatch = useDispatch();
   const address = useSelector(state => state?.address?.PrefferedAdd);
-  const loading = useSelector(state => state?.address?.loading);
-  console.log('address', address, loading);
-  //METHOD TO SUBMIT ORDER
-  const handleSubmitOrder = () => {
-    navigation.push('Success');
+  const totalPrice = useSelector(state => state?.cartdata?.totalPrice);
+  // const loading = useSelector(state => state?.address?.loading);
+  const [loading, setLoading] = useState(false);
+  //METHOD TO Proceed
+  const handleProceed = () => {
+    navigation.push('Payment', {
+      total: orderTotal(),
+      products,
+      deliveryCharges: 40,
+    });
   };
   //METHOD TO GET PREFFERED ADDRESS
   const getSelectedAdd = async () => {
     let id = await AsyncStorage.getItem('prefferedAdd');
-    console.log('preferred address', id);
     try {
+      setLoading(true);
       const res = await dispatch(getSingleAddress({AddId: id})).unwrap();
       console.log('reponse by getaddbyID in checkout section', res);
+      if (res) {
+        setLoading(false);
+      }
     } catch (error) {
       console.log('error from getbyid in checkout section', error);
     }
   };
-
+  //METHOD TO GET PRODUCT'S TOTAL AMOUNT
+  const getProdTotal = (quantity, price) => {
+    return quantity * price;
+  };
+  //METHOD TO GET TOTAL OF ORDER
+  const orderTotal = () => {
+    const deliveryCharges = 40;
+    let OrderTotalPrice = totalPrice + deliveryCharges;
+    return OrderTotalPrice;
+  };
   useFocusEffect(
     useCallback(() => {
       setTimeout(() => {
@@ -43,13 +62,12 @@ const Checkout = ({navigation}) => {
       }, 1000);
     }, []),
   );
-  //   {"__v": 0, "_id": "664952aa222a18ee58e3bda6", "address": "Morgaon ", "city": "Baramati", "isHome": true, "name":
-  // "Swapnil ", "phoneNo": 9860247070, "postalCode": "123321", "state": "Maharashtra ", "userId": "664391129fba997fe5c5f15e"}
+
   return (
     <>
       <View style={styles.mainContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {loading && LoaderComp}
+          {loading && <LoaderComp />}
           {/* ---------ADDRESS-CONTAINER-------------- */}
           <View style={styles.addressContainer}>
             <Text style={styles.AddHeading}>Shipping address</Text>
@@ -67,36 +85,54 @@ const Checkout = ({navigation}) => {
                   {' ,'} {address?.state}
                   {'-'}
                   {address?.postalCode}
-                  {address.isHome ? ' Home' : 'Type : Work'}
+                  {address.isHome ? ' Home' : 'Work'}
                 </Text>
               </View>
             </TouchableOpacity>
           </View>
-          {/* ---------PAYMENT-CONTAINER-------------- */}
+          {/* ---------ORDER ITEMS-CONTAINER-------------- */}
           <View style={styles.PaymentContainer}>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={styles.paymentHeading}>Payment</Text>
-            </View>
+            <Text style={styles.AddHeading}>Items</Text>
             <TouchableOpacity>
-              <View style={styles.paymentCard}>
-                <View style={styles.paymetLogoCard}>
-                  <TouchableOpacity onPress={() => navigation.push('Payment')}>
-                    <Text style={styles.changebtn}>Change</Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.cardDetails}>
-                  <Image
-                    style={{
-                      height: 90,
-                      width: 90,
-                      objectFit: 'scale-down',
-                    }}
-                    source={require('../Assets/Images/Mastercard.png')}
-                  />
-                  <Text style={styles.cardInfo}>**** **** **** 2345</Text>
-                </View>
-              </View>
+              <FlatList
+                style={{flex: 1}}
+                data={products}
+                keyExtractor={item => item._id}
+                renderItem={({item}) => (
+                  <View key={item?.id} style={styles.productCard}>
+                    <View>
+                      <Image style={styles.cartimg} source={{uri: item?.img}} />
+                    </View>
+                    <View style={styles.Info}>
+                      <View style={styles.prodetailsContainer}>
+                        <Text style={styles.brand}>{item?.title}</Text>
+                      </View>
+                      <View style={styles.prodetailsContainer2}>
+                        <View style={styles.prodetails}>
+                          <Text style={{color: COLORS.primaryBlack}}>
+                            Quantity: {Number(item?.quantity)}
+                          </Text>
+                        </View>
+                        <View style={styles.price}>
+                          <Text style={{color: COLORS.primaryBlack}}>
+                            Price: ₹{item?.price}
+                          </Text>
+                        </View>
+                      </View>
+                      <View style={{paddingLeft: 10}}>
+                        <Text
+                          style={{
+                            color: COLORS.primaryBlack,
+                            fontSize: 14,
+                            fontWeight: 'bold',
+                          }}>
+                          Total: {getProdTotal(item?.quantity, item?.price)}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                )}
+              />
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -104,12 +140,12 @@ const Checkout = ({navigation}) => {
         <View style={styles.SummaryContainer}>
           <View style={styles.SummaryInfo}>
             <Text style={styles.summaryText}>Order:</Text>
-            <Text style={styles.summaryText}>112</Text>
+            <Text style={styles.summaryText}>{totalPrice}</Text>
           </View>
           {/* ------------------- */}
           <View style={styles.SummaryInfo}>
             <Text style={styles.summaryText}>Delivery:</Text>
-            <Text style={styles.summaryText}>13</Text>
+            <Text style={styles.summaryText}>40</Text>
           </View>
           {/* ------------------------- */}
           <View style={styles.SummaryInfo}>
@@ -117,13 +153,13 @@ const Checkout = ({navigation}) => {
               Summary:
             </Text>
             <Text style={[styles.summaryText, styles.summaryHeading]}>
-              ₹ 125
+              ₹{orderTotal()}
             </Text>
           </View>
         </View>
         {/* -----------------SUBMIT ORDER-------------------------- */}
         <View style={styles.submitBTN}>
-          <RedButton handleClick={handleSubmitOrder} name={'SUBMIT ORDER'} />
+          <RedButton handleClick={() => handleProceed()} name={'CONTINUE'} />
         </View>
       </View>
     </>
@@ -135,7 +171,7 @@ export default Checkout;
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingVertical: 20,
+    // paddingVertical: 20,
     padding: 10,
   },
   addressContainer: {},
@@ -145,7 +181,7 @@ const styles = StyleSheet.create({
     color: COLORS.primaryBlack,
   },
   AddCard: {
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: COLORS.Card_Background,
     borderRadius: 10,
     padding: 20,
@@ -181,35 +217,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     // backgroundColor: 'red',
   },
-  paymentHeading: {
-    fontFamily: FONTFAMILY.Metropolis_bold,
-    fontSize: 18,
-    color: COLORS.primaryBlack,
-  },
-  paymentCard: {
-    marginTop: 20,
-    // backgroundColor: 'yellow',
-    backgroundColor: COLORS.Card_Background,
-    borderRadius: 10,
-    padding: 5,
-  },
-  paymetLogoCard: {
-    justifyContent: 'flex-end',
-    flexDirection: 'row',
-    paddingRight: 20,
-    paddingTop: 10,
-  },
-  cardDetails: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 20,
-    // backgroundColor: 'red',
-  },
-  cardInfo: {
-    color: COLORS.primaryBlack,
-    fontSize: 16,
-    fontWeight: '600',
-  },
   SummaryContainer: {
     marginTop: 20,
   },
@@ -227,9 +234,47 @@ const styles = StyleSheet.create({
   summaryText: {
     fontSize: 16,
     fontWeight: '600',
+    color: COLORS.primaryBlack,
   },
   submitBTN: {
-    // position: 'absolute',
     bottom: 0,
+  },
+  productCard: {
+    marginTop: 10,
+    padding: 10,
+    flexDirection: 'row',
+    backgroundColor: COLORS.Card_Background,
+    borderRadius: 10,
+    elevation: 2,
+    marginHorizontal: 10,
+  },
+  cartimg: {
+    height: 80,
+    width: 80,
+    borderRadius: 10,
+  },
+  Info: {
+    // flex: 1,
+    flexDirection: 'column',
+  },
+  prodetailsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  prodetailsContainer2: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginTop: 5,
+    gap: 8,
+  },
+  brand: {
+    color: COLORS.primaryBlack,
+    fontFamily: FONTFAMILY.Metropolis_bold,
+    fontSize: 15,
   },
 });

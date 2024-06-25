@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {BASE_URL} from '../constant';
+import {BASE_URL, GOOGLE_MAP_KEY} from '../setting';
 
 // METHoD TO CREATE ADDRESS
 export const createAddressAPI = createAsyncThunk(
@@ -96,7 +96,7 @@ export const getLocation = createAsyncThunk(
     try {
       console.log('model of delete address', model);
       const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${model?.latitude},${model?.longitude}&key=`,
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${model?.latitude},${model?.longitude}&key=${GOOGLE_MAP_KEY}`,
       );
       const responseData = response?.data;
       // console.log('google API  RES', responseData.results[0]);
