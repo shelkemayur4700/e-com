@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -8,9 +8,55 @@ import {
   View,
 } from 'react-native';
 import FeatherIcons from 'react-native-vector-icons/Feather';
+import {useDispatch, useSelector} from 'react-redux';
 import {COLORS, FONTSIZE} from '../theme/theme';
+import {getAllProducts} from '../thunk/product';
 
 const Shop = ({navigation}) => {
+  const dispatch = useDispatch();
+  const product = useSelector(state => state.productStore.data);
+  const [prodType, setProdType] = useState([]);
+  const [seletedCategory, setSelectedCategory] = useState(null);
+
+  //METHOD TO GET TYPE ON BASIS OF CATEGORY
+  const handleChangeCategory = category => {
+    let type = product?.filter(prod => prod?.category === category);
+    // TO GET UNIQUE TYPES
+    let uniqueCategories = [...new Set(type.map(prod => prod?.type))];
+    setProdType(uniqueCategories);
+    setSelectedCategory(category);
+  };
+
+  //METHOD OF ONCLICK ON CATEGORY
+  const handleClick = type => {
+    console.log('type', type);
+    navigation.push('Root', {
+      screen: 'ProductList',
+      params: {type, seletedCategory},
+    });
+  };
+
+  //METHOD TO GET ALL TYPES OF PRODUCTS
+  const getproductslist = async () => {
+    try {
+      let result = await dispatch(getAllProducts()).unwrap();
+      // console.log('result', result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getproductslist();
+  }, []);
+  // TO SET DEFAULT DATA
+  useEffect(() => {
+    const defaultCategory = 'Men';
+    let type = product?.filter(prod => prod?.category === defaultCategory);
+    let uniqueCategories = [...new Set(type.map(prod => prod?.type))];
+    setProdType(uniqueCategories);
+    setSelectedCategory('Men');
+  }, [product]);
   return (
     <View style={styles.mainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -25,44 +71,69 @@ const Shop = ({navigation}) => {
               />
             </TouchableOpacity>
           </View>
-          {/* <View style={styles.Heading}>
-          <Text style={styles.HeadingText}>Categories</Text>
-        </View> */}
           {/* ------------------Categories------------------ */}
           <View style={styles.categories}>
-            <View style={styles.menCategory}>
+            {/* MENS */}
+            <TouchableOpacity
+              style={[
+                {padding: 10},
+                seletedCategory === 'Men' && styles.Category,
+              ]}
+              onPress={() => handleChangeCategory('Men')}>
               <Text style={styles.categoryTitle}>Men</Text>
-            </View>
-            <View style={styles.womenCategory}>
+            </TouchableOpacity>
+            {/* WOMEN  */}
+            <TouchableOpacity
+              style={[
+                {padding: 10},
+                seletedCategory === 'Women' && styles.Category,
+              ]}
+              onPress={() => handleChangeCategory('Women')}>
               <Text style={styles.categoryTitle}>Women</Text>
-            </View>
-            <View style={styles.kidsCategory}>
+            </TouchableOpacity>
+            {/* KIDS  */}
+            <TouchableOpacity
+              style={[
+                {padding: 10},
+                seletedCategory === 'Kids' && styles.Category,
+              ]}
+              onPress={() => handleChangeCategory('Kids')}>
               <Text style={styles.categoryTitle}>Kids</Text>
-            </View>
+            </TouchableOpacity>
           </View>
           {/* ---------------------Offer card------------------ */}
           <View style={styles.cards}>
-            <View style={styles.OfferCard}>
+            <TouchableOpacity style={styles.OfferCard}>
               <Text style={styles.offerTitle}>SUMMER SALES</Text>
               <Text style={styles.offerInfo}>Up to 50% off</Text>
-            </View>
-            <View style={styles.categoryCard}>
-              <Text style={styles.catrgorytitle}>New</Text>
-              <Image source={require('../Assets/Images/New.png')}></Image>
-            </View>
-            <View style={styles.categoryCard}>
-              <Text style={styles.catrgorytitle}>Clothes</Text>
-              <Image source={require('../Assets/Images/Clothes.png')}></Image>
-            </View>
-            <View style={styles.categoryCard}>
-              <Text style={styles.catrgorytitle}>Shoes</Text>
-              <Image source={require('../Assets/Images/Shoes.png')}></Image>
-            </View>
-            <View style={styles.categoryCard}>
-              <Text style={styles.catrgorytitle}>Accesories</Text>
-              <Image
-                source={require('../Assets/Images/Accesories.png')}></Image>
-            </View>
+            </TouchableOpacity>
+            {prodType &&
+              prodType?.map(
+                prod =>
+                  prod && (
+                    <TouchableOpacity
+                      style={styles.categoryCard}
+                      onPress={() => handleClick(prod)}>
+                      <Text style={styles.catrgorytitle}>{prod}</Text>
+                      {prod == 'Topwear' && (
+                        <Image
+                          source={require('../Assets/Images/New.png')}></Image>
+                      )}
+                      {prod == 'Bottomwear' && (
+                        <Image
+                          source={require('../Assets/Images/Clothes.png')}></Image>
+                      )}
+                      {prod == 'Footwear' && (
+                        <Image
+                          source={require('../Assets/Images/Shoes.png')}></Image>
+                      )}
+                      {prod == 'Accessories' && (
+                        <Image
+                          source={require('../Assets/Images/Accesories.png')}></Image>
+                      )}
+                    </TouchableOpacity>
+                  ),
+              )}
           </View>
         </View>
       </ScrollView>
@@ -96,16 +167,26 @@ const styles = StyleSheet.create({
   categories: {
     flexDirection: 'row',
     marginTop: 10,
-    padding: 20,
-    alignItems: 'baseline',
+    padding: 10,
+    alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: COLORS.Card_Background,
     borderRadius: 10,
   },
-  menCategory: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  Category: {
+    borderBottomWidth: 2,
+    borderBottomColor: COLORS?.primaryred,
   },
+  // womenCategory: {
+  //   padding: 10,
+  //   borderBottomWidth: 2,
+  //   borderBottomColor: COLORS?.primaryred,
+  // },
+  // kidsCategory: {
+  //   padding: 10,
+  //   borderBottomWidth: 2,
+  //   borderBottomColor: COLORS?.primaryred,
+  // },
   categoryTitle: {
     color: COLORS.primaryBlack,
     fontSize: 18,

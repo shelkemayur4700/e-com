@@ -9,7 +9,7 @@ export const createAddressAPI = createAsyncThunk(
     try {
       console.log('model of add address', model);
       let response = await axios.post(
-        `${BASE_URL}/address//add/${model.id}`,
+        `${BASE_URL}/address/add/${model.id}`,
         model,
       );
       console.log('Response from API addresss', response);

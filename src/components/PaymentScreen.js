@@ -7,16 +7,19 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import {useDispatch, useSelector} from 'react-redux';
+import {removeItem} from '../slice/cart';
 import {COLORS, FONTFAMILY} from '../theme/theme';
 import {PaymentApi, SaveOrderDataApi} from '../thunk/order';
+import LoaderComp from './LoaderComp';
 import {RedButton} from './RedButton';
 const PaymentScreen = ({navigation, route}) => {
   const {total, products, deliveryCharges} = route.params;
-  console.log('total', deliveryCharges);
+  console.log('total', products);
 
   const dispatch = useDispatch();
   const address = useSelector(state => state?.address?.PrefferedAdd);
   const [clientSecretData, setClientSecretData] = useState('');
+  const [loading, setLoading] = useState(false);
   const [paymentType, setPaymentType] = useState({
     COD: false,
     CARD: false,
@@ -36,8 +39,7 @@ const PaymentScreen = ({navigation, route}) => {
       const Email = await AsyncStorage.getItem('UserEmail');
       //SEND ADD OF USER TO CREATE CUSTOMER ON THAT ADD IN STRIPE
       let AddId = await AsyncStorage.getItem('prefferedAdd');
-      // setClientSecret(true);
-      console.log('total from function', total);
+      setLoading(true);
       const clientSecret = await dispatch(
         PaymentApi({amount: total, AddId}),
       ).unwrap();
@@ -56,6 +58,7 @@ const PaymentScreen = ({navigation, route}) => {
         console.error('Error initializing payment sheet:', error);
       } else {
         console.log('Payment sheet initialized successfully');
+        setLoading(false);
       }
     } catch (error) {
       console.log('erro', error);
@@ -64,7 +67,6 @@ const PaymentScreen = ({navigation, route}) => {
 
   //SUBMIT BUTTON CALL
   const HandleSubmit = async () => {
-    console.log('workong');
     if (paymentType.CARD == true) {
       const {error} = await presentPaymentSheet({
         clientSecret: clientSecretData,
@@ -99,9 +101,15 @@ const PaymentScreen = ({navigation, route}) => {
         orderStatus: 'Placed',
       };
       console.log('payload', payload);
+      setLoading(true);
       const order = await dispatch(SaveOrderDataApi(payload)).unwrap();
       if (order) {
         navigation.navigate('Success');
+        //EMPTY cart
+        products.forEach(item => {
+          dispatch(removeItem(item._id));
+        });
+        setLoading(false);
       }
       console.log('order', order);
     } catch (error) {
@@ -114,10 +122,10 @@ const PaymentScreen = ({navigation, route}) => {
   }, []);
   return (
     <View style={styles.container}>
+      {loading && <LoaderComp />}
       <Text style={styles.HeadingText}>Choose Payment Method</Text>
       <View>
         {/* TOTAL AMOUNT VIEW SECTION */}
-
         <View style={styles.TotalAmtContainer}>
           <Text style={styles.totalAMTtext}>Total : </Text>
           <Text style={styles.tAMTtext}>₹{total}</Text>

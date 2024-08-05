@@ -3,6 +3,7 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import AddAddress from '../components/AddAddress';
+import AddReview from '../components/AddReview';
 import Myorders from '../components/Myorders';
 import PaymentScreen from '../components/PaymentScreen';
 import Checkout from '../screens/Checkout';
@@ -207,6 +208,24 @@ const MainApp = () => {
           component={PaymentScreen}
           options={{
             title: 'Payment',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <TouchableOpacity>
+                <FeatherIcons
+                  name="search"
+                  size={22}
+                  color={COLORS.primaryBlack}
+                />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        {/* </Stack.Navigator> */}
+        <Stack.Screen
+          name="AddReview"
+          component={AddReview}
+          options={{
+            title: 'Add review',
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity>

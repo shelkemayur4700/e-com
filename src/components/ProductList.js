@@ -4,32 +4,34 @@ import {
   FlatList,
   Image,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import LoaderComp from '../../components/LoaderComp';
-import {COLORS, FONTFAMILY, SPACING} from '../../theme/theme';
-import {getAllProducts} from '../../thunk/product';
-import Banner from './Components/Banner';
-// const Card_Width = Dimensions.get('window').width * 0.45;
-
-const HomeScreen = ({navigation, route}) => {
+import {COLORS, FONTFAMILY, SPACING} from '../theme/theme';
+import {getAllProducts} from '../thunk/product';
+const ProductList = ({navigation, route}) => {
   const dispatch = useDispatch();
-  const products = useSelector(state => state.productStore.data);
-  const loading = useSelector(state => state.productStore.loading);
+  const {type, seletedCategory} = route?.params;
+  const product = useSelector(state => state.productStore.data);
+
+  //FILTERING PRODUCTS ON THE BASIS OF THEIR CATEGORY AND TYPE
+  const products = product.filter(
+    d => d?.type === type && d?.category === seletedCategory,
+  );
+
+  //METHOD TO GET ALL PRODUCTS
   const getproductslist = async () => {
     try {
       let result = await dispatch(getAllProducts()).unwrap();
-      // console.log('result', result);
     } catch (error) {
       console.log(error);
     }
   };
-  // console.log('products', products);
+
+  //METHOD TO SHOW SINGLE PRODUCT
   const SingleProduct = product => {
     navigation.push('Detail', {product});
   };
@@ -40,57 +42,8 @@ const HomeScreen = ({navigation, route}) => {
     }, []),
   );
   return (
-    <View style={{flex: 1}}>
-      {/* {loading && <LoaderComp />} */}
-      <StatusBar backgroundColor={COLORS.primaryred} />
-      <ScrollView
-        contentContainerStyle={styles.scrollViewContent}
-        showsVerticalScrollIndicator={false}>
-        {/* --------------------------Banner------------------------ */}
-        <Banner />
-        {/* --------------------------X----------------------- */}
-        <View style={{flex: 1}}>
-          <View style={styles.headingContainer}>
-            <Text style={styles.heading}>New launched</Text>
-            <Text style={styles.text1}>View all</Text>
-          </View>
-          <View style={{flex: 1, gap: 20}}>
-            <FlatList
-              style={{flex: 1}}
-              horizontal
-              contentContainerStyle={{gap: 8}}
-              showsHorizontalScrollIndicator={false}
-              data={products}
-              keyExtractor={item => item._id}
-              renderItem={({item}) => (
-                <TouchableOpacity
-                  onPress={() => {
-                    SingleProduct(item);
-                  }}>
-                  <View key={item._id} style={styles.Card}>
-                    <Image
-                      source={{uri: item?.img}}
-                      alt={'Product'}
-                      style={styles.cardImage}
-                    />
-                    <Text style={styles.brand} numberOfLines={1}>
-                      {item?.title}
-                    </Text>
-                    <Text style={styles.prod_Desc} numberOfLines={2}>
-                      {item?.category}
-                    </Text>
-                    <Text style={styles.Price}>₹{item?.price}</Text>
-                  </View>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-          <View style={styles.headingContainer}>
-            <Text style={styles.heading}>Sale</Text>
-            <Text style={styles.text1}>View all</Text>
-          </View>
-        </View>
-        {/* --------------------------ALL PRODUCTS----------------------- */}
+    <View style={styles.mainContainer}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <FlatList
             contentContainerStyle={{
@@ -132,18 +85,11 @@ const HomeScreen = ({navigation, route}) => {
   );
 };
 
-export default HomeScreen;
+export default ProductList;
 
 const styles = StyleSheet.create({
-  scrollViewContent: {
-    // flex: 1,
-  },
-  Products: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
-    padding: 10,
-    justifyContent: 'space-between',
+  mainContainer: {
+    marginTop: 20,
   },
   Card: {
     backgroundColor: COLORS.Card_Background,

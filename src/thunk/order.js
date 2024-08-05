@@ -15,9 +15,7 @@ export const SaveOrderDataApi = createAsyncThunk(
       const responseData = response.data;
       // console.log('#####', responseData);
       return responseData;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error);
-    }
+    } catch (error) {}
   },
 );
 //API CALL TO GET ALL ORDERS OF USER--
@@ -27,11 +25,9 @@ export const getUserOrders = createAsyncThunk(
     console.log('model of get all users orders', model);
     try {
       let response = await axios.get(
-        `${BASE_URL}/order/getUserOrders/${model?.id}`,
-        model,
+        `${BASE_URL}/order/getUserOrders/${model?.id}`
       );
       const responseData = response.data;
-      console.log('get all users orders', responseData);
       return responseData;
     } catch (error) {
       return thunkApi.rejectWithValue(error);

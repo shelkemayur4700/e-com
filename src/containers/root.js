@@ -4,11 +4,13 @@ import React, {useEffect} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import EvilIconsIcons from 'react-native-vector-icons/AntDesign';
 import EntypoIcons from 'react-native-vector-icons/Entypo';
+import FeatherIcons from 'react-native-vector-icons/Feather';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
 import FontAwsome6Icons from 'react-native-vector-icons/FontAwesome6';
 import FontistoIcons from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
+import ProductList from '../components/ProductList';
 import Cart from '../screens/Cart';
 import Detail from '../screens/Detail';
 import Favorites from '../screens/Favorites';
@@ -175,6 +177,24 @@ const Root = () => {
           name="NewPass"
           component={NewPass}
           options={{headerShown: false}}
+        />
+        {/* PRODUCT LIST COMPONENT  */}
+        <Stack.Screen
+          name="ProductList"
+          component={ProductList}
+          options={{
+            title: 'Products List',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <TouchableOpacity>
+                <FeatherIcons
+                  name="search"
+                  size={22}
+                  color={COLORS.primaryBlack}
+                />
+              </TouchableOpacity>
+            ),
+          }}
         />
       </Stack.Navigator>
     </>
