@@ -61,9 +61,10 @@ const User = ({navigation}) => {
             <View style={styles.Prodilecards}>
               {/* -----------------------profile section ------------ */}
               <TouchableOpacity
-                onPress={() =>
-                  navigation.push('MainApp', {name: 'UserDetails'})
-                }>
+              // onPress={() =>
+              //   navigation.push('MainApp', {name: 'UserDetails'})
+              // }
+              >
                 <View style={styles.profileContainer}>
                   <View style={styles.profileimageContainer}>
                     <Image

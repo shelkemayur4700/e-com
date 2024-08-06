@@ -18,6 +18,7 @@ import {useDispatch} from 'react-redux';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
 import {CreateReviewApi, getAllProdPurchase} from '../thunk/review';
 import {requestCameraPermission, requestStoragePermission} from '../utills';
+import LoaderComp from './LoaderComp';
 import {RedButton} from './RedButton';
 
 const AddReview = ({navigation, route}) => {
@@ -27,6 +28,7 @@ const AddReview = ({navigation, route}) => {
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(0);
   const [isProdNotBought, setIsProdNotBought] = useState(false);
+  const [Loading, setLoading] = useState(false);
   const id = route?.params?.id; // PRODUCT ID
   console.log('id', id);
   //METHOD TO HANDLE BACK PRESS
@@ -90,23 +92,25 @@ const AddReview = ({navigation, route}) => {
     try {
       const userDetails = await AsyncStorage.getItem('LogInUser');
       let userData = JSON.parse(userDetails);
+      setLoading(true);
       const response = await dispatch(
         getAllProdPurchase({id: userData?._id}),
       ).unwrap();
-      console.log('productId', response?.userProductsID);
       response?.userProductsID?.some(item => {
-        console.log('item che id', item);
         if (item == id?.toString()) {
           setIsProdNotBought(false);
           console.log('product is bought');
+          setLoading(false);
           return true;
         } else {
           console.log('product is not bought');
+          setLoading(false);
           setIsProdNotBought(true);
           return false;
         }
       });
     } catch (error) {
+      setLoading(false);
       console.log('error from handle check response', error);
     }
   };
@@ -128,13 +132,15 @@ const AddReview = ({navigation, route}) => {
         userid: JSON.parse(user)?._id,
         productid: id,
       };
-
+      setLoading(true);
       let response = await dispatch(CreateReviewApi({...payload, formData}));
       console.log('response of api ', response.payload.message);
       if (response.payload.message === 'Review added') {
+        setLoading(false);
         navigation.goBack();
       }
     } catch (error) {
+      setLoading(false);
       console.log('error from add review', error);
     }
   };
@@ -145,6 +151,7 @@ const AddReview = ({navigation, route}) => {
   }, [id]);
   return (
     <KeyboardAvoidingView>
+      {Loading && <LoaderComp />}
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {isProdNotBought && (
           <View style={styles.NotBoughtContainer}>

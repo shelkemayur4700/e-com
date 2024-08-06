@@ -27,7 +27,7 @@ import {RedButton} from './RedButton';
 const AddAddress = ({navigation, route}) => {
   const toast = useToast();
   const AddId = route?.params?.AddId;
-  // console.log('aaddid , from props', route?.params?.AddId);
+
   const loadingState = useSelector(state => state?.address?.loading);
   const dispatch = useDispatch();
   const userId = useSelector(state => state?.auth?.userId);
