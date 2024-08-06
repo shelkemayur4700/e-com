@@ -104,8 +104,8 @@ const AddReview = ({navigation, route}) => {
           return true;
         } else {
           console.log('product is not bought');
-          setLoading(false);
           setIsProdNotBought(true);
+          setLoading(false);
           return false;
         }
       });
