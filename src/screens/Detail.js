@@ -16,6 +16,7 @@ import EvilIconsIcons from 'react-native-vector-icons/AntDesign';
 import StarIcon from 'react-native-vector-icons/FontAwesome';
 import PencilIcon from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
+import LoaderComp from '../components/LoaderComp';
 import {RedButton} from '../components/RedButton';
 import {addToCart} from '../slice/cart';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
@@ -45,6 +46,7 @@ const Detail = ({navigation, route}) => {
   const handleFavourite = async id => {
     try {
       setIsFavourite(true);
+      setLoading(true);
       const user = await AsyncStorage.getItem('LogInUser');
       const payload = {
         userid: JSON.parse(user)?._id,
@@ -53,12 +55,17 @@ const Detail = ({navigation, route}) => {
       };
 
       let response = await dispatch(AddFavourite(payload));
-      console.log('response of api ', response?.payload?.status === 'Success');
-      if (response?.payload?.status === 'Success') {
-        toast.show(response?.payload?.message, {type: 'success'});
+      console.log('response of api ', response);
+      if (response?.payload?.status) {
+        setLoading(false);
+        toast.show(response?.payload?.message, {
+          type: response?.payload?.status == 'Failed' ? 'danger' : 'success',
+        });
         console.log('add to fav');
       }
     } catch (error) {
+      setIsFavourite(false);
+      setLoading(false);
       console.log('error from add review', error);
     }
   };
@@ -101,6 +108,7 @@ const Detail = ({navigation, route}) => {
   return (
     <View style={styles.mainContainer}>
       <StatusBar backgroundColor={COLORS.primaryred} />
+      {loading && <LoaderComp />}
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{marginBottom: 20}}>
@@ -141,13 +149,13 @@ const Detail = ({navigation, route}) => {
             <Text style={styles.ProductDesc}>{productData?.description}</Text>
           </View>
           {/* BRAND DETAILS SECTION  */}
-          <View style={styles.BrandDetails}>
+          {/* <View style={styles.BrandDetails}>
             <Text>SHOW BRAND DETAILS</Text>
-          </View>
+          </View> */}
           {/* SIMILER PRODUCT SECTION  */}
-          <View style={styles.SimilerProd}>
+          {/* <View style={styles.SimilerProd}>
             <Text>SHOW SIMILER PRODUCTS</Text>
-          </View>
+          </View> */}
           {/* RATINGS AND REVIEW SECTION  */}
           <View style={styles.ReviewContainer}>
             <View style={styles.ratingTitleContainer}>

@@ -14,6 +14,7 @@ import CheckIcons from 'react-native-vector-icons/AntDesign';
 import PencilIcon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
+import LoaderComp from '../../../components/LoaderComp';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../../../theme/theme';
 import {getUserOrders} from '../../../thunk/order';
 import {GetAllUserReview} from '../../../thunk/review';
@@ -78,6 +79,7 @@ const Review = ({navigation, route}) => {
   );
   return (
     <View style={styles.MainContainer}>
+      {loading && <LoaderComp />}
       <ScrollView showsVerticalScrollIndicator={false}>
         {/*----------------- REVIEW GIVEN SECTION----------- */}
         <View style={styles.AddedReviewContainer}>

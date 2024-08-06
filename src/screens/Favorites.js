@@ -1,5 +1,8 @@
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
+import React, {useCallback, useState} from 'react';
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -7,18 +10,82 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import EntypoIcons from 'react-native-vector-icons/Entypo';
+import {useToast} from 'react-native-toast-notifications';
 import FeatherIcons from 'react-native-vector-icons/Feather';
-import { COLORS, FONTSIZE } from '../theme/theme';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch} from 'react-redux';
+import LoaderComp from '../components/LoaderComp';
+import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
+import {DeleteFavourite, GetFavourites} from '../thunk/favourite';
 
-const Favorites = ({navigation}) => {
+const Favorites = ({navigation, route}) => {
+  const dispatch = useDispatch();
+  const toast = useToast();
+  // const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+  const [favProds, setFavprods] = useState([]);
+  //METHOD TO GET ALL FAVOURITES BY USERID
+  const GetFavByUserId = async () => {
+    try {
+      setLoading(true);
+      const user = await AsyncStorage.getItem('LogInUser');
+      const id = JSON.parse(user)?._id;
+      const res = await dispatch(GetFavourites(id)).unwrap();
+      // console.log('res from get fav', res);
+      if (res) {
+        setFavprods(res?.favProds);
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      // console.log('error from get favs', error);
+    }
+  };
+  //METHOD TO DELETE ITEM FROM FAV
+  const handleRemoveItem = async id => {
+    console.log('product id to delete favs', id);
+    try {
+      setLoading(true);
+      const user = await AsyncStorage.getItem('LogInUser');
+      const userid = JSON.parse(user)?._id;
+      const res = await dispatch(
+        DeleteFavourite({userid: userid, productid: id}),
+      ).unwrap();
+      console.log('res from get delete', res?.message);
+      if (res) {
+        setLoading(false);
+        GetFavByUserId();
+        toast.show(res?.message, {
+          type: 'danger',
+        });
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log('error from get favs', error);
+    }
+  };
+  //METHOD TO ADD TO FAV
+  const handleAddToFav = () => {
+    navigation.navigate('HomePage', {
+      screen: 'Home',
+    });
+  };
+  useFocusEffect(
+    useCallback(() => {
+      GetFavByUserId();
+    }, []),
+  );
   return (
     <>
       <View style={styles.mainContainer}>
         <View style={styles.header}>
           <View style={styles.Search}>
             <TouchableOpacity>
-              <FeatherIcons name="search" size={25} color={COLORS.primaryBlack} />
+              <FeatherIcons
+                name="search"
+                size={25}
+                color={COLORS.primaryBlack}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.Heading}>
@@ -26,6 +93,7 @@ const Favorites = ({navigation}) => {
           </View>
           {/* ---------------vertical scroll for filters------------ */}
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+            {loading && <LoaderComp />}
             <View style={styles.filtersContainer}>
               <View style={styles.filter}>
                 <Text style={styles.filterName}>Men</Text>
@@ -34,36 +102,58 @@ const Favorites = ({navigation}) => {
                 <Text style={styles.filterName}>Women</Text>
               </View>
               <View style={styles.filter}>
-                <Text style={styles.filterName}>Electronics</Text>
+                <Text style={styles.filterName}>Kids</Text>
               </View>
               <View style={styles.filter}>
-                <Text style={styles.filterName}>Jewelery</Text>
+                <Text style={styles.filterName}>Accessories</Text>
               </View>
             </View>
           </ScrollView>
         </View>
         <ScrollView style={{padding: 10}} showsVerticalScrollIndicator={false}>
-          {/* -----------------CARD------------ */}
-          <View style={styles.cardContainer}>
-            {/* ---------IMAGE------------ */}
-            <View style={styles.ImageContainer}>
-              <Image
-                style={styles.image}
-                source={require('../Assets/Images/Card_1.png')}
-              />
+          {favProds?.length <= 0 ? (
+            <View style={styles.NotBoughtContainer}>
+              <Text style={styles.NotBoughtHead}>Nothing to show</Text>
+              <TouchableOpacity
+                style={styles.ShoppingButton}
+                onPress={() => handleAddToFav()}>
+                <Text style={{color: COLORS.primarywhite}}>Add to fav</Text>
+              </TouchableOpacity>
             </View>
-            {/* -----------TEXT-DATA--------------- */}
-            <View style={styles.TextData}>
-              <View style={styles.ContainerONE}>
-                <Text style={styles.Cardbrand}>Shirt</Text>
-                <Text style={styles.CardCategory}>Category</Text>
-              </View>
-              <View style={styles.ContainerTWO}>
-                <EntypoIcons name="cross" size={25} color={COLORS.primaryBlack} />
-                <Text style={styles.price}>₹222</Text>
-              </View>
-            </View>
-          </View>
+          ) : (
+            // ---------CARD-------------
+            <FlatList
+              style={{flex: 1}}
+              contentContainerStyle={{gap: 8}}
+              showsHorizontalScrollIndicator={false}
+              data={favProds}
+              keyExtractor={item => item._id}
+              renderItem={({item}) => (
+                <View style={styles.cardContainer}>
+                  {/* ---------IMAGE------------ */}
+                  <View style={styles.ImageContainer}>
+                    <Image style={styles.image} source={{uri: item?.img}} />
+                  </View>
+                  {/* -----------TEXT-DATA--------------- */}
+                  <View style={styles.TextData}>
+                    <View style={styles.ContainerONE}>
+                      <Text style={styles.Cardbrand}>{item?.title}</Text>
+                      <Text style={styles.CardCategory}>{item?.category}</Text>
+                    </View>
+                    <View style={styles.ContainerTWO}>
+                      <MaterialCommunityIcons
+                        name="delete"
+                        color={COLORS.primaryBlack}
+                        size={20}
+                        onPress={() => handleRemoveItem(item?._id)}
+                      />
+                      <Text style={styles.price}>₹{item?.price}</Text>
+                    </View>
+                  </View>
+                </View>
+              )}
+            />
+          )}
         </ScrollView>
       </View>
     </>
@@ -160,5 +250,29 @@ const styles = StyleSheet.create({
     color: COLORS.primaryBlack,
     fontSize: 18,
     fontWeight: '400',
+  },
+  NotBoughtContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '50%',
+    padding: SPACING.space_10,
+  },
+  NotBoughtHead: {
+    fontSize: FONTSIZE.size_18,
+    fontFamily: FONTFAMILY.Metropolis_bold,
+    color: COLORS.primaryBlack,
+  },
+  NotBoughtText: {
+    fontSize: FONTSIZE.size_14,
+    fontFamily: FONTFAMILY.Metropolis_medium,
+    color: COLORS.primaryBlack,
+  },
+  ShoppingButton: {
+    backgroundColor: COLORS.primaryred,
+    padding: SPACING.space_10,
+    borderRadius: SPACING.space_10,
+    marginTop: SPACING.space_20,
+    alignItems: 'center',
+    paddingHorizontal: SPACING.space_18,
   },
 });
